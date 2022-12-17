@@ -1,662 +1,309 @@
 <template>
-  <v-row>
-    <v-col class="pl-10 pr-10">
-      <v-card>
-        <v-card-text>
+  <div class="main-home">
+    <div class="home">
+      <div class="order-blur"></div> 
+      <div class="order-content">
+        <h1 v-if="(typeof defaultSelected === 'object') || defaultSelected === 1" class="slider-title">ACCOUNTS STORE</h1>
+        <h1 v-else class="slider-title">ACCOUNT DETAILS</h1>
+        <div class="acc-featured pt-6">
+          <div class="acc-selector">
+            <v-select
+              :items="items"
+              item-text="text"
+              item-value="id"
+              v-model="defaultSelected"
+              color="red"
+              light
+              label="Outlined style"
+              menu-props="auto"
+              hide-details
+              single-line
+              outlined
+              @change="checkSelect"
+            ></v-select>
+          </div>
+        </div>
+        <div v-if="(typeof defaultSelected === 'object') || defaultSelected === 1" class="pt-8">
           <v-row>
-            <v-col cols="auto">
-              <v-btn-toggle
-                v-model="filters.tableName"
-                dense
-              >
+            <v-col 
+              v-for="(item, key) in comments" 
+              :key="key"
+              cols="12" 
+              sm="3"
+            >
+              <div class="acc-tab" @click="handleSelect('boost')">
+                <div class="acc-circle">
+                  <div class="level-circle">
+                    <div :class="`colored-lvl${item.level}`">
+                      <div :class="`lvl${item.level}`" />
+                      <div :class="`digit${item.level}`" />
+                    </div>
+                  </div>
+                </div>
+                <div class="acc-title">
+                  {{ item.title }}
+                </div>
+                <div class="acc-desc pt-8">
+                  {{ item.desc }}
+                </div>
                 <v-btn
-                  value="cities"
-                  outlined
+                  v-if="item.sold"
+                  rounded
+                  x-large
+                  class="main-btn"
+                  dark
+                  @click="toTab(currentIndex)"
                 >
-                  <span>Города</span>
+                  <span class="main-btn-text">
+                    {{ item.text }}
+                  </span>
                 </v-btn>
                 <v-btn
-                  value="points"
-                  outlined
+                  v-else
+                  rounded
+                  x-large
+                  class="main-btn-dis"
+                  dark
+                  disabled
+                  @click="toTab(currentIndex)"
                 >
-                  <span>Пункты</span>
+                  <span class="main-btn-text-dis pl-2">
+                    {{ item.text }}
+                  </span>
                 </v-btn>
-                <v-btn
-                  value="rates"
-                  outlined
-                >
-                  <span>Ставки</span>
-                </v-btn>
-                <v-btn
-                  value="statuses"
-                  outlined
-                >
-                  <span>Статусы</span>
-                </v-btn>
-                <v-btn
-                  value="categories"
-                  outlined
-                >
-                  <span>Категории</span>
-                </v-btn>
-                <v-btn
-                  value="rateTypes"
-                  outlined
-                  color="black"
-                >
-                  <span>Тарифы</span>
-                </v-btn>
-              </v-btn-toggle>
+              </div>
             </v-col>
-            <v-col cols="auto">
-              <v-btn
-                v-if="filters.tableName"
-                class="entity__create_btn"
-                color="info"
-                @click="toCreate"
+          </v-row> 
+        </div>
+        <div v-else>
+          <div class="back-btn">
+            <v-btn
+              color="#979797"
+              text
+              rounded
+              max-width="240"
+              class="menu_options"
+              @click="setSelectToDefault"
+            > 
+              <v-icon class="pr-2">
+                mdi-arrow-left
+              </v-icon>
+                BACK TO STORE
+            </v-btn>
+          </div>
+          <h1 v-if="defaultSelected === 2" class="slider-title pt-12 mt-12">MORE STUFF</h1>
+          <div v-if="defaultSelected === 2" class="pt-8">
+            <v-row>
+              <v-col 
+                v-for="(item, key) in staff" 
+                :key="key"
+                cols="12" 
+                sm="3"
               >
-                <v-icon>mdi-plus</v-icon>
-                <span>{{ createTitle }}</span>
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-card-text>
-        <v-card-text>
-          <v-row align="center" justify="center">
-            <v-col cols="12">
-              <v-skeleton-loader v-if="loading" type="table"/>
-              <v-data-table
-                :headers="itemHeaders"
-                v-show="!loading"
-                :items="items"
-                :loading="loading"
-                :items-per-page="itemsPerPage"
-                :footer-props="{
-                showFirstLastPage: true,
-                firstIcon: 'mdi-arrow-collapse-left',
-                lastIcon: 'mdi-arrow-collapse-right',
-                prevIcon: 'mdi-minus',
-                nextIcon: 'mdi-plus',
-                  'items-per-page-text':'сущностей на странице:',
-                  'pageText': '{0}-{1} из {2}'
-                }"
-                loading-text="Загрузка сущностей, пожалуйста подождите..."
-              >
-                <template #[`item.id`]="{ item }">
-                  {{ item.id ? (truncate(item.id, 5)) : '-' }}
-                </template>
-                <template #[`item.createdAt`]="{ item }">
-                  {{ item.createdAt ? formatDate(item.createdAt) : '-' }}
-                </template>
-                <template #[`item.updatedAt`]="{ item }">
-                  {{ item.updatedAt ? formatDate(item.updatedAt) : '-' }}
-                </template>
-                <template #[`item.city`]="{ item }">
-                  {{ item.cityId ? item.cityId.name : '-' }}
-                </template>
-                <template #[`item.tariff`]="{ item }">
-                  {{ item.rateTypeId ? item.rateTypeId.name : '-' }}
-                </template>
-                <template #[`item.rateUnit`]="{ item }">
-                  {{ item.rateTypeId ? item.rateTypeId.unit : '-' }}
-                </template>
-                <template #[`item.actions`]="{ item }">
-                  <v-row>
-                    <v-col cols="12">
-                      <v-btn-toggle
-                        dense
-                      >
-                        <v-tooltip
-                          bottom
-                        >
-                          <template #activator="{ on, attrs }">
-                            <v-btn
-                              class="order__actions"
-                              v-bind="attrs"
-                              outlined
-                              color="black"
-                              v-on="on"
-                              @click="toDelete(item.id)"
-                            >
-                              <v-icon color="red">mdi-delete</v-icon>
-                              <span class="order__actions_text">Удалить</span>
-                        </v-btn>
-                          </template>
-                          <span>{{ 'Удалить' }}</span>
-                        </v-tooltip>
-                        <v-tooltip
-                          bottom
-                        >
-                          <template #activator="{ on, attrs }">
-                            <v-btn
-                              class="order__actions"
-                              v-bind="attrs"
-                              outlined
-                              color="black"
-                              v-on="on"
-                              @click="toEdit(item)"
-                            >
-                              <v-icon color="primary">mdi-pencil</v-icon>
-                              <span class="order__actions_text">Изменить</span>
-                            </v-btn>
-                          </template>
-                          <span>{{ 'Изменить' }}</span>
-                        </v-tooltip>
-                      </v-btn-toggle>
-                    </v-col>
-                  </v-row>
-                  <div class="order__hrs" />
-                </template>
-              </v-data-table>
-            </v-col>
-          </v-row>
-        </v-card-text>
-        <v-dialog v-model="confirmDeleteForm" max-width="700">
-          <confirm-delete-form
-            :key="formKey"
-            :entity="deleteItem"
-            @cancel="closeForm()"
-            @successDelete="formSuccessDelete($event)"
-          />
-        </v-dialog>
-      </v-card>
-    </v-col>
-  </v-row>
+                <div class="acc-tab" @click="handleSelect('boost')">
+                  <div class="acc-circle">
+                    <div class="level-circle">
+                      <div :class="`colored-lvl${item.level}`">
+                        <div :class="`lvl${item.level}`" />
+                        <div :class="`digit${item.level}`" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="acc-title">
+                    {{ item.title }}
+                  </div>
+                  <div class="acc-desc pt-8">
+                    {{ item.desc }}
+                  </div>
+                  <v-btn
+                    v-if="item.sold"
+                    rounded
+                    x-large
+                    class="main-btn"
+                    dark
+                    @click="toTab(currentIndex)"
+                  >
+                    <span class="main-btn-text">
+                      {{ item.text }}
+                    </span>
+                  </v-btn>
+                  <v-btn
+                    v-else
+                    rounded
+                    x-large
+                    class="main-btn-dis"
+                    dark
+                    disabled
+                    @click="toTab(currentIndex)"
+                  >
+                    <span class="main-btn-text-dis pl-2">
+                      {{ item.text }}
+                    </span>
+                  </v-btn>
+                </div>
+              </v-col>
+            </v-row> 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
-import cloneDeep from "lodash/cloneDeep";
-import ConfirmDeleteForm from '../../../components/ConfirmDeleteForm'
-
 export default {
-  name: "Entities",
-  components: {
-    ConfirmDeleteForm
-  },
+  name: "accounts",
   data() {
     return {
-      loading: true,
-      itemsPerPage: 10,
-      points: [],
-      rates: [],
-      cities: [],
-      statuses: [],
-      rateTypes: [],
-      categories: [],
-      items: [],
-      itemHeaders: [],
-      entity: null,
-      deleteItem: null,
-      formKey: 1,
-      entityForm: false,
-      confirmDeleteForm: false,
-      entityName: 'city',
-      method: '',
-      filters: {
-        tableName: 'cities'
+      defaultSelected: {
+        id: 1,
+        text: 'Feature',
       },
-      dateSettings: {
-        year: 'numeric',
-        month: 'numeric',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-      }
-    }
-  },
-  computed: {
-    createTitle () {
-      if (this.filters.tableName === 'cities') {
-        return "Cоздать город";
-      } else if (this.filters.tableName === 'points') {
-        return "Cоздать пункт";
-      } else if (this.filters.tableName === 'statuses') {
-        return "Cоздать статус";
-      } else if (this.filters.tableName === 'rates') {
-        return "Cоздать ставку";
-      } else if (this.filters.tableName === 'categories') {
-        return "Cоздать категорию";
-      } else if (this.filters.tableName === 'rateTypes') {
-        return "Cоздать тариф";
-      } else {
-        return '-'
-      }
-    },
-    cityHeaders () {
-      return [
+      index: 0,
+      items: [
         {
-          value: "id",
-          text: "ID",
-          searchable: false,
-          sortable: false
+          id: 1,
+          text: 'Feature',
         },
         {
-          value: "name",
-          text: "Наименование"
+          id: 2,
+          text: 'Account Details',
+        },
+      ],
+      comments: [
+        {
+          id: 1,
+          level: 10,
+          color: 'red',
+          title: "FACEIT ACCOUNT LEVEL 10 (2170 ELO)",
+          desc: "Includes steam and original e-mail. 712 Matches, Winrate 55%, K/D Ratio 1.3, Behaviour index: positive (1100+), 3213 hours..",
+          sold: true,
+          text: "BUY FOR €60",
         },
         {
-          value: "createdAt",
-          text: "Дата создания",
-          searchable: false,
-          sortable: false
+          id: 2,
+          level: 3,
+          color: 'green',
+          title: "FACEIT ACCOUNT READY TO PLAY",
+          desc: "Steam accounts with hours, services for registration, and mobile verification of the faceit account.",
+          sold: true,
+          text: "BUY FOR €5",
         },
         {
-          value: "updatedAt",
-          text: "Дата изменения",
-          searchable: false,
-          sortable: false
+          id: 3,
+          level: 11,
+          color: 'grey',
+          title: "FACEIT ACCOUNT LEVEL 10 (4100 ELO)",
+          desc: "228 Matches, Winrate 75%, K/D Ratio 1.4 Behaviour index: positive (1100+), 8253 hours..",
+          sold: false,
+          text: "SOLD OUT",
         },
         {
-          value: "actions",
-          text: "",
-          searchable: false,
-          sortable: false
-        }
-      ]
-    },
-    pointHeaders () {
-      return [
-        {
-          value: "id",
-          text: "ID",
-          searchable: false,
-          sortable: false,
+          id: 4,
+          level: 1,
+          color: 'white',
+          title: "FACEIT ACCOUNT LEVEL 1 (390 ELO)",
+          desc: "Includes steam and original e-mail. 15 Matches, Winrate 5%, K/D Ratio 0.45, Behaviour index: positive (1100+), 3213 hours..",
+          sold: true,
+          text: "BUY FOR €7",
         },
         {
-          value: "name",
-          text: "Наименование"
+          id: 5,
+          level: 7,
+          color: 'yellow',
+          title: "FACEIT ACCOUNT LEVEL 7 (1560 ELO)",
+          desc: "Includes steam and original e-mail. 25 Matches, Winrate 57%, K/D Ratio 1.7, Behaviour index: positive (1100+), 98 hours..",
+          sold: true,
+          text: "BUY FOR €60",
         },
         {
-          value: "city",
-          text: "Город"
+          id: 6,
+          level: 10,
+          color: 'red',
+          title: "FACEIT ACCOUNT LEVEL 10 (2020 ELO)",
+          desc: "Includes steam and original e-mail. 90 Matches, Winrate 53%, K/D Ratio 1.43, Behaviour index: positive (1100+), 253 hours..",
+          sold: true,
+          text: "BUY FOR €1.2K",
         },
         {
-          value: "address",
-          text: "Адрес"
+          id: 7,
+          level: 1,
+          color: 'white',
+          title: "FACEIT ACCOUNT LEVEL 1 (580 ELO)",
+          desc: "Includes steam and original e-mail. 3 Matches, Winrate 100%, K/D Ratio 0.35, Behaviour index: positive (1100+), 95 hours..",
+          sold: true,
+          text: "BUY FOR €10",
         },
         {
-          value: "actions",
-          text: "Действия",
-          searchable: false,
-          sortable: false
-        }
-      ]
-    },
-    rateHeaders () {
-      return [
+          id: 8,
+          level: 9,
+          color: 'orange',
+          title: "FACEIT ACCOUNT LEVEL 9 (1860 ELO)",
+          desc: "Includes steam and original e-mail. 35 Matches, Winrate 55%, K/D Ratio 1.3, Behaviour index: positive (1100+), 148 hours..",
+          sold: true,
+          text: "BUY FOR €37",
+        },
+      ],
+      staff: [
         {
-          value: "id",
-          text: "ID",
-          searchable: false,
-          sortable: false
+          id: 1,
+          level: 10,
+          color: 'red',
+          title: "FACEIT ACCOUNT LEVEL 10 (2170 ELO)",
+          desc: "Includes steam and original e-mail. 712 Matches, Winrate 55%, K/D Ratio 1.3, Behaviour index: positive (1100+), 3213 hours..",
+          sold: true,
+          text: "BUY FOR €60",
         },
         {
-          value: "price",
-          text: "Стоимость"
+          id: 6,
+          level: 10,
+          color: 'red',
+          title: "FACEIT ACCOUNT LEVEL 10 (2020 ELO)",
+          desc: "Includes steam and original e-mail. 90 Matches, Winrate 53%, K/D Ratio 1.43, Behaviour index: positive (1100+), 253 hours..",
+          sold: true,
+          text: "BUY FOR €1.2K",
         },
         {
-          value: "tariff",
-          text: "Наименование тарифа",
-          searchable: false,
-          sortable: false
+          id: 3,
+          level: 11,
+          color: 'grey',
+          title: "FACEIT ACCOUNT LEVEL 10 (4100 ELO)",
+          desc: "228 Matches, Winrate 75%, K/D Ratio 1.4 Behaviour index: positive (1100+), 8253 hours..",
+          sold: false,
+          text: "SOLD OUT",
         },
         {
-          value: "rateUnit",
-          text: "Единица измерения",
-          searchable: false,
-          sortable: false
+          id: 8,
+          level: 9,
+          color: 'orange',
+          title: "FACEIT ACCOUNT LEVEL 9 (1860 ELO)",
+          desc: "Includes steam and original e-mail. 35 Matches, Winrate 55%, K/D Ratio 1.3, Behaviour index: positive (1100+), 148 hours..",
+          sold: true,
+          text: "BUY FOR €37",
         },
-        {
-          value: "createdAt",
-          text: "Дата создания",
-          searchable: false,
-          sortable: false
-        },
-        {
-          value: "updatedAt",
-          text: "Дата изменения",
-          searchable: false,
-          sortable: false
-        },
-        {
-          value: "actions",
-          text: "Действия",
-          searchable: false,
-          sortable: false
-        }
-      ]
-    },
-    statusHeaders () {
-      return [
-        {
-          value: "id",
-          text: "ID",
-          searchable: false,
-          sortable: false,
-        },
-        {
-          value: "name",
-          text: "Наименование"
-        },
-        {
-          value: "actions",
-          text: "Действия",
-          searchable: false,
-          sortable: false
-        }
-      ]
-    },
-    categoryHeaders () {
-      return [
-        {
-          value: "id",
-          text: "ID",
-          searchable: false,
-          sortable: false,
-        },
-        {
-          value: "name",
-          text: "Наименование"
-        },
-        {
-          value: "description",
-          text: "Описание"
-        },
-        {
-          value: "createdAt",
-          text: "Дата создания",
-          searchable: false,
-          sortable: false
-        },
-        {
-          value: "updatedAt",
-          text: "Дата изменения",
-          searchable: false,
-          sortable: false
-        },
-        {
-          value: "actions",
-          text: "Действия",
-          searchable: false,
-          sortable: false
-        }
-      ]
-    },
-    rateTypeHeaders () {
-      return [
-        {
-          value: "id",
-          text: "ID",
-          searchable: false,
-          sortable: false,
-        },
-        {
-          value: "name",
-          text: "Наименование"
-        },
-        {
-          value: "unit",
-          text: "Единица измерения"
-        },
-        {
-          value: "actions",
-          text: "Действия",
-          searchable: false,
-          sortable: false
-        }
-      ]
-    },
-    ...mapGetters("entities",
-      [
-        "getCities",
-        "getPoints",
-        "getRates",
-        "getOrderStatuses",
-        "getCategories",
-        "getRateTypes"
-      ])
-  },
-  watch: {
-    filters: {
-      handler (newVal) {
-        if (newVal.tableName === 'cities') {
-          this.items = cloneDeep(this.cities);
-          this.itemHeaders = cloneDeep(this.cityHeaders);
-          this.entityName = 'city';
-        } else if (newVal.tableName === 'points') {
-          this.items = cloneDeep(this.points);
-          this.itemHeaders = cloneDeep(this.pointHeaders);
-          this.entityName = 'point';
-        } else if (newVal.tableName === 'rates') {
-          this.items = cloneDeep(this.rates);
-          this.itemHeaders = cloneDeep(this.rateHeaders);
-          this.entityName = 'rate';
-        } else if (newVal.tableName === 'statuses') {
-          this.items = cloneDeep(this.statuses);
-          this.itemHeaders = cloneDeep(this.statusHeaders);
-          this.entityName = 'orderStatus';
-        } else if (newVal.tableName === 'categories') {
-          this.items = cloneDeep(this.categories);
-          this.itemHeaders = cloneDeep(this.categoryHeaders);
-          this.entityName = 'category';
-        } else if (newVal.tableName === 'rateTypes') {
-          this.items = cloneDeep(this.rateTypes);
-          this.itemHeaders = cloneDeep(this.rateTypeHeaders);
-          this.entityName = 'rateType';
-        }
-      },
-      deep: true
-    }
-  },
-  mounted() {
-    if (this.getCities.length === 0) {
-      this.loading = true;
-      this.fetchCities().then(() => {
-        this.cities = this.getCities;
-        this.items = cloneDeep(this.cities);
-        this.itemHeaders = cloneDeep(this.cityHeaders);
-        this.loading = false;
-      });
-    } else {
-      this.cities = this.getCities;
-      this.items = cloneDeep(this.getCities);
-      this.itemHeaders = cloneDeep(this.cityHeaders);
-    }
-    if (this.getPoints.length === 0) {
-      this.loading = true;
-      this.fetchPoints().then(() => {
-        this.points = this.getPoints;
-        this.loading = false;
-      });
-    } else {
-      this.points = this.getPoints;
-    }
-    if (this.getRates.length === 0) {
-      this.loading = true;
-      this.fetchRates().then(() => {
-        this.rates = this.getRates;
-        this.loading = false;
-      });
-    } else {
-      this.rates = this.getRates;
-    }
-    if (this.getOrderStatuses.length === 0) {
-      this.loading = true;
-      this.fetchOrderStatuses().then(() => {
-        this.statuses = this.getOrderStatuses;
-        this.loading = false;
-      });
-    } else {
-      this.cities = this.getCities;
-    }
-    if (this.getCategories.length === 0) {
-      this.fetchCategories().then(() => {
-        this.loading = true;
-        this.categories = this.getCategories;
-        this.loading = false;
-      });
-    } else {
-      this.categories = this.getCategories;
-    }
-    if (this.getRateTypes.length === 0) {
-      this.loading = true;
-      this.fetchRateTypes().then(() => {
-        this.rateTypes = this.getRateTypes;
-        this.loading = false;
-      });
-    } else {
-      this.rateTypes = this.getRateTypes;
+      ],
     }
   },
   methods: {
-    ...mapActions("entities",
-      [
-        "fetchCities",
-        "fetchPoints",
-        "fetchRates",
-        "fetchOrderStatuses",
-        "fetchCategories",
-        "fetchRateTypes",
-        "editEntity",
-        "createEntity",
-        "deleteEntity"
-      ]),
-    truncate (string, limit) {
-      if(string.length > limit){
-        return string.substring(0,limit)+"...";
-      }
-      else {
-        return string;
-      }
+    handleSelect(route) {
+      console.log(route)
+      // return this.$router.push({ name: route });
     },
-    toDelete (id) {
-      this.deleteItem = {
-        id: id,
-        entity: this.entityName
-      }
-      this.confirmDeleteForm = true;
-      this.formKey++;
+    toTab(data) {
+      console.log(data)
     },
-    formSuccessDelete (item) {
-      this.closeForm();
-      this.deleteEntity(item).then(() => {
-        this.fetchNewRows();
-        this.$toast.info('Удалено');
-      });
+    checkSelect() {
+      console.log(this.defaultSelected)
     },
-    formatDate (date) {
-      return new Date(date).toLocaleString([], this.dateSettings);
-    },
-    toCreate () {
-      this.entity = this.items[0]
-      if (this.entity.createdAt) {
-        delete this.entity.createdAt;
-      }
-      if (this.entity.id) {
-        delete this.entity.id;
-      }
-      if (this.entity.updatedAt) {
-        delete this.entity.updatedAt;
-      }
-      var clearObjectValues = (objToClear) => {
-        Object.keys(objToClear).forEach((param) => {
-            if ( (objToClear[param]).toString() === "[object Object]" ) {
-                clearObjectValues(objToClear[param]);
-            } else {
-                objToClear[param] = null;
-            }
-        })
-        return objToClear;
-      };
-      this.entity = clearObjectValues(this.entity);
-      this.method = 'create';
-      this.formKey++;
-      this.entityForm = true;
-    },
-    toEdit (item) {
-      this.method = 'edit';
-      this.entity = item;
-      this.formKey++;
-      this.entityForm = true;
-    },
-    formSuccessEdit (item) {
-      this.closeForm();
-      const entity = {
-        item: item,
-        entityName: this.entityName
-      }
-      this.editEntity(entity).then(() => {
-        this.fetchNewRows();
-        this.$toast.success('Успешно отредактировано - ' + this.entityName);
-      });
-    },
-    formSuccessCreate (item) {
-      this.closeForm();
-      const entity = {
-        item: item,
-        entityName: this.entityName
-      }
-      this.createEntity(entity).then(() => {
-        this.loading = true;
-        this.fetchNewRows();
-        this.$toast.success('Успешно создано - ' + this.entityName);
-      });
-    },
-    closeForm () {
-      this.entityForm = false;
-      this.confirmDeleteForm = false;
-    },
-    fetchNewRows() {
-      if (this.entityName === 'city') {
-        this.fetchCities().then(() => {
-          this.cities = this.getCities;
-          this.items = cloneDeep(this.cities);
-          this.itemHeaders = cloneDeep(this.cityHeaders);
-          this.loading = false;
-        });
-      }
-      if (this.entityName === 'point') {
-        this.loading = true;
-        this.fetchPoints().then(() => {
-          this.points = this.getPoints;
-          this.items = cloneDeep(this.points);
-          this.loading = false;
-        });
-      }
-      if (this.entityName === 'rate') {
-        this.loading = true;
-        this.fetchRates().then(() => {
-          this.rates = this.getRates;
-          this.items = cloneDeep(this.rates);
-          this.loading = false;
-        });
-      }
-      if (this.entityName === 'orderStatus') {
-        this.loading = true;
-        this.fetchOrderStatuses().then(() => {
-          this.statuses = this.getOrderStatuses;
-          this.items = cloneDeep(this.statuses);
-          this.loading = false;
-        });
-      }
-      if (this.entityName === 'category') {
-        this.fetchCategories().then(() => {
-          this.loading = true;
-          this.categories = this.getCategories;
-          this.items = cloneDeep(this.categories);
-          this.loading = false;
-        });
-      }
-      if (this.entityName === 'rateType') {
-        this.loading = true;
-        this.fetchRateTypes().then(() => {
-          this.rateTypes = this.getRateTypes;
-          this.items = cloneDeep(this.rateTypes);
-          this.loading = false;
-        });
-      }
+    setSelectToDefault() {
+      this.defaultSelected = 1;
     }
+    // changeIndex(index) {
+    //   this.currentIndex = index;
+    // },
+    // setShow(key) {
+    //   this.comments[key].show = !this.comments[key].show;
+    // }
   }
 };
 </script>

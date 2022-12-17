@@ -5,14 +5,17 @@
       <div class="order-content">
         <h1 class="slider-title">MAKE AN ORDER</h1>
       </div>
-      <v-row>
+      <v-row class="pt-8">
         <v-col cols="12">
-          <div class="home-menu-tab-1">
-            <div class="big-white-title">FACEIT BOOST</div>
+          <div class="order-tab-1">
+            <div class="order-cover"/>
+            <div class="order-inside">
+              <div class="big-white-title">FACEIT BOOST</div>
+            </div>
           </div>
         </v-col>
       </v-row>
-      <div class="us-content">
+      <div class="us-content mt-8">
         <h1 class="slider-title">WHY US?</h1>
       </div>
       <element-carousel

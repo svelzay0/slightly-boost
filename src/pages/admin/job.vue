@@ -1,14 +1,27 @@
 <template>
-  <v-row>
-    <v-col
-      cols="8"
-      class="pl-10"
-    >
-      <v-card height="400">
-        <v-card-title>job</v-card-title>
-      </v-card>
-    </v-col>
-  </v-row>
+  <div class="main-home">
+    <div class="home">
+      <div class="order-blur"></div> 
+      <div class="order-content">
+        <h1 class="slider-title">APPLY FOR JOB</h1>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
+export default {
+  name: "faq",
+  data() {
+    return {
+      index: 0,
+      currentIndex: 0,
+    }
+  },
+  methods: {
+    // changeIndex(index) {
+    //   this.currentIndex = index;
+    // },
+  }
+};
+</script>

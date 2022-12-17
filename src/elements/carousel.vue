@@ -117,6 +117,7 @@
             </vue-slick-carousel>
             <vue-slick-carousel
                 v-else-if="comments"
+                ref="awards"
                 :arrows="!isMobile && !permanentArrows"
                 :dots="isMobile"
                 :settings="settings"
@@ -346,10 +347,18 @@ export default {
   },
   methods: {
     showPrev() {
-      this.$refs.carousel.prev();
+      if (this.slider) {
+        this.$refs.carousel.prev();
+      } else if (this.comments) {
+        this.$refs.awards.prev();
+      }
     },
     showNext() {
-      this.$refs.carousel.next();
+      if (this.slider) {
+        this.$refs.carousel.next();
+      } else if (this.comments) {
+        this.$refs.awards.next();
+      }
     },
     afterChange(index) {
         return;

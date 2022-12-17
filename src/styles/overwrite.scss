@@ -192,6 +192,69 @@
   content: url('../../src/assets/icons/c4.svg');
 }
 
+.lvl1
+{
+  content: url('../../src/assets/icons/lvl1.svg') !important;
+}
+.lvl3
+{
+  content: url('../../src/assets/icons/lvl3.svg') !important;
+}
+.lvl7
+{
+  content: url('../../src/assets/icons/lvl7.svg') !important;
+}
+.lvl9
+{
+  content: url('../../src/assets/icons/lvl9.svg') !important;
+}
+.lvl10
+{
+  content: url('../../src/assets/icons/lvl10.svg') !important;
+}
+
+.digit1
+{
+  position: absolute;
+  top: -32px;
+  left: 34px;
+  content: url('../../src/assets/icons/digit1.svg') !important;
+}
+.digit3
+{
+  position: absolute;
+  top: -15px;
+  left: 39px;
+  content: url('../../src/assets/icons/digit3.svg') !important;
+}
+.digit7
+{
+  position: absolute;
+  top: 33px;
+  left: 40px;
+  content: url('../../src/assets/icons/digit7.svg') !important;
+}
+.digit9
+{
+  position: absolute;
+  top: 31px;
+  left: 39px;
+  content: url('../../src/assets/icons/digit9.svg') !important;
+}
+.digit10
+{
+  position: absolute;
+  top: 32px;
+  left: 26px;
+  content: url('../../src/assets/icons/digit10.svg') !important;
+}
+.digit11
+{
+  position: absolute;
+  top: 20px;
+  left: 16px;
+  content: url('../../src/assets/icons/digit11.svg') !important;
+}
 .arrow-top {
   margin-top: 10px;
   z-index: 9999;
@@ -220,9 +283,32 @@
 .v-main__wrap {
   position: initial !important;
 }
-
-body ::-webkit-scrollbar-thumb {
-  background-color: #c4c4c4;
-  border-radius: 10px;
-  border: 4px solid #fff;
+.theme--light.v-list {
+  background: #2c2b2b !important;
+  border-radius: 15px !important;
 }
+.theme--light.v-list-item:not(.v-list-item--active):not(.v-list-item--disabled) {
+  color: #979797 !important;
+}
+// body ::-webkit-scrollbar-thumb {
+//   background-color: #c4c4c4;
+//   border-radius: 10px;
+//   border: 4px solid #fff;
+// }
+.acc-featured .theme--light.v-text-field--outlined:not(.v-input--is-focused):not(.v-input--has-state) > .v-input__control > .v-input__slot fieldset {
+  color: #F44336 !important;
+  border-radius: 15px !important;
+}
+.acc-featured .theme--light.v-icon {
+  color: #979797 !important;
+}
+.acc-featured .theme--light.v-select .v-select__selections {
+  color: #979797 !important;
+  min-height: 10px;
+}
+.v-text-field--outlined.v-input--is-focused fieldset, .v-text-field--outlined.v-input--has-state fieldset {
+  border-radius: 15px !important;
+}
+// .theme--light.v-input {
+//   color: #F44336 !important;
+// }

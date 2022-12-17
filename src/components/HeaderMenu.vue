@@ -31,17 +31,26 @@
             :key="link.route" 
           >
             <v-btn
+              v-if="url !== link.route"
               color="white"
               text
               rounded
-              class="menu_options"
+              @click="handleSelect(link.route)"
+            >
+              {{ link.url }}
+            </v-btn>
+            <v-btn
+              v-else
+              color="#fd0000"
+              text
+              rounded
               @click="handleSelect(link.route)"
             >
               {{ link.url }}
             </v-btn>
           </div>
           <v-col cols="auto">
-            <div class="pl-16 ml-16">
+            <div class="money">
               <div class="currency">
                 <div class="pr-6">
                   €
@@ -82,6 +91,7 @@
 export default {
   name: 'HeaderMenu',
   data: () => ({
+    url: '',
     links: [
       { url: 'FACEIT BOOST', route: 'boost' },
       { url: 'ACCOUNTS', route: 'accounts' },
@@ -95,6 +105,7 @@ export default {
   },
   methods: {
     handleSelect(route) {
+      this.url = route;
       return this.$router.push({ name: route });
     },
     handleScroll() {
