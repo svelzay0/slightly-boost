@@ -1,0 +1,32 @@
+@import '../static/fonts/Spezia/spezia.scss';
+
+/* fonts */
+$primary-font-Upright: 'SpeziaCompleteTrial Upright', sans-serif; //100
+$primary-font-Italic: 'SpeziaCompleteTrial Italic', sans-serif;
+$primary-font-Monospace: 'SpeziaCompleteTrial Monospace', sans-serif; //200
+
+/* variables */
+$desktop: 2048px;
+$desktop-medium: 1465px;
+$desktop-min: 1265px;
+$tablet: 1023px;
+$mobile: 767px;
+$datatable: 600px;
+$kettle: 320px;
+$main-green: #0EC261;
+$main-black: #111111;
+$main-blue: #007BFF;
+$main-light-blue: #3395ff;
+$main-gray: #999999;
+$main-dark-gray: #606266;
+$main-semilight-gray: #becad6;
+$main-white: #fff;
+$main-slider-text: #DEDEDE;
+$main-border-gray: #E0E0E0;
+$main-light-gray: #EEEEEE;
+$main-background: linear-gradient(0deg, rgba(10,10,28,1) 0%, rgba(17,17,20,1) 16%, rgba(19,19,19,1) 35%, rgb(22, 22, 22) 58%, rgb(24, 24, 24) 83%, rgba(15,15,15,1) 100%);
+$footer-background: linear-gradient(#212121 -2.07%, #020146);
+$main-whitesmoke: whitesmoke;
+$main-danger: rgba(196, 24, 60, 1);
+$main-text-color: rgba(61, 81, 112, 1);
+$header-height: 68px;

@@ -1,0 +1,228 @@
+@import "variables";
+
+.v-list-item-group .v-list-item--active {
+  border-left: 5px solid $main-light-blue !important;
+}
+.item__content_icon {
+  color: $main-gray !important;
+}
+.item__content_text {
+  font-weight: 400;
+  color: $main-text-color !important;
+}
+.col__borders {
+  border-right: 1px solid $main-border-gray !important;
+  border-left: 1px solid $main-border-gray !important;
+}
+.v-btn {
+  width: 100px;
+  text-transform:none;
+}
+.v-messages__message {
+  padding: 0;
+}
+.pads__zero {
+  padding-top: 12px;
+  margin-bottom: -8px;
+  border-bottom: 1px solid $main-border-gray !important;
+}
+.admin__footer_links {
+  height: 70px;
+}
+.v-data-table__wrapper {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+// desktop-min (1024px - 1265px)
+@media screen and (max-width: $desktop-min) {
+  .col__borders {
+    border-right: 0px solid $main-border-gray !important;
+    border-left: 0px solid $main-border-gray !important;
+  }
+}
+
+// tablet (768px - 1023px)
+@media screen and (max-width: $tablet) {
+  .col__borders {
+    display: none;
+  }
+  .v-btn-toggle {
+    flex-direction: column !important;
+  }
+  .v-btn-toggle > .v-btn.v-btn {
+    border: none !important;
+  }
+}
+
+// mobile (320px - 767px)
+@media screen and (max-width: $mobile) {
+  .v-btn-toggle {
+    display: block !important;
+  }
+}
+
+// datatable (0px - 600px)
+@media screen and (max-width: $datatable) {
+  .v-pagination__item {
+    display: none;
+  }
+}
+
+// kettle (0px - 320px)
+@media screen and (max-width: $kettle) {
+  .v-btn-toggle {
+    display: block !important;
+  }
+}
+
+.v-sheet.v-app-bar.v-toolbar:not(.v-sheet--outlined) {
+  box-shadow: none !important;
+}
+
+.v-application--wrap {
+  background: $main-background;
+}
+
+.theme--light.v-app-bar.v-toolbar.v-sheet
+{
+  background: rgba(1,1,221,0) !important;
+  height: 200px;
+}
+
+.theme--light.v-footer {
+  background: rgba(1,1,221,0) !important;
+}
+
+.v-btn__content {
+  justify-content: flex-start !important;
+}
+
+.v-sheet.v-footer:not(.v-sheet--outlined) {
+  height: 120px;
+}
+
+// .slick-track {
+//   height: 1030px;
+//   padding-top: 315px;
+// }
+
+.carousel {
+  // margin-left: -106px;
+  // padding-right: 130px;
+}
+
+.slick-prev,
+.slick-prev-active 
+{
+  top: 195% !important;
+  left: 5px !important;
+  // left: revert !important;
+}
+
+.slick-next,
+.slick-next-active
+{
+  top: 202% !important;
+  left: 65px !important;
+  right: 0 !important;
+}
+
+.slick-prev:before, 
+.slick-next:before,
+.slick-next-active:before,
+.slick-prev-active:before
+{
+  font-family: unset !important;
+}
+
+.slick-prev,
+.slick-prev-active 
+{
+  transform: rotate(360deg) !important;
+}
+
+.slick-next,
+.slick-next-active 
+{
+  transform: rotate(180deg) !important;
+}
+
+.slick-next:before,
+.slick-prev:before
+{
+  content: url('../../src/assets/icons/arrow.svg') !important;
+}
+
+.slick-next-active:before,
+.slick-prev-active:before
+{
+  content: url('../../src/assets/icons/active-arrow.svg') !important;
+}
+
+.star-active:before
+{
+  content: url('../../src/assets/icons/star-active.svg') !important;
+}
+
+.faq-active:before
+{
+  content: url('../../src/assets/icons/bottom-arrow-blue.svg') !important;
+}
+
+.faq-disable:before
+{
+  content: url('../../src/assets/icons/top-arrow-black.svg') !important;
+}
+
+.star-disable:before
+{
+  content: url('../../src/assets/icons/star-disable.svg') !important;
+}
+
+.c1 {
+  content: url('../../src/assets/icons/c1.svg');
+}
+.c2 {
+  content: url('../../src/assets/icons/c2.svg');
+}
+.c3 {
+  content: url('../../src/assets/icons/c3.svg');
+}
+.c4 {
+  content: url('../../src/assets/icons/c4.svg');
+}
+
+.arrow-top {
+  margin-top: 10px;
+  z-index: 9999;
+  width: 16px;
+  height: 16px;
+  color: $main-background;
+  content: url('../../src/assets/icons/icon-arrow-left.svg');
+}
+.slick-prev-active, .slick-next-active {
+  font-size: 0;
+  line-height: 0;
+  position: absolute;
+  top: 50%;
+  display: block;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  transform: translate(0, -50%);
+  cursor: pointer;
+  color: transparent;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+.v-main__wrap {
+  position: initial !important;
+}
+
+body ::-webkit-scrollbar-thumb {
+  background-color: #c4c4c4;
+  border-radius: 10px;
+  border: 4px solid #fff;
+}
