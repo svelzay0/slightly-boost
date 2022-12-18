@@ -1,0 +1,475 @@
+body {
+  // @media (max-width: 600px) {
+  //   .v-menu__content {
+  //     min-width: 100% !important;
+  //     padding: 0 10px !important;
+  //   }
+  //   .date-picker {
+  //     .v-menu__content {
+  //       min-width: 100% !important;
+  //       padding: 0 10px !important;
+  //     }
+  //   }
+  // }
+  .v-menu__content {
+    .v-picker {
+      &__actions {
+        .input {
+          width: 100%;
+          padding: 0 15px 15px;
+        }
+      }
+    }
+  }
+}
+.input {
+  position: relative;
+  .label {
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 500;
+    margin-bottom: 9px;
+    color: $dark;
+  }
+
+  &.input_append {
+    height: 48px;
+
+    .input-item {
+      .v-input--is-label-active {
+        .v-text-field__slot {
+          transform: translateY(7px);
+        }
+      }
+
+      &.v-text-field--outlined {
+        .v-label--active {
+          transform: translateY(-22px);
+        }
+
+        .v-label {
+          top: 14px;
+        }
+      }
+    }
+
+    .input_append__content {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+
+  &.input_label_less {
+    & .input-item {
+      &.v-input--is-label-active {
+        .v-text-field__slot {
+          transform: translateY(0px);
+        }
+      }
+
+      &.v-input--is-focused {
+        .v-text-field__slot {
+          transform: translateY(0px);
+        }
+      }
+
+      &.v-text-field--placeholder {
+        .v-text-field__slot {
+          transform: translateY(0px);
+        }
+      }
+    }
+  }
+
+  .v-input {
+    &__slot {
+      margin-bottom: 0;
+      input[type='number'] {
+        -webkit-appearance: none;
+        -moz-appearance: textfield;
+
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+        }
+      }
+
+      .v-input__prepend-inner {
+        z-index: 1;
+      }
+    }
+  }
+
+  &_validate {
+    .v-input {
+      .v-text-field__slot {
+        &:after {
+          display: none;
+        }
+      }
+    }
+
+    &_no-icon {
+      .v-input--is-dirty:not(.v-input--is-focused) {
+        .v-text-field__slot {
+          &::after {
+            background: none;
+          }
+        }
+      }
+    }
+
+    &_no-success {
+      .v-input--is-dirty:not(.v-input--is-focused):not(.error--text) {
+        fieldset {
+          border: 1px solid $element-input-border;
+        }
+      }
+    }
+
+    .v-input--is-dirty.v-input--is-focused,
+    .error--text.v-input--is-focused {
+      .v-text-field__details {
+        opacity: 0;
+      }
+    }
+  }
+
+  .v-text-field {
+    &.v-text-field {
+      &--enclosed {
+        > .v-input__control {
+          > .v-input__slot {
+            padding: 0px 16px !important;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+
+  &.has-append {
+    &.input {
+      .v-input {
+        .v-text-field__slot {
+          &::after {
+            content: unset; // remove placeholder icon
+          }
+        }
+      }
+
+      &:hover .v-input:not(.v-input--is-disabled),
+      .v-input--is-focused:not(.v-input--is-disabled) {
+        fieldset {
+          border: 1px solid $element-input-border;
+          box-shadow: unset;
+        }
+      }
+    }
+
+    .v-input__append-inner {
+      margin-top: -1px;
+    }
+
+    .v-text-field {
+      &.v-text-field {
+        &--enclosed {
+          > .v-input__control {
+            > .v-input__slot {
+              padding: 0 4px 0 16px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &:not(.input_validate) {
+    .v-text-field {
+      &.v-text-field {
+        &--outlined {
+          &.v-input {
+            &--has-state {
+              fieldset {
+                border: 1px solid $element-input-border;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .v-input__slot {
+    padding: 12px 16px;
+  }
+
+  input {
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 0.89;
+    letter-spacing: normal;
+    color: $element-input-text !important;
+  }
+
+  &-head {
+    font-size: 12px;
+    color: $element-input-label;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.33;
+    letter-spacing: normal;
+  }
+
+  &-message {
+    bottom: -26px;
+    left: 16px;
+    font-size: 12px;
+    color: $element-input-label;
+  }
+
+  & .input-item {
+
+
+
+    &.v-text-field--outlined {
+      .v-label--active {
+        transform: translateY(-18px);
+        font-size: 12px;
+        line-height: 1.33;
+        color: $element-input-label;
+      }
+
+      fieldset {
+        border-radius: 6px;
+        border: 1px solid $element-input-border;
+        background-color: $white;
+        legend {
+          display: none;
+        }
+      }
+    }
+
+    .v-text-field__details {
+      padding: 10px 0 0;
+
+      .v-messages {
+        &__message {
+          font-size: 14px;
+          font-weight: normal;
+          font-stretch: normal;
+          font-style: normal;
+          line-height: normal;
+          letter-spacing: normal;
+          color: $validate-error-text;
+
+          &::first-letter {
+            text-transform: capitalize;
+          }
+        }
+      }
+    }
+
+    .v-label {
+      color: $element-input-label-text;
+      font-size: 18px;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 0.89;
+      letter-spacing: normal;
+    }
+
+    &_has-icon {
+      .v-text-field__slot {
+        margin-left: 18px;
+      }
+
+      .v-label {
+        &--active {
+          margin-left: 25px;
+        }
+      }
+    }
+  }
+
+  &-type {
+    font-size: 18px;
+    color: $element-input-label;
+    position: absolute;
+    right: 16px;
+    top: 16px;
+  }
+}
+
+.input-group {
+  .input {
+    .v-input {
+      .v-text-field__slot {
+        &::after {
+          content: unset; // remove placeholder icon
+        }
+      }
+    }
+
+    &:not(:first-child),
+    &.input_last {
+      &:not(.input_first) {
+        &:hover .v-input:not(.v-input--is-disabled),
+        .v-input--is-focused:not(.v-input--is-disabled) {
+          fieldset {
+            border: 1px solid $element-input-border;
+            box-shadow: unset;
+            border-top-left-radius: 0px;
+            border-bottom-left-radius: 0px;
+            border-left: unset;
+          }
+        }
+
+        fieldset {
+          border-top-left-radius: 0px;
+          border-bottom-left-radius: 0px;
+          border-left: unset;
+        }
+      }
+    }
+
+    &:not(:last-child) {
+      &:not(.input_last) {
+        &:hover .v-input:not(.v-input--is-disabled),
+        .v-input--is-focused:not(.v-input--is-disabled) {
+          fieldset {
+            border: 1px solid $element-input-border;
+            box-shadow: unset;
+            border-top-right-radius: 0px;
+            border-bottom-right-radius: 0px;
+          }
+        }
+
+        fieldset {
+          border-top-right-radius: 0px;
+          border-bottom-right-radius: 0px;
+        }
+      }
+    }
+  }
+}
+@media (max-width: 600px) {
+  .input input {
+    font-size: 16px;
+  }
+  .input,
+  .select {
+    .input-item .v-text-field__details {
+      padding: 12px 0 0;
+    }
+    &-medium {
+      .v-text-field--outlined {
+        .v-label {
+          top: 12px;
+
+          &--active {
+            display: none;
+          }
+        }
+      }
+
+      .select-item {
+        &.v-input {
+          &--is-label-active {
+            .v-select__slot {
+              transform: translateY(1px);
+            }
+          }
+          &--is-focused {
+            .v-select__slot {
+              transform: translateY(1px);
+            }
+          }
+          .v-input__append-inner {
+            margin-top: 10px;
+          }
+        }
+      }
+
+      .v-input {
+        &__prepend-inner {
+          margin-top: 9px;
+        }
+
+        &__control {
+          .v-input__slot {
+            min-height: 34px;
+          }
+        }
+
+        .input-group {
+          border-top-right-radius: 6px;
+          border-bottom-right-radius: 6px;
+        }
+
+        .v-text-field {
+          &__slot {
+            margin-left: 10px;
+
+            .v-label {
+              top: 12px;
+            }
+          }
+        }
+      }
+    }
+  }
+  input-group {
+    .input {
+      .v-input {
+        .v-text-field__slot {
+          &::after {
+            content: unset; // remove placeholder icon
+          }
+        }
+      }
+
+      &:not(:first-child) {
+        &:hover .v-input:not(.v-input--is-disabled),
+        .v-input--is-focused:not(.v-input--is-disabled) {
+          fieldset {
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            border-bottom-left-radius: 80px;
+            border-left: 1px solid $element-input-border;
+            border-top: unset;
+          }
+        }
+
+        fieldset {
+          border-top-left-radius: 0;
+          border-top-right-radius: 0;
+          border-bottom-left-radius: 80px;
+          border-left: 1px solid $element-input-border;
+          border-top: unset;
+        }
+      }
+
+      &:not(:last-child) {
+        &:hover .v-input:not(.v-input--is-disabled),
+        .v-input--is-focused:not(.v-input--is-disabled) {
+          fieldset {
+            border-top-right-radius: 80px;
+            border-bottom-right-radius: 80px;
+            border-left: 1px solid $element-input-border;
+          }
+        }
+
+        fieldset {
+          border-top-right-radius: 80px;
+          border-bottom-right-radius: 80px;
+        }
+      }
+    }
+  }
+}
