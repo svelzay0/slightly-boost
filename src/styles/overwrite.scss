@@ -111,16 +111,24 @@
   // padding-right: 130px;
 }
 
-.slick-prev,
-.slick-prev-active 
+.slick-prev
 {
   top: 195% !important;
   left: 5px !important;
   // left: revert !important;
 }
 
-.slick-next,
-.slick-next-active
+.slick-prev-active {
+  left: 10px !important;
+  top: 202% !important;
+}
+
+.slick-next-active {
+  top: 195% !important;
+  left: 62px !important;
+}
+
+.slick-next
 {
   top: 202% !important;
   left: 65px !important;
@@ -136,13 +144,13 @@
 }
 
 .slick-prev,
-.slick-prev-active 
+.slick-next-active 
 {
   transform: rotate(360deg) !important;
 }
 
 .slick-next,
-.slick-next-active 
+.slick-prev-active 
 {
   transform: rotate(180deg) !important;
 }
@@ -255,6 +263,47 @@
   left: 16px;
   content: url('../../src/assets/icons/digit11.svg') !important;
 }
+
+.one
+{
+  padding-right: 32px;
+  content: url('../../src/assets/icons/one.svg') !important;
+}
+.two
+{
+  padding-right: 32px;
+  content: url('../../src/assets/icons/two.svg') !important;
+}
+.three
+{
+  padding-right: 32px;
+  content: url('../../src/assets/icons/three.svg') !important;
+}
+
+.years-icon
+{
+  content: url('../../src/assets/icons/years icon.svg') !important;
+}
+.csgo-icon
+{
+  content: url('../../src/assets/icons/csgo icon.svg') !important;
+}
+.shield-icon
+{
+  content: url('../../src/assets/icons/shield icon.svg') !important;
+}
+.clock-icon
+{
+  content: url('../../src/assets/icons/clock icon.svg') !important;
+}
+.user-icon
+{
+  content: url('../../src/assets/icons/user icon.svg') !important;
+}
+.gift-icon
+{
+  content: url('../../src/assets/icons/gift icon.svg') !important;
+}
 .arrow-top {
   margin-top: 10px;
   z-index: 9999;
@@ -273,7 +322,7 @@
   height: 20px;
   padding: 0;
   transform: translate(0, -50%);
-  cursor: pointer;
+  cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer !important;
   color: transparent;
   border: none;
   outline: none;
@@ -283,6 +332,8 @@
 .v-main__wrap {
   position: initial !important;
 }
+
+.acc-selector
 .theme--light.v-list {
   background: #2c2b2b !important;
   border-radius: 15px !important;
@@ -312,3 +363,91 @@
 // .theme--light.v-input {
 //   color: #F44336 !important;
 // }
+
+.main-form .theme--light.v-text-field--outlined:not(.v-input--is-focused):not(.v-input--has-state) > .v-input__control > .v-input__slot fieldset {
+  color: #FF3C3C !important;
+  border-radius: 15px !important;
+}
+
+.main-form .theme--light.v-input:not(.v-input--is-disabled) input, .theme--light.v-input:not(.v-input--is-disabled) textarea {
+  padding-left: 10px;
+  color: #fff !important;
+}
+
+.main-form .theme--light.v-input:not(.v-input--is-disabled) input::placeholder, .theme--light.v-input:not(.v-input--is-disabled) textarea::placeholder {
+  color: #979797 !important;
+}
+
+// .main-form .mdi-asterisk::before {
+//   color: #FF3C3C !important;
+// }
+
+.main-form .theme--light.v-icon {
+  color: #FF3C3C !important;
+}
+
+.main-form .v-btn__content {
+  justify-content: center !important;
+}
+
+.v-list-item__content {
+  padding: 0 !important;
+}
+
+.elo-calc
+.v-select
+{
+  width: 80px !important;
+}
+
+.elo-calc
+.input,
+.elo-calc
+.v-input__append-inner
+{
+  display: none !important;
+}
+
+.elo-calc
+.v-select__selections
+input {
+  display: none !important;
+}
+
+.elo-calc
+#input-46 {
+  display: none !important;
+}
+
+.elo-calc 
+fieldset {
+  border-radius: 0px !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-bottom: none !important;
+  border-right: 1px solid #ff3c3c !important;
+}
+.elo-calc 
+.v-list-item--link:before {
+  border-radius: 15px !important;
+}
+
+.elo-calc
+.v-list-item {
+  border-radius: 15px;
+  border: 2px solid rgba(1,1,221,0);
+}
+
+.elo-calc
+.theme--light.v-list 
+{
+  border-radius: 15px 0px 15px 15px !important;
+}
+
+// color="red"
+// light
+// label="Outlined style"
+// menu-props="auto"
+// hide-details
+// single-line
+// outlined

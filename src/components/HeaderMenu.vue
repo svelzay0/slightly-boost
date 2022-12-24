@@ -85,13 +85,14 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 // import NotificationDropdown from './NotificationDropdown'
 // import UserMenu from './UserMenu'
 
 export default {
   name: 'HeaderMenu',
   data: () => ({
-    url: '',
+    url: 'home',
     links: [
       { url: 'FACEIT BOOST', route: 'boost' },
       { url: 'ACCOUNTS', route: 'accounts' },
@@ -103,10 +104,37 @@ export default {
   mounted() {
     window.addEventListener('scroll', this.handleScroll);
   },
+  computed: {
+    ...mapGetters("shared", ["homeSliderIndex"]),
+  },
   methods: {
     handleSelect(route) {
+      let firstBg = null;
+      let secondBg = null;
+      // console.log(this.url)
+      if (this.url === 'home') {
+        firstBg = document.querySelector('.home-bg-1');
+        secondBg = document.querySelector('.home-bg-2');
+        if (firstBg) {
+          firstBg.setAttribute('style', 'animation: clear 0.4s infinite alternate;');
+          secondBg.setAttribute('style', 'animation: clear 0.4s infinite alternate;');
+        }
+      }
       this.url = route;
-      return this.$router.push({ name: route });
+      document.querySelector('.home').setAttribute('style', 'animation: movedown 0.4s infinite alternate;');
+      setTimeout(() => {
+        document.querySelector('.home').setAttribute('style', 'animation: moveup 0.4s linear alternate;');
+        if (firstBg) {
+          if (this.homeSliderIndex === 0) {
+            firstBg.setAttribute('style', 'display: block; animation: backfromclear 0.4s linear alternate; z-index: 2');
+            secondBg.setAttribute('style', 'display: block; animation: backfromclear 0.4s linear alternate; z-index: 1');
+          } else {
+            firstBg.setAttribute('style', 'display: block; animation: backfromclear 0.4s linear alternate; z-index: 1');
+            secondBg.setAttribute('style', 'display: block; animation: backfromclear 0.4s linear alternate; z-index: 2');
+          }
+        }
+        return this.$router.push({ name: route });
+      }, 400);
     },
     handleScroll() {
       if (window.pageYOffset < 80) {
@@ -117,8 +145,10 @@ export default {
         this.$refs['top-head'].className = 'row header-head-semi2 align-center justify-center';
       } else if (window.pageYOffset > 209 && window.pageYOffset < 280) {
         this.$refs['top-head'].className = 'row header-head-semi3 align-center justify-center';
-      } else if (window.pageYOffset > 279) {
+      } else if (window.pageYOffset > 279 && window.pageYOffset < 350) {
         this.$refs['top-head'].className = 'row header-head-full align-center justify-center';
+      } else if (window.pageYOffset > 349) {
+        this.$refs['top-head'].className = 'row header-head-death align-center justify-center';
       }
     },
   },

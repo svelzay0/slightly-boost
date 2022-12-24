@@ -1,159 +1,228 @@
 <template>
-  <div class="main-home">
-    <div class="home">
-      <div class="order-blur"></div> 
-      <div class="order-content">
-        <h1 class="slider-title">APPLY FOR JOB</h1>
-      </div>
-      <v-form
-        ref="form"
-        v-model="valid"
-        lazy-validation
-        class="request-form inputs selects"
-        @submit.prevent="onSubmit"
-      >
-        <div class="main-form__form">
-          <v-container fluid class="page-block">
-            <v-row class="main-form__form_row">
-              <v-col
-                ref="fio"
-                sm="12"
-                lg="3"
-                md="3"
-                class="subscribe__form_item-input pr-md-4 pb-0"
-              >
-                <element-input
-                  v-model.trim="formData.fio"
-                  class="input_validate input_fio"
-                  title="Фамилия Имя*"
-                  placeholder="Иванов Олег"
-                  maxlength="60"
-                  required
-                  :height="50"
-                ></element-input>
-              </v-col>
-              <v-col
-                ref="post"
-                sm="12"
-                lg="3"
-                md="3"
-                class="subscribe__form_item-input pl-md-4 pb-0"
-              >
-                <element-input
-                  v-model.trim="formData.post"
-                  class="input_validate input_fio"
-                  title="Должность*"
-                  placeholder="Аналитик"
-                  maxlength="200"
-                  required
-                  :height="50"
-                ></element-input>
-              </v-col>
-            </v-row>
-            <v-row class="main-form__form_row">
-              <v-col sm="12" lg="6" md="6" class="subscribe__form_item-input">
-                <v-textarea
-                  v-model="formData.message"
-                  class="input_validate"
-                  maxlength="2000"
-                  :height="150"
-                  title="Комментарий"
-                  placeholder="Напишите сопроводительное письмо"
-                ></v-textarea>
-              </v-col>
-            </v-row>
-          </v-container>
+  <div class="main-contacts">
+    <img alt="Главная" :src="require('@/assets/bg_image1.png')" />
+    <div class="main-home">
+      <div class="home">
+        <div class="order-blur"></div>
+        <div class="blue-blur"></div> 
+        <div class="order-content">
+          <h1 class="slider-title">APPLY FOR JOB</h1>
         </div>
-        <!-- <div class="main-form__actions">
-          <v-container fluid class="page-block">
-            <div class="main-form__actions_item">
-              <div class="main-form__actions_item__checkbox">
-                <element-checkbox v-model="formData.news">
-                  <template #default>
-                    <div class="main-form__actions_item-text">
-                      Подписаться на cобытия и новости
-                    </div>
-                  </template>
-                </element-checkbox>
+        <v-form
+          ref="form"
+          v-model="valid"
+          lazy-validation
+          class="pt-8 main-form"
+          @submit.prevent="onSubmit"
+        >
+          <v-row>
+            <v-col
+              cols="12"
+              sm="6"
+            >
+              <div class="job-title">
+                <div class="award-title">YOUR NAME</div>
               </div>
-            </div>
-            <div class="main-form__actions_item">
-              <div class="main-form__actions_item__checkbox">
-                <element-checkbox
-                  v-model="formData.agree"
-                  agree
-                  :rules="conditionsRule"
-                >
-                  <template #default>
-                    <div class="main-form__actions_item-text">
-                      Я даю
-                      <a href="/policy" target="_blank" @click.stop>
-                        согласие
-                      </a>
-                      на обработку моих персональных данных и подтверждаю, что<br />
-                      ознакомлен с
-                      <a
-                        href="https://sovcombank.ru/about/pages/policy-personal-data"
-                        target="_blank"
-                        @click.stop
-                      >
-                        Политикой
-                      </a>
-                      обработки персональных данных
-                    </div>
-                  </template>
-                </element-checkbox>
+              <v-text-field
+                v-model="formData.name"
+                outlined
+                :rules="nameRules"
+                placeholder="Your real name"
+                color="#fff"
+                append-icon="mdi-asterisk"
+              ></v-text-field>
+            </v-col>
+            <v-col
+              cols="12"
+              sm="6"
+            >
+              <div class="job-title">
+                <div class="award-title">HOW CAN WE CONTACT YOU?</div>
               </div>
-            </div>
-            <div class="main-form__actions_item">
-              <element-button
-                size="large"
-                class="main-form__actions_item-button button button_primary v-btn--large"
-                text="Откликнуться"
+              <v-text-field
+                v-model="formData.contact"
+                outlined
+                :rules="nameRules"
+                placeholder="Telegram, Discord, Whatsapp, etc.."
+                color="#fff"
+                append-icon="mdi-asterisk"
+              ></v-text-field>
+            </v-col>
+            <v-col
+              cols="12"
+              sm="6"
+            >
+              <div class="job-title">
+                <div class="award-title">FACEIT PROFILE LINK</div>
+              </div>
+              <v-text-field
+                v-model="formData.faceit"
+                outlined
+                :rules="nameRules"
+                placeholder="https://www.faceit.com/en/players/slightlyboss"
+                color="#fff"
+                append-icon="mdi-asterisk"
+              ></v-text-field>
+            </v-col>
+            <v-col
+              cols="12"
+              sm="6"
+            >
+              <div class="job-title">
+                <div class="award-title">STEAM PROFILE LINK</div>
+              </div>
+              <v-text-field
+                v-model="formData.steam"
+                outlined
+                :rules="nameRules"
+                placeholder="https://steamcommunity.com/id/slightlyboss"
+                color="#fff"
+                append-icon="mdi-asterisk"
+              ></v-text-field>
+            </v-col>
+            <v-col
+              cols="12"
+            >
+              <div class="job-title">
+                <div class="award-title pr-2">HOW MUCH TIME CAN U DEVOTE TO THE GAME?</div>
+                <div class="tooltip">
+                  <v-tooltip top>
+                    <template #activator="{ on, attrs }">
+                      <v-list-item-content v-bind="attrs" v-on="on">
+                        <v-list-item-title>
+                          <div class="lil-i">
+                            <span class="lil-pt">i</span>
+                          </div>
+                        </v-list-item-title>
+                      </v-list-item-content>
+                    </template>
+                    <span v-html="tooltipFirst" />
+                  </v-tooltip>
+                </div>
+              </div>
+              <v-text-field
+                v-model="formData.workTime"
+                outlined
+                :rules="nameRules"
+                placeholder="Your work time in hours"
+                color="#fff"
+                append-icon="mdi-asterisk"
+              ></v-text-field>
+            </v-col>
+            <v-col
+              cols="12"
+            >
+              <div class="job-title">
+                <div class="award-title pr-2">TELL US ABOUT YOURSELF</div>
+                <div class="tooltip">
+                  <v-tooltip top>
+                    <template #activator="{ on, attrs }">
+                      <v-list-item-content v-bind="attrs" v-on="on">
+                        <v-list-item-title>
+                          <div class="lil-i">
+                            <span class="lil-pt">i</span>
+                          </div>
+                        </v-list-item-title>
+                      </v-list-item-content>
+                    </template>
+                    <span v-html="tooltipSecond" />
+                  </v-tooltip>
+                </div>
+              </div>
+              <v-textarea
+                v-model="formData.aboutYou"
+                outlined
+                :rules="nameRules"
+                placeholder="Country, experience, any other information about you.."
+                color="#fff"
+                auto-grow
+                append-icon="mdi-asterisk"
+              ></v-textarea>
+            </v-col>
+            <v-col
+              cols="12"
+              class="d-flex"
+            >
+              <v-btn
+                rounded
+                x-large
+                class="main-btn"
+                dark
                 type="submit"
-                :disabled="isDisabled"
-              />
-            </div>
-          </v-container>
-        </div> -->
-      </v-form>
+              >
+                <span class="main-btn-text justify-center">
+                  SUBMIT
+                </span>
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-form>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import elementInput from '../../elements/input.vue';
+// import telegramApi from '../../plugins/telegram';
 
 export default {
   name: "job",
-  components: {
-    elementInput,
-  },
   data() {
     return {
       valid: true,
+      // phoneNumber: '+79272746858', //bot
+      // phoneNumber: '+79510535250', //main
+      // phoneNumber: '+79176967565', //har bot
+      // phoneNumber: '+79276446646', //har main
+      phoneCode: '',
+      phoneCodeHash: '',
+      peerId1: 5634750271,
+      peerId2: 825901593,
+      message: 'test',
+      tooltipFirst: 'Tell how much hours you<br/> can spend in the game<br/> (ex. 4,6,8,12 or more...)',
+      tooltipSecond: 'Any other information<br/> about you, experience in<br/> CS:GO, country etc...',
       formData: {
-        fio: '',
-        post: '',
-        birthday: '',
-        phone: '',
-        email: '',
-        citizenship: '',
-        resume: [],
-        agree: false,
-        profiles: '',
-        comment: '',
-        news: 'unchecked',
-        vacancies: 'unchecked',
+        name: '',
+        contact: '',
+        faceit: '',
+        steam: '',
+        workTime: '',
+        aboutYou: '',
       },
+      nameRules: [
+        v => v.length >= 1 || 'This field required!'
+      ],
       index: 0,
       currentIndex: 0,
     }
   },
   methods: {
-    // changeIndex(index) {
-    //   this.currentIndex = index;
-    // },
+    async onSubmit() {
+      // telegramApi.sendMessage(this.peerId1, this.message)
+      //   .then((updates) => {
+      //     console.log('success', updates)
+      //   })
+      //   .catch((error) => {
+      //     console.log('error', error)
+      //   })
+      // ;
+      // telegramApi.sendMessage(this.peerId2, this.message)
+      //   .then((updates) => {
+      //     console.log('success', updates)
+      //   })
+      //   .catch((error) => {
+      //     console.log('error', error)
+      //   })
+      // ;
+      if (this.$refs.form.validate()) {
+        try {
+          console.log(this.formData)
+          // await this.$vacanciesApi.respond(vacancyId, data);
+        } catch (err) {
+          console.log(err)
+        }
+      }
+    }
   }
 };
 </script>

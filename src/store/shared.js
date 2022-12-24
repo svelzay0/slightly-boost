@@ -3,6 +3,7 @@ export default {
   state: {
     loading: false,
     error: null,
+    homeSliderIndex: 0,
     menuItems: {
       'orders': {
         name: 'Заказы',
@@ -53,6 +54,9 @@ export default {
     setError(state, payload) {
       state.error = payload;
     },
+    setHomeSliderIndex(state, payload) {
+      state.homeSliderIndex = payload;
+    },
     clearError(state) {
       state.error = null;
     }
@@ -67,6 +71,9 @@ export default {
     },
     menuItems(state) {
       return state.menuItems;
-    }
+    },
+    homeSliderIndex(state) {
+      return state.homeSliderIndex;
+    },
   },
 };

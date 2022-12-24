@@ -12,13 +12,14 @@
       > 
         <div 
           v-for="(link, key) in links"
-          :key="link.text" 
+          :key="link.text"
         >
           <v-btn
             color="white"
             text
             rounded
             class="menu_options"
+            @click="goToContacts"
           > 
             <div :class="`c${key + 1} pr-5`" />
             {{ link.text }}
@@ -55,11 +56,14 @@ export default {
   },
   methods: {
     checkUrl() {
-      console.log(window.location.href.split('/').pop())
+      // console.log(window.location.href.split('/').pop())
       if (window.location.href.split('/').pop() === 'contacts') {
         return true;
       } else return false;
     },
+    goToContacts() {
+      return this.$router.push({ name: 'contacts' });
+    }
   }
 }
 </script>

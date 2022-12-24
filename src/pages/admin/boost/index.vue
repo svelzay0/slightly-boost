@@ -5,16 +5,76 @@
       <div class="order-content">
         <h1 class="slider-title">MAKE AN ORDER</h1>
       </div>
-      <v-row class="pt-8">
-        <v-col cols="12">
-          <div class="order-tab-1">
-            <div class="order-cover"/>
-            <div class="order-inside">
-              <div class="big-white-title">FACEIT BOOST</div>
+      <element-carousel
+        class="pt-8"
+        v-model="orderSlideIndex"
+        :items="slides"
+        :slides-to-scroll="1"
+        :per-page="1"
+        :order-slides="true"
+        permanent-arrows
+        @changed="changeIndex($event)"
+      >
+        <template #default="{data}">
+          <div :class="`${data.photoClass}`">
+            <div v-if="data.id === 1" class="order-cover"/>
+            <div class="order-inside pr-13 pl-13 pt-11 pb-11">
+
+              <div class="d-flex">
+                <div class="order-number">
+                  <div :class="data.class">
+                    <!-- {{ data.id }} -->
+                  </div>
+                </div>
+                <div class="order-title">{{ data.title }}</div>
+              </div>
+              <div v-if="data.id === 1" class="first-order-tab">
+                <div class="order-input-title">
+                  ENTER YOUR RATING OR LEVEL
+                </div>
+                <div class="calcs d-flex">
+                  <div class="elo-calc">
+                    <div class="acc-selector">
+                      <v-select
+                        :items="selectItems"
+                        item-text="text"
+                        item-value="id"
+                        v-model="defaultSelected"
+                        outlined
+                        dense
+                        @change="checkSelect"
+                      ></v-select>
+                    </div>
+                  </div>
+                  <v-icon color="white" class="pl-8 pr-8">
+                    mdi-chevron-right
+                  </v-icon>
+                  <div class="elo-calc"></div>
+                </div>
+                <div class="order-input-title">
+                  ADD EXTRA OPTIONS
+                </div>
+                <v-switch
+                  v-model="switch1"
+                  inset
+                  dense
+                  color="red"
+                  value="red"
+                  :label="`Switch 1: switch1`"
+                ></v-switch>
+                <v-switch
+                  v-model="switch2"
+                  inset
+                  dense
+                  color="red"
+                  value="red"
+                  :label="`Switch 2: switch1`"
+                ></v-switch>
+              </div>
             </div>
           </div>
-        </v-col>
-      </v-row>
+        </template>
+      </element-carousel>
       <div class="us-content mt-8">
         <h1 class="slider-title">WHY US?</h1>
       </div>
@@ -85,15 +145,8 @@
       <v-row class="before-footer pt-16">
         <v-col v-for="item in awards" :key="item.id" cols="12" sm="4">
           <div class="home-award">
-            <div class="award-circle">
-              <v-icon 
-                class="icon-award"
-                color="#FF3C3C"
-              >
-                {{ item.icon }}
-              </v-icon>
-            </div>
-            <div class="award-text">
+            <div :class="`${item.icon}-icon`" />
+            <div class="award-text pt-1">
               <div class="award-title">{{ item.title }}</div>
               <div class="award-desc">{{ item.desc }}</div>
             </div>
@@ -117,43 +170,72 @@ export default {
   },
   data() {
     return {
+      orderSlideIndex: 0,
       index: 0,
+      switch1: false,
+      switch2: true,
+      slides: [
+        {
+          id: 1,
+          title: 'CALCULATE BOOST',
+          photoClass: 'order-tab-1',
+          class: 'one',
+        },
+        {
+          id: 2,
+          title: 'YOUR INFORMATION',
+          photoClass: 'order-tab-2',
+          class: 'two',
+        },
+        {
+          id: 3,
+          title: 'COMPLETING',
+          photoClass: 'order-tab-3',
+          class: 'three',
+        },
+      ],
       awards: [
         {
           id: 1,
           title: '5 YEARS OF EXPERIENCE',
           desc: 'We have over five years of experience and we know how to do a great job and make our customers satisfied.',
-          icon: 'mdi-numeric-5',
+          // icon: 'mdi-numeric-5',
+          icon: 'years',
         },
         {
           id: 2,
           title: 'PROFESSIONAL BOOSTERS',
           desc: 'Our team consists of legit and high-elo players. We stick with only CS:GO services and we do it professionally.',
-          icon: 'mdi-check',
+          // icon: 'mdi-check',
+          icon: 'csgo',
         },
         {
           id: 3,
           title: 'SAFETY',
           desc: 'All of our boosters are time-tested and appreciate their work. You dont have to worry about your steam inventory.',
-          icon: 'mdi-security',
+          // icon: 'mdi-security',
+          icon: 'shield',
         },
         {
           id: 4,
           title: '24/7 AVAILIABILITY',
           desc: 'You will get a personal manager who is always in touch. He will solve any question or problem you have.',
-          icon: 'mdi-clock-outline',
+          // icon: 'mdi-clock-outline',
+          icon: 'clock',
         },
         {
           id: 5,
           title: 'PRIVACY',
           desc: 'No one will know that you have taken advantage of our help. We always play in offline mode and use your country VPN.',
-          icon: 'mdi-account-check',
+          // icon: 'mdi-account-check',
+          icon: 'user',
         },
         {
           id: 6,
           title: 'BONUSES AND DISCOUNTS',
           desc: 'You will definitely get a discount for a big order. For regular customers we always give bonuses and promo codes.',
-          icon: 'mdi-gift-outline',
+          // icon: 'mdi-gift-outline',
+          icon: 'gift',
         },
       ],
       comments: [
@@ -231,11 +313,29 @@ export default {
         slidesToScroll: 1,
       },
       currentIndex: 0,
+      defaultSelected: {
+        id: 1,
+        text: '1',
+      },
+      // index: 0,
+      selectItems: [
+        {
+          id: 1,
+          text: '2',
+        },
+        {
+          id: 2,
+          text: '3',
+        },
+      ],
     }
   },
   methods: {
     changeIndex(index) {
       this.currentIndex = index;
+    },
+    checkSelect() {
+      console.log(this.defaultSelected)
     },
   }
 };

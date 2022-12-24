@@ -1,6 +1,15 @@
 <template>
   <div class="main-home">
-    <img alt="Главная" :src="require('@/assets/bg_image1.png')" />
+    <img
+      alt="Главная"
+      class="home-bg-1"
+      :src="require('@/assets/bg_image1.png')" 
+    />
+    <img
+      alt="Главная"
+      class="home-bg-2"
+      :src="require('@/assets/bg_image2.png')" 
+    />
     <div class="home">
       <div class="home-slider">
         <div class="slider-blur"></div>  
@@ -14,10 +23,12 @@
           @changed="changeIndex($event)"
         >
           <template #default="{data}">
-            <div class="main-info">
-              <h1 class="slider-title">{{ data.title }}</h1>
-              <div class="main-slider-desc">
-                {{ data.text }}
+            <div class="main-content-static">
+              <div class="main-info">
+                <h1 class="slider-title">{{ data.title }}</h1>
+                <div class="main-slider-desc">
+                  {{ data.text }}
+                </div>
               </div>
             </div>
           </template>
@@ -36,24 +47,26 @@
           </v-btn>
         </div>
         <div class="light-clicker">
-          <div v-if="currentIndex === 0" class="left-red" />
-          <div v-else class="left-grey" @click="changeSlide(0)" />
-          <div v-if="currentIndex === 1" class="right-red" />
-          <div v-else class="right-grey" @click="changeSlide(1)" />
+          <div v-if="currentIndex === 1" class="left-red" />
+          <div v-else class="left-grey" @click="changeSlide(1)" />
+          <div v-if="currentIndex === 0" class="right-red" />
+          <div v-else class="right-grey" @click="changeSlide(0)" />
         </div>
       </div>
       <div class="home-content">
         <h1 class="slider-title">OUR OFFERS</h1>
       </div>
-      <v-row>
+      <v-row class="home-tabz">
         <v-col cols="12" sm="6">
           <div class="home-menu-tab-1" @click="handleSelect('boost')">
-            <div class="big-white-title">FACEIT BOOST</div>
+            <div class="blue-blur-home-tab-1"></div>
+            <span class="big-white-title">FACEIT BOOST</span  >
           </div>
         </v-col>
         <v-col cols="12" sm="6">
           <div class="home-menu-tab-2" @click="handleSelect('accounts')">
-            <div class="big-white-title">ACCOUNTS STORE</div>
+            <div class="blue-blur-home-tab-2"></div>
+            <span class="big-white-title">ACCOUNTS STORE</span>
           </div>
         </v-col>
       </v-row>
@@ -127,15 +140,8 @@
       <v-row class="before-footer pt-16">
         <v-col v-for="item in awards" :key="item.id" cols="12" sm="4">
           <div class="home-award">
-            <div class="award-circle">
-              <v-icon 
-                class="icon-award"
-                color="#FF3C3C"
-              >
-                {{ item.icon }}
-              </v-icon>
-            </div>
-            <div class="award-text">
+            <div :class="`${item.icon}-icon`" />
+            <div class="award-text pt-1">
               <div class="award-title">{{ item.title }}</div>
               <div class="award-desc">{{ item.desc }}</div>
             </div>
@@ -147,6 +153,7 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 import ElementCarousel from '../../elements/carousel.vue';
 import 'vue-slick-carousel/dist/vue-slick-carousel.css'
 // optional style for arrows & dots
@@ -165,48 +172,56 @@ export default {
           id: 1,
           title: '5 YEARS OF EXPERIENCE',
           desc: 'We have over five years of experience and we know how to do a great job and make our customers satisfied.',
-          icon: 'mdi-numeric-5',
+          // icon: 'mdi-numeric-5',
+          icon: 'years',
         },
         {
           id: 2,
           title: 'PROFESSIONAL BOOSTERS',
           desc: 'Our team consists of legit and high-elo players. We stick with only CS:GO services and we do it professionally.',
-          icon: 'mdi-check',
+          // icon: 'mdi-check',
+          icon: 'csgo',
         },
         {
           id: 3,
           title: 'SAFETY',
           desc: 'All of our boosters are time-tested and appreciate their work. You dont have to worry about your steam inventory.',
-          icon: 'mdi-security',
+          // icon: 'mdi-security',
+          icon: 'shield',
         },
         {
           id: 4,
           title: '24/7 AVAILIABILITY',
           desc: 'You will get a personal manager who is always in touch. He will solve any question or problem you have.',
-          icon: 'mdi-clock-outline',
+          // icon: 'mdi-clock-outline',
+          icon: 'clock',
         },
         {
           id: 5,
           title: 'PRIVACY',
           desc: 'No one will know that you have taken advantage of our help. We always play in offline mode and use your country VPN.',
-          icon: 'mdi-account-check',
+          // icon: 'mdi-account-check',
+          icon: 'user',
         },
         {
           id: 6,
           title: 'BONUSES AND DISCOUNTS',
           desc: 'You will definitely get a discount for a big order. For regular customers we always give bonuses and promo codes.',
-          icon: 'mdi-gift-outline',
+          // icon: 'mdi-gift-outline',
+          icon: 'gift',
         },
       ],
       items: [
         {
           id: 1,
           title: 'FACEIT BOOST',
+          photo: 'bg_image1.png',
           text: 'Our team provides high-quality boosting service. You will never regret choosing us and now Ill explain why. Our team do not use any kind of software or cheats, everything is done by boosters hands. Other services creates an empty account with 0 matches and start boost right away - in result you end up with boosting service/smuring faceit ban and losing your money, account and time. We dont do the same, we ask for low-level accounts from our friends or customers and boost you. We always in touch with our customers through discord or any chat. In the end I hope you will have a great expirience with us.',
         },
         {
           id: 2,
           title: 'ACCOUNTS STORE',
+          photo: 'bg_image2.png',
           text: 'You can find any account you are looking for here. Some cheap ones to try out level 10 experience or more expensive ones to play on it as on a main account. We dont buy accounts from random people to resell, every account is made by member ofour team. Thats why we provide first e-mail, proof of purchase and lifetime warranty to make it safe for you. Got any questions left? Feel free to ask!.',
         },
       ],
@@ -287,18 +302,29 @@ export default {
       currentIndex: 0,
     }
   },
+  mounted() {
+    this.changeIndex(0);
+  },
   methods: {
+    ...mapMutations("shared", ["setHomeSliderIndex"]),
     handleSelect(route) {
       return this.$router.push({ name: route });
     },
     changeSlide (key) {
       this.$eventBus.$emit("changeFromParent", key);
     },
-    changeIndex(index) {
+    async changeIndex(index) {
+      await this.setHomeSliderIndex(index);
+      if (index === 1) {
+        await document.querySelector('.home-bg-1').setAttribute('style', 'animation: none; z-index: 1');
+        await document.querySelector('.home-bg-2').setAttribute('style', 'animation: 1s show ease; z-index: 2');
+      } else {
+        await document.querySelector('.home-bg-2').setAttribute('style', 'animation: none; z-index: 1');
+        await document.querySelector('.home-bg-1').setAttribute('style', 'animation: 1s show ease; z-index: 2');
+      }
       this.currentIndex = index;
     },
     toTab(index) {
-      console.log(index)
       if (index === 0) {
         return this.$router.push({ name: 'boost' });
       } 

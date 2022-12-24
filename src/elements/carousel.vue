@@ -2,241 +2,326 @@
     <div class="carousel">
       <client-only>
         <div>
-            <button
-                v-if="slider"
-                type="button"
-                :class="{
-                    'slick-arrow slick-prev': isPopup,
-                    'slick-popup slick-prev': !isPopup,
-                }"
-                @click="showPrev"
-            ></button>
-            <div v-else-if="comments" class="pr-4 pb-2">
-              <v-icon 
-                color="red"
-                @click="showNext"
-              >
-                mdi-arrow-left-bold
-              </v-icon>
-            </div>
-            <vue-slick-carousel
-                v-if="slider"
-                ref="carousel"
-                :arrows="!isMobile && !permanentArrows"
-                :dots="isMobile"
-                :settings="settings"
-                :slides-to-show="1"
-                :slides-to-scroll="1"
-                :adaptive-height="adaptiveHeight"
-                :initial-slide="savingSlide ? savedSlide : 0"
-                :autoplay="true"
-                :autoplaySpeed="5000"
-                @afterChange="afterChange"
-                @beforeChange="beforeChange"
-                >
-                <template #customPaging="page">
-                    <button
-                    v-if="
-                        !(
-                        items.length > 4 &&
-                        currentActive === items.length - 1 &&
-                        page === items.length - 5
-                        ) &&
-                        page < currentActive + 4 &&
-                        !(currentActive === 2 && page === currentActive + 3) &&
-                        !showBool(currentActive, page, items) &&
-                        !(
-                            currentActive > 2 &&
-                            page > currentActive + 2 &&
-                            items.length > 5
-                        )
-                    "
-                    :id="carouselName"
-                    :class="{
-                        whitex: whiteStyle === true,
-                        btnsmalllast:
-                        (currentActive === 0 && page === 3) ||
-                        (currentActive > 0 &&
-                            page === currentActive + 2 &&
-                            items.length < 5) ||
-                        (currentActive > 0 &&
-                            items.length - currentActive !== 2 &&
-                            page === items.length - 1 &&
-                            items.length === 4) ||
-                        (currentActive > 1 &&
-                            page === currentActive - 2 &&
-                            items.length === 4 &&
-                            currentActive !== 3) ||
-                        (items.length < 5 && currentActive === 3 && page === 0) ||
-                        (items.length > 4 && currentActive > 0 && page === 0) ||
-                        (items.length > 4 &&
-                            currentActive < items.length - 2 &&
-                            page === items.length - 1) ||
-                        (items.length > 4 &&
-                            currentActive === items.length - 2 &&
-                            page === items.length - 1) ||
-                        (items.length > 4 &&
-                            currentActive === items.length - 1 &&
-                            page === items.length - 4) ||
-                        (items.length > 4 &&
-                            currentActive === 1 &&
-                            currentActive < items.length - 3 &&
-                            page === currentActive + 3) ||
-                        (items.length > 4 &&
-                            currentActive > 1 &&
-                            currentActive < items.length - 3 &&
-                            page === currentActive + 2) ||
-                        (items.length > 5 &&
-                            currentActive > 1 &&
-                            currentActive < items.length - 3 &&
-                            page === currentActive - 2) ||
-                        (items.length > 5 &&
-                            currentActive > 1 &&
-                            items.length - currentActive < 4 &&
-                            currentActive !== items.length - 2 &&
-                            page === currentActive - 3) ||
-                        (items.length > 5 &&
-                            currentActive > 1 &&
-                            items.length - currentActive < 4 &&
-                            page === currentActive - 3) ||
-                        (items.length > 5 &&
-                            currentActive > 1 &&
-                            items.length - currentActive === 3 &&
-                            page === currentActive - 2),
-                    }"
-                    :disabled="isPopup ? false : true"
-                    >
-                    <span :class="`customPaging${page}`">{{ page }}</span>
-                    <div class="ball">1</div>
-                    </button>
-                    <span v-esle>{{ page }}</span>
-                </template>
-                <div v-for="slide in items" :key="slide.id" class="content-wrap">
-                    <slot :data="slide" />
-                </div>
-            </vue-slick-carousel>
-            <vue-slick-carousel
-                v-else-if="comments"
-                ref="awards"
-                :arrows="!isMobile && !permanentArrows"
-                :dots="isMobile"
-                :settings="settings"
-                :slides-to-show="4"
-                :slides-to-scroll="4"
-                :adaptive-height="adaptiveHeight"
-                :initial-slide="savingSlide ? savedSlide : 0"
-                :autoplay="true"
-                :autoplaySpeed="5000"
-                @afterChange="afterChange"
-                @beforeChange="beforeChange"
-                >
-                <template #customPaging="page">
-                    <button
-                    v-if="
-                        !(
-                        items.length > 4 &&
-                        currentActive === items.length - 1 &&
-                        page === items.length - 5
-                        ) &&
-                        page < currentActive + 4 &&
-                        !(currentActive === 2 && page === currentActive + 3) &&
-                        !showBool(currentActive, page, items) &&
-                        !(
-                            currentActive > 2 &&
-                            page > currentActive + 2 &&
-                            items.length > 5
-                        )
-                    "
-                    :id="carouselName"
-                    :class="{
-                        whitex: whiteStyle === true,
-                        btnsmalllast:
-                        (currentActive === 0 && page === 3) ||
-                        (currentActive > 0 &&
-                            page === currentActive + 2 &&
-                            items.length < 5) ||
-                        (currentActive > 0 &&
-                            items.length - currentActive !== 2 &&
-                            page === items.length - 1 &&
-                            items.length === 4) ||
-                        (currentActive > 1 &&
-                            page === currentActive - 2 &&
-                            items.length === 4 &&
-                            currentActive !== 3) ||
-                        (items.length < 5 && currentActive === 3 && page === 0) ||
-                        (items.length > 4 && currentActive > 0 && page === 0) ||
-                        (items.length > 4 &&
-                            currentActive < items.length - 2 &&
-                            page === items.length - 1) ||
-                        (items.length > 4 &&
-                            currentActive === items.length - 2 &&
-                            page === items.length - 1) ||
-                        (items.length > 4 &&
-                            currentActive === items.length - 1 &&
-                            page === items.length - 4) ||
-                        (items.length > 4 &&
-                            currentActive === 1 &&
-                            currentActive < items.length - 3 &&
-                            page === currentActive + 3) ||
-                        (items.length > 4 &&
-                            currentActive > 1 &&
-                            currentActive < items.length - 3 &&
-                            page === currentActive + 2) ||
-                        (items.length > 5 &&
-                            currentActive > 1 &&
-                            currentActive < items.length - 3 &&
-                            page === currentActive - 2) ||
-                        (items.length > 5 &&
-                            currentActive > 1 &&
-                            items.length - currentActive < 4 &&
-                            currentActive !== items.length - 2 &&
-                            page === currentActive - 3) ||
-                        (items.length > 5 &&
-                            currentActive > 1 &&
-                            items.length - currentActive < 4 &&
-                            page === currentActive - 3) ||
-                        (items.length > 5 &&
-                            currentActive > 1 &&
-                            items.length - currentActive === 3 &&
-                            page === currentActive - 2),
-                    }"
-                    :disabled="isPopup ? false : true"
-                    >
-                    <span :class="`customPaging${page}`">{{ page }}</span>
-                    <div class="ball">1</div>
-                    </button>
-                    <span v-esle>{{ page }}</span>
-                </template>
-                <div v-for="slide in items" :key="slide.id" class="content-wrap">
-                    <slot :data="slide" />
-                </div>
-            </vue-slick-carousel>
-            <button
-                v-if="slider"
-                type="button"
-                :class="{
-                    'slick-arrow slick-next': isPopup,
-                    'slick-popup slick-next': !isPopup,
-                }"
-                @click="showNext"
-            ></button>
-            <div v-else-if="comments" class="pr-4 pt-2">
-              <v-icon 
-                color="red"
-                @click="showNext"
-              >
-                mdi-arrow-right-bold
-              </v-icon>
-            </div>
-            <!-- <button
-                v-else-if="comments"
-                type="button"
-                class=""
-                icon
-                @click="showNext"
+          <div 
+            v-if="slider" 
+            :class="{
+              'slick-arrow slick-prev': currentSlide === 0,
+              'slick-popup slick-prev-active': currentSlide === 1,
+            }"
+            @click="showPrev" 
+          />
+          <div v-else-if="comments" class="pr-4 pb-2">
+            <v-icon 
+              color="red"
+              @click="showNext"
             >
-            <v-icon color="red">mdi-close</v-icon>
-          </button> -->
+              mdi-arrow-left-bold
+            </v-icon>
+          </div>
+          <vue-slick-carousel
+              v-if="slider"
+              ref="carousel"
+              :arrows="!isMobile && !permanentArrows"
+              :dots="isMobile"
+              :settings="settings"
+              :slides-to-show="1"
+              :slides-to-scroll="1"
+              :adaptive-height="adaptiveHeight"
+              :initial-slide="savingSlide ? savedSlide : 0"
+              :autoplay="false"
+              :autoplaySpeed="5000"
+              @afterChange="afterChange"
+              @beforeChange="beforeChange"
+              >
+              <template #customPaging="page">
+                  <button
+                  v-if="
+                      !(
+                      items.length > 4 &&
+                      currentActive === items.length - 1 &&
+                      page === items.length - 5
+                      ) &&
+                      page < currentActive + 4 &&
+                      !(currentActive === 2 && page === currentActive + 3) &&
+                      !showBool(currentActive, page, items) &&
+                      !(
+                          currentActive > 2 &&
+                          page > currentActive + 2 &&
+                          items.length > 5
+                      )
+                  "
+                  :id="carouselName"
+                  :class="{
+                      whitex: whiteStyle === true,
+                      btnsmalllast:
+                      (currentActive === 0 && page === 3) ||
+                      (currentActive > 0 &&
+                          page === currentActive + 2 &&
+                          items.length < 5) ||
+                      (currentActive > 0 &&
+                          items.length - currentActive !== 2 &&
+                          page === items.length - 1 &&
+                          items.length === 4) ||
+                      (currentActive > 1 &&
+                          page === currentActive - 2 &&
+                          items.length === 4 &&
+                          currentActive !== 3) ||
+                      (items.length < 5 && currentActive === 3 && page === 0) ||
+                      (items.length > 4 && currentActive > 0 && page === 0) ||
+                      (items.length > 4 &&
+                          currentActive < items.length - 2 &&
+                          page === items.length - 1) ||
+                      (items.length > 4 &&
+                          currentActive === items.length - 2 &&
+                          page === items.length - 1) ||
+                      (items.length > 4 &&
+                          currentActive === items.length - 1 &&
+                          page === items.length - 4) ||
+                      (items.length > 4 &&
+                          currentActive === 1 &&
+                          currentActive < items.length - 3 &&
+                          page === currentActive + 3) ||
+                      (items.length > 4 &&
+                          currentActive > 1 &&
+                          currentActive < items.length - 3 &&
+                          page === currentActive + 2) ||
+                      (items.length > 5 &&
+                          currentActive > 1 &&
+                          currentActive < items.length - 3 &&
+                          page === currentActive - 2) ||
+                      (items.length > 5 &&
+                          currentActive > 1 &&
+                          items.length - currentActive < 4 &&
+                          currentActive !== items.length - 2 &&
+                          page === currentActive - 3) ||
+                      (items.length > 5 &&
+                          currentActive > 1 &&
+                          items.length - currentActive < 4 &&
+                          page === currentActive - 3) ||
+                      (items.length > 5 &&
+                          currentActive > 1 &&
+                          items.length - currentActive === 3 &&
+                          page === currentActive - 2),
+                  }"
+                  :disabled="isPopup ? false : true"
+                  >
+                  <span :class="`customPaging${page}`">{{ page }}</span>
+                  <div class="ball">1</div>
+                  </button>
+                  <span v-esle>{{ page }}</span>
+              </template>
+              <div v-for="slide in items" :key="slide.id" class="content-wrap">
+                  <slot :data="slide" />
+              </div>
+          </vue-slick-carousel>
+          <vue-slick-carousel
+              v-else-if="comments"
+              ref="awards"
+              :arrows="!isMobile && !permanentArrows"
+              :dots="isMobile"
+              :settings="settings"
+              :slides-to-show="4"
+              :slides-to-scroll="4"
+              :adaptive-height="adaptiveHeight"
+              :initial-slide="savingSlide ? savedSlide : 0"
+              :autoplay="false"
+              :autoplaySpeed="5000"
+              @afterChange="afterChange"
+              @beforeChange="beforeChange"
+              >
+              <template #customPaging="page">
+                  <button
+                  v-if="
+                      !(
+                      items.length > 4 &&
+                      currentActive === items.length - 1 &&
+                      page === items.length - 5
+                      ) &&
+                      page < currentActive + 4 &&
+                      !(currentActive === 2 && page === currentActive + 3) &&
+                      !showBool(currentActive, page, items) &&
+                      !(
+                          currentActive > 2 &&
+                          page > currentActive + 2 &&
+                          items.length > 5
+                      )
+                  "
+                  :id="carouselName"
+                  :class="{
+                      whitex: whiteStyle === true,
+                      btnsmalllast:
+                      (currentActive === 0 && page === 3) ||
+                      (currentActive > 0 &&
+                          page === currentActive + 2 &&
+                          items.length < 5) ||
+                      (currentActive > 0 &&
+                          items.length - currentActive !== 2 &&
+                          page === items.length - 1 &&
+                          items.length === 4) ||
+                      (currentActive > 1 &&
+                          page === currentActive - 2 &&
+                          items.length === 4 &&
+                          currentActive !== 3) ||
+                      (items.length < 5 && currentActive === 3 && page === 0) ||
+                      (items.length > 4 && currentActive > 0 && page === 0) ||
+                      (items.length > 4 &&
+                          currentActive < items.length - 2 &&
+                          page === items.length - 1) ||
+                      (items.length > 4 &&
+                          currentActive === items.length - 2 &&
+                          page === items.length - 1) ||
+                      (items.length > 4 &&
+                          currentActive === items.length - 1 &&
+                          page === items.length - 4) ||
+                      (items.length > 4 &&
+                          currentActive === 1 &&
+                          currentActive < items.length - 3 &&
+                          page === currentActive + 3) ||
+                      (items.length > 4 &&
+                          currentActive > 1 &&
+                          currentActive < items.length - 3 &&
+                          page === currentActive + 2) ||
+                      (items.length > 5 &&
+                          currentActive > 1 &&
+                          currentActive < items.length - 3 &&
+                          page === currentActive - 2) ||
+                      (items.length > 5 &&
+                          currentActive > 1 &&
+                          items.length - currentActive < 4 &&
+                          currentActive !== items.length - 2 &&
+                          page === currentActive - 3) ||
+                      (items.length > 5 &&
+                          currentActive > 1 &&
+                          items.length - currentActive < 4 &&
+                          page === currentActive - 3) ||
+                      (items.length > 5 &&
+                          currentActive > 1 &&
+                          items.length - currentActive === 3 &&
+                          page === currentActive - 2),
+                  }"
+                  :disabled="isPopup ? false : true"
+                  >
+                  <span :class="`customPaging${page}`">{{ page }}</span>
+                  <div class="ball">1</div>
+                  </button>
+                  <span v-esle>{{ page }}</span>
+              </template>
+              <div v-for="slide in items" :key="slide.id" class="content-wrap">
+                  <slot :data="slide" />
+              </div>
+          </vue-slick-carousel>
+          <vue-slick-carousel
+              v-else-if="orderSlides"
+              ref="carousel"
+              :arrows="false"
+              :dots="false"
+              :settings="settings"
+              :slides-to-show="1"
+              :slides-to-scroll="1"
+              :adaptive-height="adaptiveHeight"
+              :initial-slide="savingSlide ? savedSlide : 0"
+              :autoplay="false"
+              :autoplaySpeed="5000"
+              @afterChange="afterChange"
+              @beforeChange="beforeChange"
+              >
+              <template #customPaging="page">
+                  <button
+                  v-if="
+                      !(
+                      items.length > 4 &&
+                      currentActive === items.length - 1 &&
+                      page === items.length - 5
+                      ) &&
+                      page < currentActive + 4 &&
+                      !(currentActive === 2 && page === currentActive + 3) &&
+                      !showBool(currentActive, page, items) &&
+                      !(
+                          currentActive > 2 &&
+                          page > currentActive + 2 &&
+                          items.length > 5
+                      )
+                  "
+                  :id="carouselName"
+                  :class="{
+                      whitex: whiteStyle === true,
+                      btnsmalllast:
+                      (currentActive === 0 && page === 3) ||
+                      (currentActive > 0 &&
+                          page === currentActive + 2 &&
+                          items.length < 5) ||
+                      (currentActive > 0 &&
+                          items.length - currentActive !== 2 &&
+                          page === items.length - 1 &&
+                          items.length === 4) ||
+                      (currentActive > 1 &&
+                          page === currentActive - 2 &&
+                          items.length === 4 &&
+                          currentActive !== 3) ||
+                      (items.length < 5 && currentActive === 3 && page === 0) ||
+                      (items.length > 4 && currentActive > 0 && page === 0) ||
+                      (items.length > 4 &&
+                          currentActive < items.length - 2 &&
+                          page === items.length - 1) ||
+                      (items.length > 4 &&
+                          currentActive === items.length - 2 &&
+                          page === items.length - 1) ||
+                      (items.length > 4 &&
+                          currentActive === items.length - 1 &&
+                          page === items.length - 4) ||
+                      (items.length > 4 &&
+                          currentActive === 1 &&
+                          currentActive < items.length - 3 &&
+                          page === currentActive + 3) ||
+                      (items.length > 4 &&
+                          currentActive > 1 &&
+                          currentActive < items.length - 3 &&
+                          page === currentActive + 2) ||
+                      (items.length > 5 &&
+                          currentActive > 1 &&
+                          currentActive < items.length - 3 &&
+                          page === currentActive - 2) ||
+                      (items.length > 5 &&
+                          currentActive > 1 &&
+                          items.length - currentActive < 4 &&
+                          currentActive !== items.length - 2 &&
+                          page === currentActive - 3) ||
+                      (items.length > 5 &&
+                          currentActive > 1 &&
+                          items.length - currentActive < 4 &&
+                          page === currentActive - 3) ||
+                      (items.length > 5 &&
+                          currentActive > 1 &&
+                          items.length - currentActive === 3 &&
+                          page === currentActive - 2),
+                  }"
+                  :disabled="isPopup ? false : true"
+                  >
+                  <span :class="`customPaging${page}`">{{ page }}</span>
+                  <div class="ball">1</div>
+                  </button>
+                  <span v-esle>{{ page }}</span>
+              </template>
+              <div v-for="slide in items" :key="slide.id" class="content-wrap">
+                  <slot :data="slide" />
+              </div>
+          </vue-slick-carousel>
+          <div 
+            v-if="slider" 
+            :class="{
+              'slick-arrow slick-next': currentSlide === 1,
+              'slick-popup slick-next-active': currentSlide === 0,
+            }"
+            @click="showNext" 
+          />
+          <div v-else-if="comments" class="pr-4 pt-2">
+            <v-icon 
+              color="red"
+              @click="showNext"
+            >
+              mdi-arrow-right-bold
+            </v-icon>
+          </div>
         </div>
       </client-only>
     </div>
@@ -283,6 +368,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    orderSlides: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -300,15 +389,16 @@ export default {
         slidesToScroll: 1
       },
       activeElem: [],
+      currentSlide: 0,
     };
   },
   mounted() {
     if (this.slider) {
       this.$eventBus.$on("changeFromParent", (data) => {
         this.$refs.carousel.goTo(data);
+        this.currentSlide = data;
       });
     }
-    
   },
   computed: {
     isMobile() {
@@ -361,13 +451,14 @@ export default {
       }
     },
     afterChange(index) {
-        return;
+      return;
     },
     beforeChange(old, newest) {
-        if (this.slider) {
-          this.$emit('changed', newest);
-        }
-        return;
+      if (this.slider) {
+        this.currentSlide = newest;
+        this.$emit('changed', newest);
+      }
+      return;
     },
   }
 }
