@@ -35,15 +35,34 @@
                 <div class="calcs d-flex">
                   <div class="elo-calc">
                     <div class="acc-selector">
-                      <v-select
+                      <!-- <v-select
+                        class="elo-calc-class"
                         :items="selectItems"
                         item-text="text"
                         item-value="id"
                         v-model="defaultSelected"
                         outlined
                         dense
+                        return-object
                         @change="checkSelect"
-                      ></v-select>
+                      >
+                        <template v-slot:selection="{ item }">
+                          {{ item.text }} - {{ item.icon }}
+                        </template>
+                        <template v-slot:item="item">
+                          <span>123{{ item.icon }}</span>
+                        </template>
+                      </v-select> -->
+                      <!-- <v-select v-model="defaultSelected" :items="selectItems" solo>
+                        <template v-slot:item="{ item, props }">
+                          <v-list-item v-bind="props">
+                            <span>123{{ item.icon }}</span>
+                          </v-list-item>
+                        </template>
+                        <template v-slot:selection="{ item }">
+                          <span>{{ item.icon }} ({{ item.icon }})</span>
+                        </template>
+                      </v-select> -->
                     </div>
                   </div>
                   <v-icon color="white" class="pl-8 pr-8">
@@ -314,18 +333,66 @@ export default {
       },
       currentIndex: 0,
       defaultSelected: {
-        id: 1,
-        text: '1',
+        id: 0,
+        text: '0',
+        icon: 'level-placeholder'
       },
       // index: 0,
       selectItems: [
         {
+          id: 0,
+          text: '0',
+          icon: 'level-placeholder'
+        },
+        {
           id: 1,
-          text: '2',
+          text: '1',
+          icon: 'level-1'
         },
         {
           id: 2,
+          text: '2',
+          icon: 'level-2'
+        },
+        {
+          id: 3,
           text: '3',
+          icon: 'level-3'
+        },
+        {
+          id: 4,
+          text: '4',
+          icon: 'level-4'
+        },
+        {
+          id: 5,
+          text: '5',
+          icon: 'level-5'
+        },
+        {
+          id: 6,
+          text: '6',
+          icon: 'level-6'
+        },
+        {
+          id: 7,
+          text: '7',
+          icon: 'level-7'
+        },
+        {
+          id: 8,
+          text: '8',
+          icon: 'level-8'
+        },
+        {
+          id: 9,
+          text: '9',
+          icon: 'level-9'
+        },
+        {
+          id: 10,
+          text: '10',
+          icon: 'level-10'
         },
       ],
     }
@@ -337,6 +404,9 @@ export default {
     checkSelect() {
       console.log(this.defaultSelected)
     },
+    getText(item) {
+      return `${item.icon} - ${item.text}`;
+    } 
   }
 };
 </script>

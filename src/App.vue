@@ -16,7 +16,7 @@
 
 <script>
   import { mapGetters, mapMutations } from "vuex";
-  import telegramApi from './plugins/telegram';
+  // import telegramApi from './plugins/telegram';
 
   export default {
     name: "App",
@@ -57,31 +57,31 @@
       ...mapMutations("user", ["createBase64Token"]),
       getTgCode() {
         console.log('getTgCode...')
-        telegramApi.sendCode(this.phoneNumber).then((sent_code) => {
-          this.phoneCodeHash = sent_code.phone_code_hash;
-        });
+        // telegramApi.sendCode(this.phoneNumber).then((sent_code) => {
+        //   this.phoneCodeHash = sent_code.phone_code_hash;
+        // });
       },
       async checkTg() {
         console.log(this.phoneNumber)
         // console.log(this.phoneCodeHash)
         // console.log(this.phoneCode)
-        await telegramApi.signIn(this.phoneNumber, this.phoneCodeHash, this.phoneCode).then(() => {
-          console.log('Sign in complete');
-          this.tgAuth = true;
-          document.querySelector('.tg-input').setAttribute('style', 'display: none;');
-        })
+        // await telegramApi.signIn(this.phoneNumber, this.phoneCodeHash, this.phoneCode).then(() => {
+        //   console.log('Sign in complete');
+        //   this.tgAuth = true;
+        //   document.querySelector('.tg-input').setAttribute('style', 'display: none;');
+        // })
       },
       getTgStatus() {
         console.log('getUserInfo...')
-        telegramApi.getUserInfo().then((user) => {
-          if (user.id) {
-            console.log('info ', user);
-            this.tgAuth = true;
-          } else {
-            console.log('logged out ', user);
-            this.tgAuth = false;
-          }
-        });
+        // telegramApi.getUserInfo().then((user) => {
+        //   if (user.id) {
+        //     console.log('info ', user);
+        //     this.tgAuth = true;
+        //   } else {
+        //     console.log('logged out ', user);
+        //     this.tgAuth = false;
+        //   }
+        // });
       }
     },
   };
