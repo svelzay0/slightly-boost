@@ -85,20 +85,9 @@
             >
               <div class="job-title">
                 <div class="award-title pr-2">HOW MUCH TIME CAN U DEVOTE TO THE GAME?</div>
-                <div class="tooltip">
-                  <v-tooltip top>
-                    <template #activator="{ on, attrs }">
-                      <v-list-item-content v-bind="attrs" v-on="on">
-                        <v-list-item-title>
-                          <div class="lil-i">
-                            <span class="lil-pt">i</span>
-                          </div>
-                        </v-list-item-title>
-                      </v-list-item-content>
-                    </template>
-                    <span v-html="tooltipFirst" />
-                  </v-tooltip>
-                </div>
+                <element-tooltip 
+                  :text="tooltipFirst"
+                />
               </div>
               <v-text-field
                 v-model="formData.workTime"
@@ -114,20 +103,9 @@
             >
               <div class="job-title">
                 <div class="award-title pr-2">TELL US ABOUT YOURSELF</div>
-                <div class="tooltip">
-                  <v-tooltip top>
-                    <template #activator="{ on, attrs }">
-                      <v-list-item-content v-bind="attrs" v-on="on">
-                        <v-list-item-title>
-                          <div class="lil-i">
-                            <span class="lil-pt">i</span>
-                          </div>
-                        </v-list-item-title>
-                      </v-list-item-content>
-                    </template>
-                    <span v-html="tooltipSecond" />
-                  </v-tooltip>
-                </div>
+                <element-tooltip 
+                  :text="tooltipSecond"
+                />
               </div>
               <v-textarea
                 v-model="formData.aboutYou"
@@ -163,10 +141,14 @@
 </template>
 
 <script>
+import ElementTooltip from '../../elements/tooltip.vue';
 // import telegramApi from '../../plugins/telegram';
 
 export default {
   name: "job",
+  components: {
+    ElementTooltip,
+  },
   data() {
     return {
       valid: true,

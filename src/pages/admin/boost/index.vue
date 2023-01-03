@@ -1,6 +1,6 @@
 <template>
   <div class="main-home">
-    <div class="home">
+    <div class="home order">
       <div class="order-blur"></div> 
       <div class="order-content">
         <h1 class="slider-title">MAKE AN ORDER</h1>
@@ -19,7 +19,6 @@
           <div :class="`${data.photoClass}`">
             <div v-if="data.id === 1" class="order-cover"/>
             <div class="order-inside pr-13 pl-13 pt-11 pb-11">
-
               <div class="d-flex">
                 <div class="order-number">
                   <div :class="data.class">
@@ -35,60 +34,148 @@
                 <div class="calcs d-flex">
                   <div class="elo-calc">
                     <div class="acc-selector">
-                      <!-- <v-select
-                        class="elo-calc-class"
-                        :items="selectItems"
-                        item-text="text"
-                        item-value="id"
-                        v-model="defaultSelected"
-                        outlined
-                        dense
-                        return-object
-                        @change="checkSelect"
+                      <element-select 
+                        :default-selected-from="defaultSelectedFrom"
+                        :select-items="selectItemsFrom"
+                        :elo-from="true"
+                        @setLvl="setLevel($event)"
+                      />
+                    </div>
+                    <div class="selector-content">
+                      <v-btn
+                        class="elo-btns ml-4"
+                        icon
+                        small
+                        color="white"
+                        @click="changeElo({ to: 'minus', way: 'from' })"
                       >
-                        <template v-slot:selection="{ item }">
-                          {{ item.text }} - {{ item.icon }}
-                        </template>
-                        <template v-slot:item="item">
-                          <span>123{{ item.icon }}</span>
-                        </template>
-                      </v-select> -->
-                      <!-- <v-select v-model="defaultSelected" :items="selectItems" solo>
-                        <template v-slot:item="{ item, props }">
-                          <v-list-item v-bind="props">
-                            <span>123{{ item.icon }}</span>
-                          </v-list-item>
-                        </template>
-                        <template v-slot:selection="{ item }">
-                          <span>{{ item.icon }} ({{ item.icon }})</span>
-                        </template>
-                      </v-select> -->
+                        <div class="minus" />
+                      </v-btn>
+                      <div class="elo-input">
+                        {{ eloFrom }}
+                      </div>
+                      <v-btn
+                        class="elo-btns mr-4"
+                        icon
+                        small
+                        color="white"
+                        @click="changeElo({ to: 'plus', way: 'from' })"
+                      >
+                        <div class="plus" />
+                      </v-btn>
                     </div>
                   </div>
                   <v-icon color="white" class="pl-8 pr-8">
                     mdi-chevron-right
                   </v-icon>
-                  <div class="elo-calc"></div>
+                  <div class="elo-calc">
+                    <div class="acc-selector">
+                      <element-select 
+                        :default-selected-to="defaultSelectedTo"
+                        :select-items="selectItemsTo"
+                        :elo-to="true"
+                        @setLvl="setLevel($event)"
+                      />
+                    </div>
+                    <div class="selector-content">
+                      <v-btn
+                        class="elo-btns ml-4"
+                        icon
+                        small
+                        color="white"
+                        @click="changeElo({ to: 'minus', way: 'to' })"
+                      >
+                        <div class="minus" />
+                      </v-btn>
+                      <div class="elo-input">
+                        {{ eloTo }}
+                      </div>
+                      <v-btn
+                        class="elo-btns mr-4"
+                        icon
+                        small
+                        color="white"
+                        @click="changeElo({ to: 'plus', way: 'to' })"
+                      >
+                        <div class="plus" />
+                      </v-btn>
+                    </div>
+                  </div>
                 </div>
                 <div class="order-input-title">
                   ADD EXTRA OPTIONS
                 </div>
-                <v-switch
-                  v-model="switch1"
-                  inset
-                  dense
-                  color="red"
-                  value="red"
-                  :label="`Switch 1: switch1`"
-                ></v-switch>
-                <v-switch
-                  v-model="switch2"
-                  inset
-                  dense
-                  color="red"
-                  value="red"
-                  :label="`Switch 2: switch1`"
-                ></v-switch>
+                <div class="job-title">
+                  <v-switch
+                    v-model="switch1"
+                    inset
+                    dense
+                    color="red"
+                    :value="false"
+                  >
+                    <template slot='label'>
+                      <div class="switch-label">Lobby/Duo</div>
+                    </template>
+                  </v-switch>
+                  <element-tooltip 
+                    class="pt-5 pl-2"
+                    :text="tooltipswitch1"
+                  />
+                  <v-switch
+                    v-model="switch2"
+                    class="pl-8"
+                    inset
+                    dense
+                    color="red"
+                    :value="true"
+                  >
+                    <template slot='label'>
+                      <div class="switch-label">Steam offline mode</div>
+                    </template>
+                  </v-switch>
+                  <element-tooltip 
+                    class="pt-5 pl-2"
+                    :text="tooltipswitch2"
+                  />
+                  <v-switch
+                    v-model="switch3"
+                    class="pl-8"
+                    inset
+                    dense
+                    color="red"
+                    :value="false"
+                  >
+                    <template slot='label'>
+                      <div class="switch-label">Priority order</div>
+                    </template>
+                  </v-switch>
+                  <element-tooltip 
+                    class="pt-5 pl-2"
+                    :text="tooltipswitch3"
+                  />
+                </div>
+                <v-list-item class="mt-16 pt-8" />
+                <div class="d-flex">
+                  <div class="order-title">
+                    TOTAL
+                  </div>
+                  <div class="order-price pl-2">
+                    {{ currency }}{{ price }} 
+                  </div>
+                </div>
+                <div class="d-flex pt-6">
+                  <v-btn
+                    rounded
+                    x-large
+                    class="main-btn"
+                    dark
+                    @click="toTab(currentIndex)"
+                  >
+                    <span class="main-btn-text">
+                      NEXT STEP
+                    </span>
+                  </v-btn>
+                </div>
               </div>
             </div>
           </div>
@@ -178,21 +265,33 @@
 
 <script>
 import ElementCarousel from '../../../elements/carousel.vue';
+import ElementSelect from '../../../elements/select.vue';
+import ElementTooltip from '../../../elements/tooltip.vue';
+
 import 'vue-slick-carousel/dist/vue-slick-carousel.css'
 // optional style for arrows & dots
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
 
 export default {
-  name: "home",
+  name: "orders",
   components: {
     ElementCarousel,
+    ElementTooltip,
+    ElementSelect
   },
   data() {
     return {
       orderSlideIndex: 0,
       index: 0,
+      currency: '$',
+      eloFrom: 'Current ELO',
+      eloTo: 'Desired ELO',
       switch1: false,
       switch2: true,
+      switch3: false,
+      tooltipswitch1: 'You can play with</br> booster without giving</br> your account',
+      tooltipswitch2: 'Our booster will play in</br> invisible mode on your</br> steam account',
+      tooltipswitch3: 'Your order will</br> be prioritized and</br> started ASAP',
       slides: [
         {
           id: 1,
@@ -332,81 +431,374 @@ export default {
         slidesToScroll: 1,
       },
       currentIndex: 0,
-      defaultSelected: {
+      defaultSelectedFrom: {
         id: 0,
         text: '0',
-        icon: 'level-placeholder'
+        icon: 'level-0',
+        eloMin: 'Current ELO',
+        eloMax: 'Desired ELO',
       },
-      // index: 0,
-      selectItems: [
+      defaultSelectedTo: {
+        id: 0,
+        text: '0',
+        icon: 'level-0',
+        eloMin: 'Current ELO',
+        eloMax: 'Desired ELO',
+      },
+      selectItemsFrom: [
         {
           id: 0,
-          text: '0',
-          icon: 'level-placeholder'
+          text: '1',
+          icon: 'level-1',
+          eloMin: 0,
+          eloMax: 800,
         },
         {
           id: 1,
-          text: '1',
-          icon: 'level-1'
+          text: '2',
+          icon: 'level-2',
+          eloMin: 801,
+          eloMax: 950,
         },
         {
           id: 2,
-          text: '2',
-          icon: 'level-2'
+          text: '3',
+          icon: 'level-3',
+          eloMin: 951,
+          eloMax: 1100,
         },
         {
           id: 3,
-          text: '3',
-          icon: 'level-3'
+          text: '4',
+          icon: 'level-4',
+          eloMin: 1101,
+          eloMax: 1250,
         },
         {
           id: 4,
-          text: '4',
-          icon: 'level-4'
+          text: '5',
+          icon: 'level-5',
+          eloMin: 1251,
+          eloMax: 1400,
         },
         {
           id: 5,
-          text: '5',
-          icon: 'level-5'
+          text: '6',
+          icon: 'level-6',
+          eloMin: 1401,
+          eloMax: 1550,
         },
         {
           id: 6,
-          text: '6',
-          icon: 'level-6'
+          text: '7',
+          icon: 'level-7',
+          eloMin: 1551,
+          eloMax: 1700,
         },
         {
           id: 7,
-          text: '7',
-          icon: 'level-7'
+          text: '8',
+          icon: 'level-8',
+          eloMin: 1701,
+          eloMax: 1850,
         },
         {
           id: 8,
-          text: '8',
-          icon: 'level-8'
+          text: '9',
+          icon: 'level-9',
+          eloMin: 1851,
+          eloMax: 2000,
         },
         {
           id: 9,
-          text: '9',
-          icon: 'level-9'
+          text: '10',
+          icon: 'level-10',
+          eloMin: 2001,
+          eloMax: 2500,
+        },
+      ],
+      selectItemsTo: [
+        {
+          id: 0,
+          text: '1',
+          icon: 'level-1',
+          eloMin: 0,
+          eloMax: 800,
         },
         {
-          id: 10,
+          id: 1,
+          text: '2',
+          icon: 'level-2',
+          eloMin: 801,
+          eloMax: 950,
+        },
+        {
+          id: 2,
+          text: '3',
+          icon: 'level-3',
+          eloMin: 951,
+          eloMax: 1100,
+        },
+        {
+          id: 3,
+          text: '4',
+          icon: 'level-4',
+          eloMin: 1101,
+          eloMax: 1250,
+        },
+        {
+          id: 4,
+          text: '5',
+          icon: 'level-5',
+          eloMin: 1251,
+          eloMax: 1400,
+        },
+        {
+          id: 5,
+          text: '6',
+          icon: 'level-6',
+          eloMin: 1401,
+          eloMax: 1550,
+        },
+        {
+          id: 6,
+          text: '7',
+          icon: 'level-7',
+          eloMin: 1551,
+          eloMax: 1700,
+        },
+        {
+          id: 7,
+          text: '8',
+          icon: 'level-8',
+          eloMin: 1701,
+          eloMax: 1850,
+        },
+        {
+          id: 8,
+          text: '9',
+          icon: 'level-9',
+          eloMin: 1851,
+          eloMax: 2000,
+        },
+        {
+          id: 9,
           text: '10',
-          icon: 'level-10'
+          icon: 'level-10',
+          eloMin: 2001,
+          eloMax: 2500,
         },
       ],
     }
+  },
+  computed: {
+    price () {
+      if ((this.defaultSelectedTo.text === '0' && this.defaultSelectedFrom.text === '0') && (this.eloFrom >= this.eloTo)) {
+        return 0;
+      } else {
+        // let countOfGames = Math.ceil((this.eloTo - this.eloFrom) / 25);
+        let lvlDiff = this.defaultSelectedTo.id - this.defaultSelectedFrom.id;
+        let gamesToNextLevel;
+        let sum = 0;
+        let priceTag;
+        let currentLvl = 0;
+        // console.log('lvlDiff ', lvlDiff)
+        console.log('currentLvl ', currentLvl)
+        for (var i = 0; i <= lvlDiff; i++) {
+          if (lvlDiff > 1) {
+            if (currentLvl === this.defaultSelectedFrom.id + 1) {
+              gamesToNextLevel = Math.ceil((this.defaultSelectedFrom.eloMax - this.eloFrom) / 25);
+            }
+            // gamesToNextLevel = Math.ceil((this.defaultSelectedFrom.eloMax - this.eloFrom) / 25);
+            console.log('bug ', this.defaultSelectedFrom.eloMax, this.eloFrom)
+          } else {
+            gamesToNextLevel = Math.ceil((this.eloTo - this.eloFrom) / 25);
+            console.log(this.eloTo, this.eloFrom)
+          }
+          lvlDiff -= 1;
+          priceTag = 2;
+          // if (this.defaultSelectedFrom.eloMax >= 0 && this.defaultSelectedFrom.eloMax < 951) {
+          //   priceTag = 1.6;
+          // } else if (this.defaultSelectedFrom.eloMax >= 951 && this.defaultSelectedFrom.eloMax < 1251) {
+          //   priceTag = 2;
+          // } else if (this.defaultSelectedFrom.eloMax >= 1251 && this.defaultSelectedFrom.eloMax < 1551) {
+          //   priceTag = 2.3;
+          // } else if (this.defaultSelectedFrom.eloMax >= 1551 && this.defaultSelectedFrom.eloMax < 1701) {
+          //   priceTag = 3.2;
+          // } else if (this.defaultSelectedFrom.eloMax >= 1701 && this.defaultSelectedFrom.eloMax < 1851) {
+          //   priceTag = 4.1;
+          // } else if (this.defaultSelectedFrom.eloMax >= 1851 && this.defaultSelectedFrom.eloMax < 2001) {
+          //   priceTag = 5.4;
+          // } else if (this.defaultSelectedFrom.eloMax >= 2001 && this.defaultSelectedFrom.eloMax < 2200) {
+          //   priceTag = 6.5;
+          // } else if (this.defaultSelectedFrom.eloMax >= 2200 && this.defaultSelectedFrom.eloMax < 2300) {
+          //   priceTag = 7;
+          // } else if (this.defaultSelectedFrom.eloMax >= 2300 && this.defaultSelectedFrom.eloMax < 2400) {
+          //   priceTag = 8.3;
+          // } else if (this.defaultSelectedFrom.eloMax >= 2400 && this.defaultSelectedFrom.eloMax < 2500) {
+          //   priceTag = 8.7;
+          // } else if (this.defaultSelectedFrom.eloMax >= 2500 && this.defaultSelectedFrom.eloMax < 2600) {
+          //   priceTag = 9.4;
+          // } else if (this.defaultSelectedFrom.eloMax >= 2600 && this.defaultSelectedFrom.eloMax < 2700) {
+          //   priceTag = 10.7;
+          // } else if (this.defaultSelectedFrom.eloMax >= 2700 && this.defaultSelectedFrom.eloMax < 2800) {
+          //   priceTag = 11.2;
+          // } else if (this.defaultSelectedFrom.eloMax >= 2800 && this.defaultSelectedFrom.eloMax < 2900) {
+          //   priceTag = 12;
+          // } else if (this.defaultSelectedFrom.eloMax >= 2900 && this.defaultSelectedFrom.eloMax < 3000) {
+          //   priceTag = 13.1;
+          // } else if (this.defaultSelectedFrom.eloMax >= 3000 && this.defaultSelectedFrom.eloMax < 3100) {
+          //   priceTag = 13.6;
+          // } else if (this.defaultSelectedFrom.eloMax >= 3100 && this.defaultSelectedFrom.eloMax < 3200) {
+          //   priceTag = 14.3;
+          // } else if (this.defaultSelectedFrom.eloMax >= 3200 && this.defaultSelectedFrom.eloMax < 3199) {
+          //   priceTag = 15.6;
+          // } else if (this.defaultSelectedFrom.eloMax >= 3300 && this.defaultSelectedFrom.eloMax < 3400) {
+          //   priceTag = 16.3;
+          // } else if (this.defaultSelectedFrom.eloMax >= 3400 && this.defaultSelectedFrom.eloMax < 3500) {
+          //   priceTag = 16.7;
+          // }
+          currentLvl = this.defaultSelectedFrom.id + 1;
+          sum += gamesToNextLevel * priceTag;
+          console.log(this.defaultSelectedFrom.id + 1, 'currentLvl', this.defaultSelectedFrom)
+          console.log(lvlDiff, 'lvldiff')
+          console.log('gamesToNextLevel ', gamesToNextLevel)
+          console.log('priceTag ', priceTag)
+          console.log('current priceTag * gamesToNextLevel ', gamesToNextLevel * priceTag)
+        }
+        console.log('total ', sum)
+        return sum.toFixed(2);   
+      }
+    },
+    // priceTag () {
+    //   // 0 - 951 - 1.6
+    //   // 951 - 1251 - 2
+    //   // 1251 - 1551 - 2.3
+    //   // 1551 - 1701 - 3.2
+    //   // 1701 - 1851 - 4.1
+    //   // 1851 - 2001 - 5.4
+    //   // 2001-2201 - 6.5
+    //   // 2201-2301 - 7
+    //   // 2301-2401 - 8.3
+    //   // 2401-2501 - 8.7
+    //   // 2501-2601 - 9.4
+    //   // 2601-2701 - 10.7
+    //   // 2701-2801 - 11.2
+    //   // 2801-2901 - 12
+    //   // 2901-3001 - 13.1
+    //   // 3001-3101 - 13.6
+    //   // 3101-3201 - 14.3
+    //   // 3201-3301 - 15.6
+    //   // 3301-3401 - 16.3
+    //   // 3401-3501 - 16.7
+
+    //   // if (this.eloFrom >= this.eloTo) {
+    //   //   return 0;
+    //   // } else {
+    //   //   let countOfGames = Math.ceil((this.eloTo - this.eloFrom) / 25);
+    //   //   console.log(countOfGames)
+    //   //   return 0;
+    //   // }
+    //   return 1.6;
+    // },
   },
   methods: {
     changeIndex(index) {
       this.currentIndex = index;
     },
-    checkSelect() {
-      console.log(this.defaultSelected)
-    },
     getText(item) {
       return `${item.icon} - ${item.text}`;
-    } 
+    },
+    toTab(data) {
+      console.log(data)
+    },
+    setLevel(data) {
+      if (data.way === 'from') {
+        this.defaultSelectedFrom = this.selectItemsFrom[data.index];
+        if (data.index === 0) {
+          this.eloFrom = 0;
+        } else {
+          this.eloFrom = this.selectItemsFrom[data.index].eloMin
+        }
+      }
+      if (data.way === 'to') {
+        this.defaultSelectedTo = this.selectItemsTo[data.index];
+        if (data.index === 0) {
+          this.eloTo = 800;
+        } else {
+          this.eloTo = this.selectItemsTo[data.index].eloMax
+        }
+      }
+    },
+    changeElo(data) {
+      if (typeof this.eloFrom !== 'string') {
+        if (data.way === 'from') {
+          if(data.to === 'minus') {
+            if (this.eloFrom > 1) {
+              this.eloFrom -= 25;
+            }
+          }
+          if(data.to === 'plus') {
+            this.eloFrom += 25;
+          }
+        }
+      }
+      if (typeof this.eloTo !== 'string') {
+        if (data.way === 'to') {
+          if(data.to === 'minus') {
+            if (this.eloTo > 1) {
+              this.eloTo -= 25;
+            }
+          }
+          if(data.to === 'plus') {
+            this.eloTo += 25;
+          }
+        }
+      }
+      if (this.eloFrom >= 0 && this.eloFrom < 801) {
+        this.defaultSelectedFrom = this.selectItemsFrom[0]
+      } else if (this.eloFrom >= 801 && this.eloFrom < 951) {
+        this.defaultSelectedFrom = this.selectItemsFrom[1]
+      } else if (this.eloFrom >= 951 && this.eloFrom < 1101) {
+        this.defaultSelectedFrom = this.selectItemsFrom[2]
+      } else if (this.eloFrom >= 1101 && this.eloFrom < 1251) {
+        this.defaultSelectedFrom = this.selectItemsFrom[3]
+      } else if (this.eloFrom >= 1251 && this.eloFrom < 1401) {
+        this.defaultSelectedFrom = this.selectItemsFrom[4]
+      } else if (this.eloFrom >= 1401 && this.eloFrom < 1551) {
+        this.defaultSelectedFrom = this.selectItemsFrom[5]
+      } else if (this.eloFrom >= 1551 && this.eloFrom < 1701) {
+        this.defaultSelectedFrom = this.selectItemsFrom[6]
+      } else if (this.eloFrom >= 1701 && this.eloFrom < 1851) {
+        this.defaultSelectedFrom = this.selectItemsFrom[7]
+      } else if (this.eloFrom >= 1851 && this.eloFrom < 2001) {
+        this.defaultSelectedFrom = this.selectItemsFrom[8]
+      } else if (this.eloFrom >= 2001) {
+        this.defaultSelectedFrom = this.selectItemsFrom[9]
+      }
+
+      if (this.eloTo >= 0 && this.eloTo < 801) {
+        this.defaultSelectedTo = this.selectItemsTo[0]
+      } else if (this.eloTo >= 801 && this.eloTo < 951) {
+        this.defaultSelectedTo = this.selectItemsTo[1]
+      } else if (this.eloTo >= 951 && this.eloTo < 1101) {
+        this.defaultSelectedTo = this.selectItemsTo[2]
+      } else if (this.eloTo >= 1101 && this.eloTo < 1251) {
+        this.defaultSelectedTo = this.selectItemsTo[3]
+      } else if (this.eloTo >= 1251 && this.eloTo < 1401) {
+        this.defaultSelectedTo = this.selectItemsTo[4]
+      } else if (this.eloTo >= 1401 && this.eloTo < 1551) {
+        this.defaultSelectedTo = this.selectItemsTo[5]
+      } else if (this.eloTo >= 1551 && this.eloTo < 1701) {
+        this.defaultSelectedTo = this.selectItemsTo[6]
+      } else if (this.eloTo >= 1701 && this.eloTo < 1851) {
+        this.defaultSelectedTo = this.selectItemsTo[7]
+      } else if (this.eloTo >= 1851 && this.eloTo < 2001) {
+        this.defaultSelectedTo = this.selectItemsTo[8]
+      } else if (this.eloTo >= 2001) {
+        this.defaultSelectedTo = this.selectItemsTo[9]
+      }
+    }
   }
 };
 </script>

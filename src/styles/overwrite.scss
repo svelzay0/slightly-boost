@@ -221,6 +221,37 @@
   content: url('../../src/assets/icons/lvl10.svg') !important;
 }
 
+.plus
+{
+  width: 18px;
+  height: 21px;
+  margin: 10px;
+  content: url('../../src/assets/icons/plus.svg') !important;
+}
+.minus
+{
+  width: 13px;
+  height: 21px;
+  margin: 10px;
+  content: url('../../src/assets/icons/minus.svg') !important;
+}
+.v-input__slot {
+  cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer !important;
+}
+.v-list-item {
+  cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer !important;
+}
+
+.v-input {
+  cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer !important;
+}
+.theme--light.v-input--switch .v-input--switch__track,
+.theme--light.v-input:not(.v-input--is-disabled) input {
+  color: #979797 !important;
+}
+.v-input--selection-controls__ripple {
+  cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer !important;
+}
 .digit1
 {
   position: absolute;
@@ -264,49 +295,71 @@
   content: url('../../src/assets/icons/digit11.svg') !important;
 }
 
-.level-placeholder
+.level-0
 {
+  height: 30px;
+  width: 30px;
   content: url('../../src/assets/icons/level.svg') !important;
 }
 
 .level-1
 {
+  height: 30px;
+  width: 30px;
   content: url('../../src/assets/icons/level-1.svg') !important;
 }
 .level-2
 {
+  height: 30px;
+  width: 30px;
   content: url('../../src/assets/icons/level-2.svg') !important;
 }
 .level-3
 {
+  height: 30px;
+  width: 30px;
   content: url('../../src/assets/icons/level-3.svg') !important;
 }
 .level-4
 {
+  height: 30px;
+  width: 30px;
   content: url('../../src/assets/icons/level-4.svg') !important;
 }
 .level-5
 {
+  height: 30px;
+  width: 30px;
   content: url('../../src/assets/icons/level-5.svg') !important;
 }
 .level-6
 {
+  height: 30px;
+  width: 30px;
   content: url('../../src/assets/icons/level-6.svg') !important;
 }
 .level-7
 {
+  height: 30px;
+  width: 30px;
   content: url('../../src/assets/icons/level-7.svg') !important;
 }
 .level-8
 {
+  height: 30px;
+  width: 30px;
   content: url('../../src/assets/icons/level-8.svg') !important;
 }
 .level-9
 {
+  height: 30px;
+  width: 30px;
   content: url('../../src/assets/icons/level-9.svg') !important;
 }
 .level-10
 {
+  height: 30px;
+  width: 30px;
   content: url('../../src/assets/icons/level-10.svg') !important;
 }
 
@@ -403,7 +456,7 @@
   color: #979797 !important;
   min-height: 10px;
 }
-.v-text-field--outlined.v-input--is-focused fieldset, .v-text-field--outlined.v-input--has-state fieldset {
+.main-contacts .v-text-field--outlined.v-input--is-focused fieldset, .v-text-field--outlined.v-input--has-state fieldset {
   border-radius: 15px !important;
 }
 // .theme--light.v-input {

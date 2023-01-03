@@ -222,6 +222,7 @@
               :initial-slide="savingSlide ? savedSlide : 0"
               :autoplay="false"
               :autoplaySpeed="5000"
+              :swipe="false"
               @afterChange="afterChange"
               @beforeChange="beforeChange"
               >
