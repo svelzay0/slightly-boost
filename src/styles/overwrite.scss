@@ -241,13 +241,19 @@
 .v-list-item {
   cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer !important;
 }
-
+.v-input--selection-controls.v-input--dense .v-input--selection-controls__ripple {
+  cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer !important;
+}
+.v-input .v-input--dense .theme--light .v-input--selection-controls .v-input--switch .v-input--switch--inset {
+  cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer !important;
+}
 .v-input {
   cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer !important;
 }
 .theme--light.v-input--switch .v-input--switch__track,
 .theme--light.v-input:not(.v-input--is-disabled) input {
   color: #979797 !important;
+  cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer !important;
 }
 .v-input--selection-controls__ripple {
   cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer !important;

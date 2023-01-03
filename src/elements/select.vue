@@ -2,7 +2,7 @@
   <v-select
     v-if="eloFrom"
     class="elo-calc-class"
-    :items="selectItems"
+    :items="selectItemsFrom"
     item-text="text"
     item-value="id"
     v-model="defaultSelectedFrom"
@@ -11,7 +11,7 @@
     return-object
   >
     <template slot='selection'>
-      <div v-if="this.check === false" class="level-0" />
+      <div v-if="this.defaultSelectedFrom.text === '0'" class="level-0" />
       <div v-else :class="`level-${this.defaultSelectedFrom.id + 1}`" />
     </template>
     <template v-slot:item="{ index = i += 1 }">
@@ -29,7 +29,7 @@
   <v-select
     v-else
     class="elo-calc-class"
-    :items="selectItems"
+    :items="selectItemsTo"
     item-text="text"
     item-value="id"
     v-model="defaultSelectedTo"
@@ -68,7 +68,11 @@ export default {
       type: Object,
       required: true
     },
-    selectItems: {
+    selectItemsFrom: {
+      type: Array,
+      required: true
+    },
+    selectItemsTo: {
       type: Array,
       required: true
     },

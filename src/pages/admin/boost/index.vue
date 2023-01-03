@@ -36,7 +36,8 @@
                     <div class="acc-selector">
                       <element-select 
                         :default-selected-from="defaultSelectedFrom"
-                        :select-items="selectItemsFrom"
+                        :select-items-to="selectItemsTo"
+                        :select-items-from="selectItemsFrom"
                         :elo-from="true"
                         @setLvl="setLevel($event)"
                       />
@@ -72,7 +73,8 @@
                     <div class="acc-selector">
                       <element-select 
                         :default-selected-to="defaultSelectedTo"
-                        :select-items="selectItemsTo"
+                        :select-items-to="selectItemsTo"
+                        :select-items-from="selectItemsFrom"
                         :elo-to="true"
                         @setLvl="setLevel($event)"
                       />
@@ -596,75 +598,18 @@ export default {
       if ((this.defaultSelectedTo.text === '0' && this.defaultSelectedFrom.text === '0') && (this.eloFrom >= this.eloTo)) {
         return 0;
       } else {
-        // let countOfGames = Math.ceil((this.eloTo - this.eloFrom) / 25);
-        let lvlDiff = this.defaultSelectedTo.id - this.defaultSelectedFrom.id;
-        let gamesToNextLevel;
         let sum = 0;
-        let priceTag;
-        let currentLvl = 0;
-        // console.log('lvlDiff ', lvlDiff)
-        console.log('currentLvl ', currentLvl)
-        for (var i = 0; i <= lvlDiff; i++) {
-          if (lvlDiff > 1) {
-            if (currentLvl === this.defaultSelectedFrom.id + 1) {
-              gamesToNextLevel = Math.ceil((this.defaultSelectedFrom.eloMax - this.eloFrom) / 25);
-            }
-            // gamesToNextLevel = Math.ceil((this.defaultSelectedFrom.eloMax - this.eloFrom) / 25);
-            console.log('bug ', this.defaultSelectedFrom.eloMax, this.eloFrom)
-          } else {
-            gamesToNextLevel = Math.ceil((this.eloTo - this.eloFrom) / 25);
-            console.log(this.eloTo, this.eloFrom)
+        if (typeof this.eloFrom !== 'string' && typeof this.eloTo !== 'string') {
+          for (var currentElo = this.eloFrom; currentElo <= this.eloTo; currentElo += 25) {
+            console.log('current elo', currentElo, 'priceTag', this.getPriceTag(currentElo))
+            sum += this.getPriceTag(currentElo);
           }
-          lvlDiff -= 1;
-          priceTag = 2;
-          // if (this.defaultSelectedFrom.eloMax >= 0 && this.defaultSelectedFrom.eloMax < 951) {
-          //   priceTag = 1.6;
-          // } else if (this.defaultSelectedFrom.eloMax >= 951 && this.defaultSelectedFrom.eloMax < 1251) {
-          //   priceTag = 2;
-          // } else if (this.defaultSelectedFrom.eloMax >= 1251 && this.defaultSelectedFrom.eloMax < 1551) {
-          //   priceTag = 2.3;
-          // } else if (this.defaultSelectedFrom.eloMax >= 1551 && this.defaultSelectedFrom.eloMax < 1701) {
-          //   priceTag = 3.2;
-          // } else if (this.defaultSelectedFrom.eloMax >= 1701 && this.defaultSelectedFrom.eloMax < 1851) {
-          //   priceTag = 4.1;
-          // } else if (this.defaultSelectedFrom.eloMax >= 1851 && this.defaultSelectedFrom.eloMax < 2001) {
-          //   priceTag = 5.4;
-          // } else if (this.defaultSelectedFrom.eloMax >= 2001 && this.defaultSelectedFrom.eloMax < 2200) {
-          //   priceTag = 6.5;
-          // } else if (this.defaultSelectedFrom.eloMax >= 2200 && this.defaultSelectedFrom.eloMax < 2300) {
-          //   priceTag = 7;
-          // } else if (this.defaultSelectedFrom.eloMax >= 2300 && this.defaultSelectedFrom.eloMax < 2400) {
-          //   priceTag = 8.3;
-          // } else if (this.defaultSelectedFrom.eloMax >= 2400 && this.defaultSelectedFrom.eloMax < 2500) {
-          //   priceTag = 8.7;
-          // } else if (this.defaultSelectedFrom.eloMax >= 2500 && this.defaultSelectedFrom.eloMax < 2600) {
-          //   priceTag = 9.4;
-          // } else if (this.defaultSelectedFrom.eloMax >= 2600 && this.defaultSelectedFrom.eloMax < 2700) {
-          //   priceTag = 10.7;
-          // } else if (this.defaultSelectedFrom.eloMax >= 2700 && this.defaultSelectedFrom.eloMax < 2800) {
-          //   priceTag = 11.2;
-          // } else if (this.defaultSelectedFrom.eloMax >= 2800 && this.defaultSelectedFrom.eloMax < 2900) {
-          //   priceTag = 12;
-          // } else if (this.defaultSelectedFrom.eloMax >= 2900 && this.defaultSelectedFrom.eloMax < 3000) {
-          //   priceTag = 13.1;
-          // } else if (this.defaultSelectedFrom.eloMax >= 3000 && this.defaultSelectedFrom.eloMax < 3100) {
-          //   priceTag = 13.6;
-          // } else if (this.defaultSelectedFrom.eloMax >= 3100 && this.defaultSelectedFrom.eloMax < 3200) {
-          //   priceTag = 14.3;
-          // } else if (this.defaultSelectedFrom.eloMax >= 3200 && this.defaultSelectedFrom.eloMax < 3199) {
-          //   priceTag = 15.6;
-          // } else if (this.defaultSelectedFrom.eloMax >= 3300 && this.defaultSelectedFrom.eloMax < 3400) {
-          //   priceTag = 16.3;
-          // } else if (this.defaultSelectedFrom.eloMax >= 3400 && this.defaultSelectedFrom.eloMax < 3500) {
-          //   priceTag = 16.7;
-          // }
-          currentLvl = this.defaultSelectedFrom.id + 1;
-          sum += gamesToNextLevel * priceTag;
-          console.log(this.defaultSelectedFrom.id + 1, 'currentLvl', this.defaultSelectedFrom)
-          console.log(lvlDiff, 'lvldiff')
-          console.log('gamesToNextLevel ', gamesToNextLevel)
-          console.log('priceTag ', priceTag)
-          console.log('current priceTag * gamesToNextLevel ', gamesToNextLevel * priceTag)
+          if (this.switch1) {
+            sum += sum * 0.3;
+          }
+          if (this.switch3) {
+            sum += sum * 0.15;
+          }
         }
         console.log('total ', sum)
         return sum.toFixed(2);   
@@ -703,6 +648,51 @@ export default {
     // },
   },
   methods: {
+    getPriceTag(elo) {
+      let priceTag = 0;
+      if (elo >= 0 && elo < 951) {
+        priceTag = 1.6;
+      } else if (elo >= 951 && elo < 1251) {
+        priceTag = 2;
+      } else if (elo >= 1251 && elo < 1551) {
+        priceTag = 2.3;
+      } else if (elo >= 1551 && elo < 1701) {
+        priceTag = 3.2;
+      } else if (elo >= 1701 && elo < 1851) {
+        priceTag = 4.1;
+      } else if (elo >= 1851 && elo < 2001) {
+        priceTag = 5.4;
+      } else if (elo >= 2001 && elo < 2200) {
+        priceTag = 6.5;
+      } else if (elo >= 2200 && elo < 2300) {
+        priceTag = 7;
+      } else if (elo >= 2300 && elo < 2400) {
+        priceTag = 8.3;
+      } else if (elo >= 2400 && elo < 2500) {
+        priceTag = 8.7;
+      } else if (elo >= 2500 && elo < 2600) {
+        priceTag = 9.4;
+      } else if (elo >= 2600 && elo < 2700) {
+        priceTag = 10.7;
+      } else if (elo >= 2700 && elo < 2800) {
+        priceTag = 11.2;
+      } else if (elo >= 2800 && elo < 2900) {
+        priceTag = 12;
+      } else if (elo >= 2900 && elo < 3000) {
+        priceTag = 13.1;
+      } else if (elo >= 3000 && elo < 3100) {
+        priceTag = 13.6;
+      } else if (elo >= 3100 && elo < 3200) {
+        priceTag = 14.3;
+      } else if (elo >= 3200 && elo < 3199) {
+        priceTag = 15.6;
+      } else if (elo >= 3300 && elo < 3400) {
+        priceTag = 16.3;
+      } else if (elo >= 3400 && elo < 3500) {
+        priceTag = 16.7;
+      }
+      return priceTag;
+    },
     changeIndex(index) {
       this.currentIndex = index;
     },
@@ -742,6 +732,8 @@ export default {
             this.eloFrom += 25;
           }
         }
+      } else {
+        this.eloFrom = 949;
       }
       if (typeof this.eloTo !== 'string') {
         if (data.way === 'to') {
@@ -754,6 +746,8 @@ export default {
             this.eloTo += 25;
           }
         }
+      } else {
+        this.eloTo = 1025;
       }
       if (this.eloFrom >= 0 && this.eloFrom < 801) {
         this.defaultSelectedFrom = this.selectItemsFrom[0]
@@ -798,6 +792,7 @@ export default {
       } else if (this.eloTo >= 2001) {
         this.defaultSelectedTo = this.selectItemsTo[9]
       }
+      console.log(this.defaultSelectedFrom.icon, this.defaultSelectedTo.icon)
     }
   }
 };
