@@ -62,11 +62,11 @@ export default {
   props: {
     defaultSelectedFrom: {
       type: Object,
-      required: true
+      default: () => {}
     },
     defaultSelectedTo: {
       type: Object,
-      required: true
+      default: () => {}
     },
     selectItemsFrom: {
       type: Array,

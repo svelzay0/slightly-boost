@@ -111,6 +111,14 @@
   // padding-right: 130px;
 }
 
+.selector-content input {
+  border: none !important;
+  -webkit-appearance: none !important;
+}
+
+.selector-content input:focus{
+  outline: none !important;
+}
 .slick-prev
 {
   top: 195% !important;
@@ -148,7 +156,10 @@
 {
   transform: rotate(360deg) !important;
 }
-
+.theme--dark.v-btn.v-btn--disabled {
+  /* color: rgba(255, 255, 255, 0.3) !important; */
+  background: blue !important;
+}
 .slick-next,
 .slick-prev-active 
 {

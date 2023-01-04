@@ -52,9 +52,12 @@
                       >
                         <div class="minus" />
                       </v-btn>
-                      <div class="elo-input">
-                        {{ eloFrom }}
-                      </div>
+                      <input
+                        v-model.number="eloFrom"
+                        type="number"
+                        class="elo-input-from"
+                        placeholder="Current ELO"
+                      />
                       <v-btn
                         class="elo-btns mr-4"
                         icon
@@ -89,9 +92,11 @@
                       >
                         <div class="minus" />
                       </v-btn>
-                      <div class="elo-input">
-                        {{ eloTo }}
-                      </div>
+                      <input
+                        v-model="eloTo"
+                        class="elo-input-to" 
+                        placeholder="Desired ELO"
+                      />
                       <v-btn
                         class="elo-btns mr-4"
                         icon
@@ -171,6 +176,7 @@
                     x-large
                     class="main-btn"
                     dark
+                    :disabled="price < 1"
                     @click="toTab(currentIndex)"
                   >
                     <span class="main-btn-text">
@@ -283,11 +289,12 @@ export default {
   },
   data() {
     return {
+      toWatch: true,
       orderSlideIndex: 0,
       index: 0,
       currency: '$',
-      eloFrom: 'Current ELO',
-      eloTo: 'Desired ELO',
+      eloFrom: '',
+      eloTo: '',
       switch1: false,
       switch2: true,
       switch3: false,
@@ -601,7 +608,7 @@ export default {
         let sum = 0;
         if (typeof this.eloFrom !== 'string' && typeof this.eloTo !== 'string') {
           for (var currentElo = this.eloFrom; currentElo <= this.eloTo; currentElo += 25) {
-            console.log('current elo', currentElo, 'priceTag', this.getPriceTag(currentElo))
+            // console.log('current elo', currentElo, 'priceTag', this.getPriceTag(currentElo))
             sum += this.getPriceTag(currentElo);
           }
           if (this.switch1) {
@@ -611,42 +618,52 @@ export default {
             sum += sum * 0.15;
           }
         }
-        console.log('total ', sum)
+        // console.log('total ', sum)
         return sum.toFixed(2);   
       }
     },
-    // priceTag () {
-    //   // 0 - 951 - 1.6
-    //   // 951 - 1251 - 2
-    //   // 1251 - 1551 - 2.3
-    //   // 1551 - 1701 - 3.2
-    //   // 1701 - 1851 - 4.1
-    //   // 1851 - 2001 - 5.4
-    //   // 2001-2201 - 6.5
-    //   // 2201-2301 - 7
-    //   // 2301-2401 - 8.3
-    //   // 2401-2501 - 8.7
-    //   // 2501-2601 - 9.4
-    //   // 2601-2701 - 10.7
-    //   // 2701-2801 - 11.2
-    //   // 2801-2901 - 12
-    //   // 2901-3001 - 13.1
-    //   // 3001-3101 - 13.6
-    //   // 3101-3201 - 14.3
-    //   // 3201-3301 - 15.6
-    //   // 3301-3401 - 16.3
-    //   // 3401-3501 - 16.7
-
-    //   // if (this.eloFrom >= this.eloTo) {
-    //   //   return 0;
-    //   // } else {
-    //   //   let countOfGames = Math.ceil((this.eloTo - this.eloFrom) / 25);
-    //   //   console.log(countOfGames)
-    //   //   return 0;
-    //   // }
-    //   return 1.6;
-    // },
   },
+  watch: {
+      eloFrom(newVal) {
+        if (this.toWatch) {
+          
+          if (newVal.length) {
+            this.eloFrom = parseInt(newVal)
+            this.changeEloFrom(parseInt(newVal))
+          } else {
+            this.eloFrom = ''
+          }
+        }
+        console.log(this.eloFrom, newVal)
+      },
+      eloTo(newVal) {
+        if (this.toWatch) {
+          if (newVal.length && typeof newVal === 'string') {
+            this.eloTo = parseInt(newVal)
+            this.changeEloTo(parseInt(newVal))
+          } else {
+            this.eloTo = ''
+          }
+        }
+      },
+    },
+  // async mounted() {
+  //   // const selectElementFrom = await this.$refs.from;
+  //   // const selectElementTo = await this.$refs.to;
+  //   // const selectElementFrom = await this.$el.querySelector('.elo-input-from')
+    // console.log(this.$el)
+  //   if (this.$refs.from) {
+  //     this.$refs.from.addEventListener('change', (event) => {
+        // console.log(event)
+  //     });
+  //   }
+  //   // await selectElementFrom.addEventListener('change', (event) => {
+      // console.log(event)
+  //   // });
+  //   // await selectElementTo.addEventListener('change', (event) => {
+      // console.log(event)
+  //   // });
+  // },
   methods: {
     getPriceTag(elo) {
       let priceTag = 0;
@@ -702,7 +719,8 @@ export default {
     toTab(data) {
       console.log(data)
     },
-    setLevel(data) {
+    async setLevel(data) {
+      this.toWatch = false;
       if (data.way === 'from') {
         this.defaultSelectedFrom = this.selectItemsFrom[data.index];
         if (data.index === 0) {
@@ -719,9 +737,59 @@ export default {
           this.eloTo = this.selectItemsTo[data.index].eloMax
         }
       }
+      this.toWatch = await true;  
     },
-    changeElo(data) {
-      if (typeof this.eloFrom !== 'string') {
+    changeEloFrom(elo) {
+      if (elo >= 0 && elo < 801) {
+        this.defaultSelectedFrom = this.selectItemsFrom[0]
+      } else if (elo >= 801 && elo < 951) {
+        this.defaultSelectedFrom = this.selectItemsFrom[1]
+      } else if (elo >= 951 && elo < 1101) {
+        this.defaultSelectedFrom = this.selectItemsFrom[2]
+      } else if (elo >= 1101 && elo < 1251) {
+        this.defaultSelectedFrom = this.selectItemsFrom[3]
+      } else if (elo >= 1251 && elo < 1401) {
+        this.defaultSelectedFrom = this.selectItemsFrom[4]
+      } else if (elo >= 1401 && elo < 1551) {
+        this.defaultSelectedFrom = this.selectItemsFrom[5]
+      } else if (elo >= 1551 && elo < 1701) {
+        this.defaultSelectedFrom = this.selectItemsFrom[6]
+      } else if (elo >= 1701 && elo < 1851) {
+        this.defaultSelectedFrom = this.selectItemsFrom[7]
+      } else if (elo >= 1851 && elo < 2001) {
+        this.defaultSelectedFrom = this.selectItemsFrom[8]
+      } else if (elo >= 2001) {
+        this.defaultSelectedFrom = this.selectItemsFrom[9]
+      }
+    },
+    changeEloTo(elo) {
+      if (elo >= 0 && elo < 801) {
+        this.defaultSelectedTo = this.selectItemsTo[0]
+      } else if (elo >= 801 && elo < 951) {
+        this.defaultSelectedTo = this.selectItemsTo[1]
+      } else if (elo >= 951 && elo < 1101) {
+        this.defaultSelectedTo = this.selectItemsTo[2]
+      } else if (elo >= 1101 && elo < 1251) {
+        this.defaultSelectedTo = this.selectItemsTo[3]
+      } else if (elo >= 1251 && elo < 1401) {
+        this.defaultSelectedTo = this.selectItemsTo[4]
+      } else if (elo >= 1401 && elo < 1551) {
+        this.defaultSelectedTo = this.selectItemsTo[5]
+      } else if (elo >= 1551 && elo < 1701) {
+        this.defaultSelectedTo = this.selectItemsTo[6]
+      } else if (elo >= 1701 && elo < 1851) {
+        this.defaultSelectedTo = this.selectItemsTo[7]
+      } else if (elo >= 1851 && elo < 2001) {
+        this.defaultSelectedTo = this.selectItemsTo[8]
+      } else if (elo >= 2001) {
+        this.defaultSelectedTo = this.selectItemsTo[9]
+      }
+    },
+    async changeElo(data) {
+      this.toWatch = await false;
+      console.log(this.eloFrom, this.eloTo)
+      if (typeof this.eloFrom !== 'string' || (this.eloFrom.length || typeof this.eloFrom === 'number')) {
+        this.eloFrom = parseInt(this.eloFrom)
         if (data.way === 'from') {
           if(data.to === 'minus') {
             if (this.eloFrom > 1) {
@@ -735,7 +803,8 @@ export default {
       } else {
         this.eloFrom = 949;
       }
-      if (typeof this.eloTo !== 'string') {
+      if (typeof this.eloTo !== 'string' || (this.eloTo.length || typeof this.eloTo === 'number')) {
+        this.eloTo = parseInt(this.eloTo)
         if (data.way === 'to') {
           if(data.to === 'minus') {
             if (this.eloTo > 1) {
@@ -792,7 +861,7 @@ export default {
       } else if (this.eloTo >= 2001) {
         this.defaultSelectedTo = this.selectItemsTo[9]
       }
-      console.log(this.defaultSelectedFrom.icon, this.defaultSelectedTo.icon)
+      this.toWatch = await true;
     }
   }
 };

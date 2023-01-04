@@ -373,6 +373,14 @@ export default {
       type: Boolean,
       default: false,
     },
+    whiteStyle: {
+      type: Boolean,
+      default: false,
+    },
+    carouselName: {
+      type: String,
+      default: '0',
+    },
   },
   data() {
     return {
@@ -460,6 +468,20 @@ export default {
         this.$emit('changed', newest);
       }
       return;
+    },
+    showBool(currentActive, page, items) {
+      if (currentActive < items.length - 2) {
+        return (currentActive > 2 &&
+        currentActive < items.length - 1 &&
+        page < currentActive - 2 &&
+        items.length > 5)
+      } else {
+        return (currentActive > 2 &&
+        (currentActive === items.length - 2 ||
+        currentActive === items.length - 1) &&
+        page < currentActive - 3 &&
+        items.length > 5)
+      }
     },
   }
 }

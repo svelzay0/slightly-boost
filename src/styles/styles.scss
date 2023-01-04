@@ -1196,14 +1196,17 @@ button,
   display: flex;
   justify-content: start;
 }
-.elo-input {
+.elo-input-from,
+.elo-input-to {
   font-family: $primary-font-Upright;
   font-weight: 327;
   font-size: 15px;
   line-height: 20px;
   text-align: center;
   color: #979797;
-  padding-top: 11px;
+  padding-top: 10px;
+  width: 100px;
+  height: 33px;
 }
 .acc-title {
   font-family: $primary-font-Upright;
