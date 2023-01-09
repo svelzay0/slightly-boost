@@ -325,12 +325,33 @@ export default {
       this.currentIndex = index;
     },
     toTab(index) {
-      if (index === 0) {
-        return this.$router.push({ name: 'boost' });
-      } 
-      else {
-        return this.$router.push({ name: 'accounts' });
+      let firstBg = null;
+      let secondBg = null;
+      firstBg = document.querySelector('.home-bg-1');
+      secondBg = document.querySelector('.home-bg-2');
+      if (firstBg) {
+        firstBg.setAttribute('style', 'animation: clear 0.4s infinite alternate;');
+        secondBg.setAttribute('style', 'animation: clear 0.4s infinite alternate;');
       }
+      document.querySelector('.home').setAttribute('style', 'animation: movedown 0.4s infinite alternate;');
+      setTimeout(() => {
+        document.querySelector('.home').setAttribute('style', 'animation: moveup 0.4s linear alternate;');
+        if (firstBg) {
+          if (this.homeSliderIndex === 0) {
+            firstBg.setAttribute('style', 'display: block; animation: backfromclear 0.4s linear alternate; z-index: 2');
+            secondBg.setAttribute('style', 'display: block; animation: backfromclear 0.4s linear alternate; z-index: 1');
+          } else {
+            firstBg.setAttribute('style', 'display: block; animation: backfromclear 0.4s linear alternate; z-index: 1');
+            secondBg.setAttribute('style', 'display: block; animation: backfromclear 0.4s linear alternate; z-index: 2');
+          }
+        }
+        if (index === 0) {
+          return this.$router.push({ name: 'boost' });
+        } 
+        else {
+          return this.$router.push({ name: 'accounts' });
+        }
+      }, 400);
     },
   }
 };

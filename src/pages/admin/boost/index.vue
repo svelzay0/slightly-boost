@@ -2,11 +2,13 @@
   <div class="main-home">
     <div class="home order">
       <div class="order-blur"></div> 
+      <div v-if="currentIndex < 2" class="blue-blur-order"></div>
+      <div v-else class="blue-blur-order-last"></div>
       <div class="order-content">
         <h1 class="slider-title">MAKE AN ORDER</h1>
       </div>
       <element-carousel
-        class="pt-8"
+        class="pt-8 order-slider"
         v-model="orderSlideIndex"
         :items="slides"
         :slides-to-scroll="1"
@@ -16,14 +18,18 @@
         @changed="changeIndex($event)"
       >
         <template #default="{data}">
-          <div :class="`${data.photoClass}`">
+          <div :ref="`${data.photoClass}`" :class="`${data.photoClass}`">
             <div v-if="data.id === 1" class="order-cover"/>
+            <div v-else :class="
+              {
+                'order-cover-2': currentIndex === data.id - 1,
+                'order-cover-2-disable': currentIndex !== data.id - 1,
+              }"
+            />
             <div class="order-inside pr-13 pl-13 pt-11 pb-11">
               <div class="d-flex">
                 <div class="order-number">
-                  <div :class="data.class">
-                    <!-- {{ data.id }} -->
-                  </div>
+                  <div :class="data.class" />
                 </div>
                 <div class="order-title">{{ data.title }}</div>
               </div>
@@ -53,8 +59,7 @@
                         <div class="minus" />
                       </v-btn>
                       <input
-                        v-model.number="eloFrom"
-                        type="number"
+                        v-model="eloFrom"
                         class="elo-input-from"
                         placeholder="Current ELO"
                       />
@@ -109,12 +114,12 @@
                     </div>
                   </div>
                 </div>
-                <div class="order-input-title">
+                <div class="order-input-title pt-6">
                   ADD EXTRA OPTIONS
                 </div>
                 <div class="job-title">
                   <v-switch
-                    v-model="switch1"
+                    v-model="lobbyDuo"
                     inset
                     dense
                     color="red"
@@ -129,7 +134,7 @@
                     :text="tooltipswitch1"
                   />
                   <v-switch
-                    v-model="switch2"
+                    v-model="steamOffline"
                     class="pl-8"
                     inset
                     dense
@@ -145,7 +150,7 @@
                     :text="tooltipswitch2"
                   />
                   <v-switch
-                    v-model="switch3"
+                    v-model="priorityOrder"
                     class="pl-8"
                     inset
                     dense
@@ -161,8 +166,7 @@
                     :text="tooltipswitch3"
                   />
                 </div>
-                <v-list-item class="mt-16 pt-8" />
-                <div class="d-flex">
+                <div class="d-flex order-footer">
                   <div class="order-title">
                     TOTAL
                   </div>
@@ -177,12 +181,175 @@
                     class="main-btn"
                     dark
                     :disabled="price < 1"
-                    @click="toTab(currentIndex)"
+                    @click="toTab(1)"
                   >
                     <span class="main-btn-text">
                       NEXT STEP
                     </span>
                   </v-btn>
+                </div>
+              </div>
+              <div v-if="data.id === 2" class="first-order-tab">
+                <v-form
+                  ref="form"
+                  v-model="valid"
+                  lazy-validation
+                  class="pt-8 main-form"
+                  @submit.prevent="onSubmit"
+                >
+                  <v-row class="order-row-from-tab-2">
+                    <v-col
+                      cols="12"
+                      sm="4"
+                    >
+                      <div class="job-title">
+                        <div class="award-title">YOUR NAME</div>
+                      </div>
+                      <v-text-field
+                        v-model="formData.name"
+                        outlined
+                        :rules="nameRules"
+                        placeholder="Your real name"
+                        color="#fff"
+                        append-icon="mdi-asterisk"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      sm="4"
+                    >
+                      <div class="job-title">
+                        <div class="award-title">PAYMENT METHOD</div>
+                      </div>
+                      <v-select
+                        class="order-select-tab-2"
+                        :items="paymentItems"
+                        item-text="text"
+                        item-value="id"
+                        v-model="paymentDefaultSelected"
+                        color="red"
+                        light
+                        label="Outlined style"
+                        menu-props="auto"
+                        hide-details
+                        single-line
+                        outlined
+                        return-object
+                        @change="checkSelect"
+                      ></v-select>
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      sm="4"
+                    >
+                      <div class="job-title">
+                        <div class="award-title">PROMOCODE</div>
+                      </div>
+                      <v-text-field
+                        v-model="formData.promocode"
+                        outlined
+                        placeholder="Promocode"
+                        color="#fff"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col
+                      cols="12"
+                    >
+                      <div class="job-title">
+                        <div class="award-title pr-2">HOW CAN WE CONTACT YOU?</div>
+                        <element-tooltip 
+                          :text="tooltipFirst"
+                        />
+                      </div>
+                      <v-text-field
+                        v-model="formData.contact"
+                        outlined
+                        :rules="nameRules"
+                        placeholder="Telegram, Discord, Whatsapp, etc.."
+                        color="#fff"
+                        append-icon="mdi-asterisk"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      class="pt-16 mt-7"
+                    >
+                      <div class="d-flex">
+                        <div class="order-title">
+                          TOTAL
+                        </div>
+                        <div class="order-price pl-2">
+                          {{ currency }}{{ price }} 
+                        </div>
+                      </div>
+                    </v-col>
+                    <!-- <div class="d-flex pt-6">
+                      <v-btn
+                        rounded
+                        x-large
+                        class="main-btn"
+                        dark
+                        :disabled="price < 1"
+                        @click="toTab(1)"
+                      >
+                        <span class="main-btn-text">
+                          NEXT STEP
+                        </span>
+                      </v-btn>
+                    </div> -->
+                    <v-col
+                      cols="3"
+                      class="d-flex"
+                    >
+                      <v-btn
+                        rounded
+                        x-large
+                        class="main-btn"
+                        dark
+                        :disabled="formData.name && !formData.contact"
+                        type="submit"
+                      >
+                        <span class="main-btn-text justify-center">
+                          CHECKOUT
+                        </span>
+                      </v-btn>
+                    </v-col>
+                    <v-col
+                      cols="6"
+                      class="d-flex"
+                    >
+                      <v-btn
+                        rounded
+                        x-large
+                        class="main-btn-back"
+                        dark
+                        @click="toTab(0)"
+                      >
+                        <span class="main-btn-text justify-center">
+                          BACK
+                        </span>
+                      </v-btn>
+                    </v-col>
+                  </v-row>
+                </v-form>
+              </div>
+              <div v-if="data.id === 3" class="last-order-tab">
+                <div class="pl-8">
+                  <div class="csgo-icon ml-16"></div>
+                </div>
+                <div class="job-title-finish">
+                  <div class="award-title pr-2">{{ thanks }}</div>
+                  <v-icon color="red" class="pr-2">mdi-heart</v-icon>
+                </div>
+                <div class="thanks-text">
+                  {{ thanskDesc }}
+                </div>
+                <div class="operation-id" @click="copyOppId">
+                  <element-tooltip
+                    :other="true"
+                    :text="copyText"
+                    :opp-id="operationId"
+                  />
                 </div>
               </div>
             </div>
@@ -289,15 +456,30 @@ export default {
   },
   data() {
     return {
+      valid: true,
+      tooltipFirst: 'Leave your discord<br/> telegram, whatsapp or<br/> anything to contact you',
+      operationId: 0,
+      copyText: 'Click to copy',
+      formData: {
+        name: '',
+        payment: '',
+        promocode: '',
+        contact: '',
+      },
+      nameRules: [
+        v => v.length >= 1 || 'This field required!'
+      ],
       toWatch: true,
       orderSlideIndex: 0,
       index: 0,
       currency: '$',
       eloFrom: '',
       eloTo: '',
-      switch1: false,
-      switch2: true,
-      switch3: false,
+      lobbyDuo: false,
+      steamOffline: true,
+      priorityOrder: false,
+      thanks: 'THANKS FOR MAKING ORDER',
+      thanskDesc: 'Our manager will contact you as soon as possible. Save your order number, so manager can prove he is not fake!',
       tooltipswitch1: 'You can play with</br> booster without giving</br> your account',
       tooltipswitch2: 'Our booster will play in</br> invisible mode on your</br> steam account',
       tooltipswitch3: 'Your order will</br> be prioritized and</br> started ASAP',
@@ -440,6 +622,20 @@ export default {
         slidesToScroll: 1,
       },
       currentIndex: 0,
+      defaultTemplateFrom: {
+        id: 0,
+        text: '0',
+        icon: 'level-0',
+        eloMin: 'Current ELO',
+        eloMax: 'Desired ELO',
+      },
+      defaultTemplateTo: {
+        id: 0,
+        text: '0',
+        icon: 'level-0',
+        eloMin: 'Current ELO',
+        eloMax: 'Desired ELO',
+      },
       defaultSelectedFrom: {
         id: 0,
         text: '0',
@@ -598,72 +794,99 @@ export default {
           eloMax: 2500,
         },
       ],
+      paymentDefaultSelected: {
+        id: 1,
+        text: 'Cryptocurrency',
+      },
+      paymentItems: [
+        {
+          id: 1,
+          text: 'Cryptocurrency',
+        },
+        {
+          id: 2,
+          text: 'CS:GO Skins (+30%)',
+        },
+        {
+          id: 3,
+          text: 'Paypal',
+        },
+      ],
     }
   },
   computed: {
     price () {
+      if (this.eloFrom === this.eloTo) {
+        return 0;
+      }
       if ((this.defaultSelectedTo.text === '0' && this.defaultSelectedFrom.text === '0') && (this.eloFrom >= this.eloTo)) {
         return 0;
       } else {
         let sum = 0;
         if (typeof this.eloFrom !== 'string' && typeof this.eloTo !== 'string') {
           for (var currentElo = this.eloFrom; currentElo <= this.eloTo; currentElo += 25) {
-            // console.log('current elo', currentElo, 'priceTag', this.getPriceTag(currentElo))
             sum += this.getPriceTag(currentElo);
           }
-          if (this.switch1) {
+          if (this.lobbyDuo) {
             sum += sum * 0.3;
           }
-          if (this.switch3) {
+          if (this.priorityOrder) {
             sum += sum * 0.15;
           }
+          if (this.paymentDefaultSelected.id === 2) {
+            sum += sum * 0.30;
+          }
         }
-        // console.log('total ', sum)
         return sum.toFixed(2);   
       }
     },
   },
   watch: {
-      eloFrom(newVal) {
-        if (this.toWatch) {
-          
-          if (newVal.length) {
-            this.eloFrom = parseInt(newVal)
-            this.changeEloFrom(parseInt(newVal))
-          } else {
-            this.eloFrom = ''
-          }
+    eloFrom(newVal) {
+      if (this.toWatch) {
+        if (newVal.length) {
+          this.eloFrom = Math.abs(parseInt(newVal))
+          this.changeEloFrom(this.eloFrom)
+        } else if (typeof this.eloFrom !== 'number') {
+          this.eloFrom = ''
+          this.defaultSelectedFrom = this.defaultTemplateFrom
         }
-        console.log(this.eloFrom, newVal)
-      },
-      eloTo(newVal) {
-        if (this.toWatch) {
-          if (newVal.length && typeof newVal === 'string') {
-            this.eloTo = parseInt(newVal)
-            this.changeEloTo(parseInt(newVal))
-          } else {
-            this.eloTo = ''
-          }
-        }
-      },
+      }
+      if (isNaN(this.eloFrom)) {
+        this.eloFrom = '';
+        this.defaultSelectedFrom = this.defaultTemplateFrom
+      }
+      if (this.eloFrom > 3500) {
+        this.eloFrom = 3499;
+      }
     },
-  // async mounted() {
-  //   // const selectElementFrom = await this.$refs.from;
-  //   // const selectElementTo = await this.$refs.to;
-  //   // const selectElementFrom = await this.$el.querySelector('.elo-input-from')
-    // console.log(this.$el)
-  //   if (this.$refs.from) {
-  //     this.$refs.from.addEventListener('change', (event) => {
-        // console.log(event)
-  //     });
-  //   }
-  //   // await selectElementFrom.addEventListener('change', (event) => {
-      // console.log(event)
-  //   // });
-  //   // await selectElementTo.addEventListener('change', (event) => {
-      // console.log(event)
-  //   // });
-  // },
+    eloTo(newVal) {
+      if (this.toWatch) {
+        if (newVal.length && typeof newVal === 'string') {
+          this.eloTo = Math.abs(parseInt(newVal))
+          this.changeEloTo(this.eloTo)
+        } else if (typeof this.eloTo !== 'number') {
+          this.eloTo = ''
+          this.defaultSelectedTo = this.defaultTemplateTo
+        }
+      }
+      if (isNaN(this.eloTo)) {
+        this.eloTo = '';
+        this.defaultSelectedTo = this.defaultTemplateTo
+      }
+      if (this.eloTo > 3500) {
+        this.eloTo = 3500;
+      }
+    },
+    currentIndex(newVal) {
+      let firstTab = this.$refs['order-tab-1'];
+      if (newVal > 0) {
+        firstTab.setAttribute('style', 'display: none;');
+      } else {
+        firstTab.setAttribute('style', 'display: block;');
+      }
+    },
+  },
   methods: {
     getPriceTag(elo) {
       let priceTag = 0;
@@ -716,8 +939,8 @@ export default {
     getText(item) {
       return `${item.icon} - ${item.text}`;
     },
-    toTab(data) {
-      console.log(data)
+    toTab(index) {
+      this.$eventBus.$emit("changeFromParent", index);
     },
     async setLevel(data) {
       this.toWatch = false;
@@ -787,35 +1010,38 @@ export default {
     },
     async changeElo(data) {
       this.toWatch = await false;
-      console.log(this.eloFrom, this.eloTo)
       if (typeof this.eloFrom !== 'string' || (this.eloFrom.length || typeof this.eloFrom === 'number')) {
         this.eloFrom = parseInt(this.eloFrom)
         if (data.way === 'from') {
           if(data.to === 'minus') {
-            if (this.eloFrom > 1) {
+            if (this.eloFrom >= 25) {
               this.eloFrom -= 25;
+            } else {
+              this.eloFrom = 0;
             }
           }
           if(data.to === 'plus') {
             this.eloFrom += 25;
           }
         }
-      } else {
+      } else if (data.way === 'from') {
         this.eloFrom = 949;
       }
       if (typeof this.eloTo !== 'string' || (this.eloTo.length || typeof this.eloTo === 'number')) {
         this.eloTo = parseInt(this.eloTo)
         if (data.way === 'to') {
           if(data.to === 'minus') {
-            if (this.eloTo > 1) {
+            if (this.eloTo >= 25) {
               this.eloTo -= 25;
+            } else {
+              this.eloTo = 0;
             }
           }
           if(data.to === 'plus') {
             this.eloTo += 25;
           }
         }
-      } else {
+      } else  if (data.way === 'to') {
         this.eloTo = 1025;
       }
       if (this.eloFrom >= 0 && this.eloFrom < 801) {
@@ -862,6 +1088,41 @@ export default {
         this.defaultSelectedTo = this.selectItemsTo[9]
       }
       this.toWatch = await true;
+    },
+    checkSelect() {
+      console.log(this.paymentDefaultSelected)
+    },
+    async onSubmit() {
+      console.log(this.formData, this.valid)
+      if (this.$refs.form.validate()) {
+        try {
+          this.formData.lobbyDuo = this.lobbyDuo
+          this.formData.steamOffline = this.steamOffline
+          this.formData.priorityOrder = this.priorityOrder
+          this.formData.price = this.price
+          if (this.formData.payment === '') {
+            console.log('?')
+            this.formData.payment = this.paymentDefaultSelected
+          }
+          this.formData.operationId = Math.floor(Math.random() * 9999999);
+          this.operationId = this.formData.operationId;
+          console.log(this.formData)
+          this.toTab(2);
+          // await this.$vacanciesApi.respond(vacancyId, data);
+        } catch (err) {
+          console.log(err)
+        }
+      }
+    },
+    copyOppId() {
+      navigator.clipboard.writeText(this.operationId)
+      .then(() => {
+        console.log('copied!');
+        this.copyText = 'Copied!'
+      })
+      .catch(err => {
+        console.log('Something went wrong', err);
+      });
     }
   }
 };

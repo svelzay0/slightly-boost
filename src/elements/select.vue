@@ -5,6 +5,7 @@
     :items="selectItemsFrom"
     item-text="text"
     item-value="id"
+    :height="54"
     v-model="defaultSelectedFrom"
     outlined
     dense
@@ -32,6 +33,7 @@
     :items="selectItemsTo"
     item-text="text"
     item-value="id"
+    :height="54"
     v-model="defaultSelectedTo"
     outlined
     dense

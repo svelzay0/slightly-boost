@@ -215,14 +215,16 @@
               ref="carousel"
               :arrows="false"
               :dots="false"
-              :settings="settings"
+              :settings="settingsOrder"
               :slides-to-show="1"
               :slides-to-scroll="1"
+              :center-mode="true"
+              center-padding="610"
+              :swipe="false"
               :adaptive-height="adaptiveHeight"
               :initial-slide="savingSlide ? savedSlide : 0"
               :autoplay="false"
               :autoplaySpeed="5000"
-              :swipe="false"
               @afterChange="afterChange"
               @beforeChange="beforeChange"
               >
@@ -397,12 +399,25 @@ export default {
         slidesToShow: 1,
         slidesToScroll: 1
       },
+      settingsOrder: {
+        index: 5,
+        dots: true,
+        dotsClass: "slick-dots custom-dot-class",
+        edgeFriction: 0.35,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        centerMode: true,
+        centerPadding: "20px",
+        focusOnSelect: true,
+      },
       activeElem: [],
       currentSlide: 0,
     };
   },
   mounted() {
-    if (this.slider) {
+    if (this.slider || this.orderSlides) {
       this.$eventBus.$on("changeFromParent", (data) => {
         this.$refs.carousel.goTo(data);
         this.currentSlide = data;
@@ -463,7 +478,7 @@ export default {
       return;
     },
     beforeChange(old, newest) {
-      if (this.slider) {
+      if (this.slider || this.orderSlides) {
         this.currentSlide = newest;
         this.$emit('changed', newest);
       }

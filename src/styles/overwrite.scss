@@ -157,8 +157,8 @@
   transform: rotate(360deg) !important;
 }
 .theme--dark.v-btn.v-btn--disabled {
-  /* color: rgba(255, 255, 255, 0.3) !important; */
   background: blue !important;
+  cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer !important;
 }
 .slick-next,
 .slick-prev-active 
@@ -210,7 +210,12 @@
 .c4 {
   content: url('../../src/assets/icons/c4.svg');
 }
-
+.order-slider .slick-list {
+  width: 2500px !important;
+}
+.order-slider .content-wrap {
+  // box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+}
 .lvl1
 {
   content: url('../../src/assets/icons/lvl1.svg') !important;
@@ -403,6 +408,8 @@
 .csgo-icon
 {
   content: url('../../src/assets/icons/csgo icon.svg') !important;
+  height: 100px;
+  width: 100px;
 }
 .shield-icon
 {
@@ -476,6 +483,12 @@
 .main-contacts .v-text-field--outlined.v-input--is-focused fieldset, .v-text-field--outlined.v-input--has-state fieldset {
   border-radius: 15px !important;
 }
+.order-slider .v-text-field--outlined.v-input--is-focused fieldset, .v-text-field--outlined.v-input--has-state fieldset {
+  border-radius: 15px !important;
+}
+.elo-calc .v-text-field--outlined.v-input--is-focused fieldset, .v-text-field--outlined.v-input--has-state fieldset {
+  border-radius: 0px !important;
+}
 // .theme--light.v-input {
 //   color: #F44336 !important;
 // }
@@ -542,6 +555,7 @@ input {
 .elo-calc-class {
   .v-input__control {
     width: 60px !important;
+    margin-top: -1px !important;
   }
   .v-select__selections {
     width: 4px 12px !important; 
@@ -595,7 +609,15 @@ fieldset {
 .theme--light.v-list {
   background: linear-gradient(90deg, #151515 0%, #212121 100%) !important;
 }
-
+.main-contacts .v-text-field--outlined.v-input--is-focused fieldset, .v-text-field--outlined.v-input--has-state fieldset {
+  border-radius: 15px !important;
+}
+.order-row-from-tab-2 .v-text-field--outlined.v-input--is-focused fieldset, .v-text-field--outlined.v-input--has-state fieldset {
+  border-radius: 15px !important;
+}
+.order-select-tab-2 .v-select__selection--comma {
+  margin: 11px 4px 7px 9px !important;
+}
 // color="red"
 // light
 // label="Outlined style"

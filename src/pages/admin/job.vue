@@ -196,6 +196,7 @@ export default {
       //     console.log('error', error)
       //   })
       // ;
+      console.log(this.formData, this.valid)
       if (this.$refs.form.validate()) {
         try {
           console.log(this.formData)
