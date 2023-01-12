@@ -171,7 +171,7 @@
                     TOTAL
                   </div>
                   <div class="order-price pl-2">
-                    {{ currency }}{{ price }} 
+                    {{ currency.text }}{{ price }} 
                   </div>
                 </div>
                 <div class="d-flex pt-6">
@@ -279,7 +279,7 @@
                           TOTAL
                         </div>
                         <div class="order-price pl-2">
-                          {{ currency }}{{ price }} 
+                          {{ currency.text }}{{ price }} 
                         </div>
                       </div>
                     </v-col>
@@ -453,6 +453,8 @@
 </template>
 
 <script>
+/* eslint-disable */
+import { mapGetters } from "vuex";
 import ElementCarousel from '../../../elements/carousel.vue';
 import ElementSelect from '../../../elements/select.vue';
 import ElementTooltip from '../../../elements/tooltip.vue';
@@ -487,7 +489,6 @@ export default {
       toWatch: true,
       orderSlideIndex: 0,
       index: 0,
-      currency: '$',
       eloFrom: '',
       eloTo: '',
       lobbyDuo: false,
@@ -831,6 +832,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters("shared", ["currency"]),
     price () {
       if (this.eloFrom === this.eloTo) {
         return 0;
@@ -908,45 +910,85 @@ export default {
     getPriceTag(elo) {
       let priceTag = 0;
       if (elo >= 0 && elo < 951) {
-        priceTag = 1.6;
+        if (this.currency.id === 2) {
+          priceTag = 1.72
+        } else priceTag = 1.6;
       } else if (elo >= 951 && elo < 1251) {
-        priceTag = 2;
+        if (this.currency.id === 2) {
+          priceTag = 2.14
+        } else priceTag = 2;
       } else if (elo >= 1251 && elo < 1551) {
-        priceTag = 2.3;
+        if (this.currency.id === 2) {
+          priceTag = 2.47
+        } else priceTag = 2.3;
       } else if (elo >= 1551 && elo < 1701) {
-        priceTag = 3.2;
+        if (this.currency.id === 2) {
+          priceTag = 3.43
+        } else priceTag = 3.2;
       } else if (elo >= 1701 && elo < 1851) {
-        priceTag = 4.1;
+        if (this.currency.id === 2) {
+          priceTag = 4.4
+        } else priceTag = 4.1;
       } else if (elo >= 1851 && elo < 2001) {
-        priceTag = 5.4;
+        if (this.currency.id === 2) {
+          priceTag = 5.79
+        } else priceTag = 5.4;
       } else if (elo >= 2001 && elo < 2200) {
-        priceTag = 6.5;
+        if (this.currency.id === 2) {
+          priceTag = 6.97
+        } else priceTag = 6.5;
       } else if (elo >= 2200 && elo < 2300) {
-        priceTag = 7;
+        if (this.currency.id === 2) {
+          priceTag = 7.5
+        } else priceTag = 7;
       } else if (elo >= 2300 && elo < 2400) {
-        priceTag = 8.3;
+        if (this.currency.id === 2) {
+          priceTag = 8.9
+        } else priceTag = 8.3;
       } else if (elo >= 2400 && elo < 2500) {
-        priceTag = 8.7;
+        if (this.currency.id === 2) {
+          priceTag = 9.33
+        } else priceTag = 8.7;
       } else if (elo >= 2500 && elo < 2600) {
-        priceTag = 9.4;
+        if (this.currency.id === 2) {
+          priceTag = 10.08
+        } else priceTag = 9.4;
       } else if (elo >= 2600 && elo < 2700) {
-        priceTag = 10.7;
+        if (this.currency.id === 2) {
+          priceTag = 11.47
+        } else priceTag = 10.7;
       } else if (elo >= 2700 && elo < 2800) {
-        priceTag = 11.2;
+        if (this.currency.id === 2) {
+          priceTag = 12
+        } else priceTag = 11.2;
       } else if (elo >= 2800 && elo < 2900) {
-        priceTag = 12;
+        if (this.currency.id === 2) {
+          priceTag = 12.86
+        } else priceTag = 12;
       } else if (elo >= 2900 && elo < 3000) {
-        priceTag = 13.1;
+        if (this.currency.id === 2) {
+          priceTag = 14.04
+        } else priceTag = 13.1;
       } else if (elo >= 3000 && elo < 3100) {
-        priceTag = 13.6;
+        if (this.currency.id === 2) {
+          priceTag = 14.58
+        } else priceTag = 13.6;
       } else if (elo >= 3100 && elo < 3200) {
-        priceTag = 14.3;
+        if (this.currency.id === 2) {
+          priceTag = 15.33
+        } else priceTag = 14.3;
       } else if (elo >= 3200 && elo < 3199) {
-        priceTag = 15.6;
+        if (this.currency.id === 2) {
+          priceTag = 16.72
+        } else priceTag = 15.6;
       } else if (elo >= 3300 && elo < 3400) {
-        priceTag = 16.3;
+        if (this.currency.id === 2) {
+          priceTag = 17.47
+        } else priceTag = 16.3;
       } else if (elo >= 3400 && elo < 3500) {
-        priceTag = 16.7;
+        if (this.currency.id === 2) {
+          priceTag = 17.9
+        } else priceTag = 16.7;
       }
       return priceTag;
     },

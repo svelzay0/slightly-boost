@@ -4,6 +4,10 @@ export default {
     loading: false,
     error: null,
     homeSliderIndex: 0,
+    currency: {
+      id: 1,
+      text: '€',
+    },
     menuItems: {
       'orders': {
         name: 'Заказы',
@@ -57,6 +61,9 @@ export default {
     setHomeSliderIndex(state, payload) {
       state.homeSliderIndex = payload;
     },
+    setCurrency(state, payload) {
+      state.currency = payload;
+    },
     clearError(state) {
       state.error = null;
     }
@@ -74,6 +81,9 @@ export default {
     },
     homeSliderIndex(state) {
       return state.homeSliderIndex;
+    },
+    currency(state) {
+      return state.currency;
     },
   },
 };

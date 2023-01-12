@@ -209,14 +209,15 @@ html::-webkit-scrollbar {
 .home-content {
   padding-top: 472px;
 }
-
+.currency-tab {
+  width: 77px !important;
+}
 .acc-content,
 .order-content {
   position: relative;
   z-index: 1;
   padding-top: 72px;
 }
-
 
 .us-content {
   padding-top: 44px;
@@ -354,7 +355,7 @@ button,
   color: #F44336;
 }
 .money {
-  padding-left: 255px;
+  padding-left: 245px;
 }
 .order-cover {
   position: absolute;

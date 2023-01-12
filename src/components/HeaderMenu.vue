@@ -51,10 +51,23 @@
           </div>
           <v-col cols="auto">
             <div class="money">
-              <div class="currency">
-                <div class="pr-6">
-                  €
-                </div>
+              <div class="currency-tab">
+                <v-select
+                  :items="paymentItems"
+                  item-text="text"
+                  item-value="id"
+                  v-model="paymentDefaultSelected"
+                  color="red"
+                  light
+                  label="Outlined style"
+                  menu-props="auto"
+                  hide-details
+                  single-line
+                  outlined
+                  dense
+                  return-object
+                  @change="checkSelect"
+                ></v-select>
               </div>
             </div>
           </v-col>
@@ -85,7 +98,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 // import NotificationDropdown from './NotificationDropdown'
 // import UserMenu from './UserMenu'
 
@@ -100,6 +113,20 @@ export default {
       { url: 'GET A JOB', route: 'job' },
       { url: 'FAQ', route: 'faq' },
     ],
+    paymentDefaultSelected: {
+      id: 1,
+      text: '€',
+    },
+    paymentItems: [
+      {
+        id: 1,
+        text: '€',
+      },
+      {
+        id: 2,
+        text: '$'
+      },
+    ],
   }),
   mounted() {
     window.addEventListener('scroll', this.handleScroll);
@@ -108,6 +135,7 @@ export default {
     ...mapGetters("shared", ["homeSliderIndex"]),
   },
   methods: {
+    ...mapMutations("shared", ["setCurrency"]),
     handleSelect(route) {
       let firstBg = null;
       let secondBg = null;
@@ -150,6 +178,10 @@ export default {
       } else if (window.pageYOffset > 349) {
         this.$refs['top-head'].className = 'row header-head-death align-center justify-center';
       }
+    },
+    async checkSelect() {
+      console.log(this.paymentDefaultSelected)
+      await this.setCurrency(this.paymentDefaultSelected);
     },
   },
   // components: {

@@ -345,10 +345,11 @@
 </template>
 
 <script>
+/* eslint-disable */
+import { mapGetters } from "vuex";
 import cloneDeep from 'clone-deep'
 import ElementCarousel from '../../../elements/carousel.vue';
 import ElementTooltip from '../../../elements/tooltip.vue';
-import ElementSelect from '../../../elements/select.vue';
 import axios from "axios";
 
 import 'vue-slick-carousel/dist/vue-slick-carousel.css'
@@ -360,7 +361,6 @@ export default {
   components: {
     ElementCarousel,
     ElementTooltip,
-    ElementSelect
   },
   data() {
     return {
@@ -379,7 +379,6 @@ export default {
       operationId: 0,
       copyText: 'Click to copy',
       accountSlideIndex: 0,
-      currency: '$',
       currentIndex: 1,
       index: 0,
       thanks: 'THANKS FOR MAKING ORDER',
@@ -668,6 +667,9 @@ export default {
       ],
       defAccount: {},
     }
+  },
+  computed: {
+    ...mapGetters("shared", ["currency"]),
   },
   methods: {
     setAccountToSell(item) {
