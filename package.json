@@ -9,7 +9,9 @@
   },
   "dependencies": {
     "axios": "^0.21.4",
+    "clone-deep": "^4.0.1",
     "core-js": "^3.6.5",
+    "lodash.clonedeep": "^4.5.0",
     "telegram-api-vue": "^1.2.9",
     "v-mask": "^2.3.0",
     "vform": "^2.1.1",

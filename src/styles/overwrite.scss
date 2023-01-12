@@ -455,7 +455,9 @@
 .v-main__wrap {
   position: initial !important;
 }
-
+// .acc-selector .v-select__slot {
+//   margin-left: 7px !important;
+// }
 .acc-selector
 .theme--light.v-list {
   background: #2c2b2b !important;
@@ -469,6 +471,10 @@
 //   border-radius: 10px;
 //   border: 4px solid #fff;
 // }
+.acc-selector .v-text-field--outlined.v-input--is-focused fieldset, .v-text-field--outlined.v-input--has-state fieldset {
+  border-radius: 15px !important;
+}
+// .acc-selector .theme--light.v-text-field--outlined:not(.v-input--is-focused):not(.v-input--has-state) > .v-input__control > .v-input__slot fieldset,
 .acc-featured .theme--light.v-text-field--outlined:not(.v-input--is-focused):not(.v-input--has-state) > .v-input__control > .v-input__slot fieldset {
   color: #F44336 !important;
   border-radius: 15px !important;

@@ -352,6 +352,20 @@
                   />
                 </div>
               </div>
+              <div class="order-more-btn">
+                <v-btn
+                  v-if="data.id === 3"
+                  rounded
+                  x-large
+                  class="main-btn"
+                  dark
+                  @click="toTab(0, true)"
+                >
+                  <span class="main-btn-text justify-center">
+                    ORDER MORE
+                  </span>
+                </v-btn>
+              </div>
             </div>
           </div>
         </template>
@@ -442,6 +456,7 @@
 import ElementCarousel from '../../../elements/carousel.vue';
 import ElementSelect from '../../../elements/select.vue';
 import ElementTooltip from '../../../elements/tooltip.vue';
+import axios from "axios";
 
 import 'vue-slick-carousel/dist/vue-slick-carousel.css'
 // optional style for arrows & dots
@@ -621,6 +636,7 @@ export default {
         slidesToShow: 1,
         slidesToScroll: 1,
       },
+      finalPrice: 0,
       currentIndex: 0,
       defaultTemplateFrom: {
         id: 0,
@@ -837,6 +853,7 @@ export default {
             sum += sum * 0.30;
           }
         }
+        this.finalPrice = sum.toFixed(2);
         return sum.toFixed(2);   
       }
     },
@@ -939,8 +956,26 @@ export default {
     getText(item) {
       return `${item.icon} - ${item.text}`;
     },
-    toTab(index) {
+    toTab(index, reset = false) {
       this.$eventBus.$emit("changeFromParent", index);
+      if (reset) {
+        this.formData = {
+          name: '',
+          payment: '',
+          promocode: '',
+          contact: '',
+        }
+        this.operationId = 0
+        this.copyText = 'Click to copy'
+        this.eloFrom = ''
+        this.eloTo = ''
+        this.lobbyDuo = false
+        this.steamOffline = true
+        this.priorityOrder = false
+        this.finalPrice = 0
+        this.defaultSelectedFrom = this.defaultSelectedFrom
+        this.defaultSelectedTo = this.defaultTemplateTo
+      }
     },
     async setLevel(data) {
       this.toWatch = false;
@@ -1093,22 +1128,24 @@ export default {
       console.log(this.paymentDefaultSelected)
     },
     async onSubmit() {
-      console.log(this.formData, this.valid)
       if (this.$refs.form.validate()) {
         try {
           this.formData.lobbyDuo = this.lobbyDuo
           this.formData.steamOffline = this.steamOffline
           this.formData.priorityOrder = this.priorityOrder
-          this.formData.price = this.price
+          this.formData.price = this.finalPrice
           if (this.formData.payment === '') {
-            console.log('?')
             this.formData.payment = this.paymentDefaultSelected
           }
+          this.formData.payment = this.formData.payment.text
           this.formData.operationId = Math.floor(Math.random() * 9999999);
           this.operationId = this.formData.operationId;
+          this.formData.typeOfOrder = 'boost';
           console.log(this.formData)
-          this.toTab(2);
-          // await this.$vacanciesApi.respond(vacancyId, data);
+          axios.post('https://sheet.best/api/sheets/9c67e2c1-b330-4c3e-bcdd-f78405cc54e6', [this.formData]).then(response => {
+            console.log(response);
+          })
+          this.toTab(2, true);
         } catch (err) {
           console.log(err)
         }

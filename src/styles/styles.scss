@@ -28,6 +28,56 @@ html {
   justify-content: start;
   margin-left: -30px;
 }
+.last-acc-tab {
+  top: 33%;
+  display: flex;
+  justify-content: start;
+  position: absolute;
+  flex-direction: column;
+  left: 48.6%;
+}
+.back-btn-acc {
+  display: flex;
+  justify-content: start;
+  border-radius: 15px;
+  width: fit-content;
+  font-family: $primary-font-Upright;
+  font-style: normal;
+  font-weight: 814;
+  font-size: 18px;
+  line-height: 24px;
+  color: #979797;
+  margin: 20px 0;
+  padding: 0 10px;
+  height: 77px;
+}
+.acc-inside-3 {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.acc-inside-content {
+  display: flex;
+  justify-content: center;
+}
+.to-center {
+  justify-content: center !important;
+}
+.acc-inside {
+  display: flex;
+  justify-content: center;
+}
+.back-btn-acc:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+.acc-card-setter {
+  position: relative;
+  height: 400px;
+}
+.absolute-acc-btn {
+  position: absolute;
+  bottom: 0px;
+}
 html::-webkit-scrollbar-thumb {
   background: #fd3b00 !important;
   border-radius: 16px !important;
@@ -131,6 +181,16 @@ html::-webkit-scrollbar {
   padding: 0 32px !important;
 }
 
+.menu_options-acc {
+  font-family: $primary-font-Upright;
+  font-weight: 814 !important;
+  font-size: 14px !important;
+  line-height: 24px;
+  color: $main-white;
+  width: 100%;
+  // padding: 0 32px !important;
+}
+
 .main-link {
   font-family: $primary-font-Upright;
   color: #FF3D00 !important;
@@ -150,11 +210,13 @@ html::-webkit-scrollbar {
   padding-top: 472px;
 }
 
+.acc-content,
 .order-content {
   position: relative;
   z-index: 1;
   padding-top: 72px;
 }
+
 
 .us-content {
   padding-top: 44px;
@@ -222,6 +284,15 @@ button,
 }
 .theme--light.v-select .v-select__selections {
   color: #979797 !important;
+}
+.acc-desc-card {
+  font-family: $primary-font-Upright;
+  font-weight: 327;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.02em;
+  text-align: left;
+  color: #979797;
 }
 .order-tab-1 {
   height: 701px;
@@ -359,6 +430,24 @@ button,
   // left: 13%;
   position: absolute;
 }
+// .acc-tab-active:hover {
+//   background: linear-gradient(57.28deg, #312d2d -2.07%, #1d1919 81.78%);
+//   // transition: linear-gradient(57.28deg, #312d2d -2.07%, #1d1919 81.78%) 3s cubic-bezier(0.1, 0.8, 0.5, 2), color 3s 1s linear;
+// }
+.acc-tab-active {
+  min-width: 194px;
+  height: 482px;
+  background-color: #1A1A1A;
+  border-radius: 24px;
+  -webkit-transition: 0.5s linear;
+  -moz-transition: 0.5s linear;
+  -o-transition: 0.5s linear;
+  transition: 0.5s linear;
+}
+.acc-tab-active:hover {
+  background-color: #302f2f;
+}
+    
 .home-menu-tab-1:hover
 {
   .blue-blur-home-tab-1 {
@@ -366,14 +455,16 @@ button,
     display: block;
     background: linear-gradient(94.2deg, #020146 5.82%, #111080 94.18%);
     visibility: visible;
-    // animation-name: open;
-    // animation-duration: 0.5s;
-    // animation-iteration-count: 1;
-    // animation-direction: normal;
-    // animation-timing-function: ease-out;
-    // animation-fill-mode: forwards;
-    // animation-delay: 0s;
   }
+}
+.elo-calc .acc-selector {
+  width: 140px;
+}
+.acc-first-slide-img {
+  width: 612px;
+  height: 400px;
+  border-radius: 15px;
+  background-image: url("../assets/account-bg.png");
 }
 .home-menu-tab-2:hover
 {
@@ -1122,6 +1213,13 @@ button,
   color: #979797;
   position: relative;
   cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer;
+}
+.order-more-btn {
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column-reverse;
+  padding-bottom: 50px;
 }
 .lil-i {
   cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer;
