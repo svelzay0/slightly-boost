@@ -1,0 +1,20 @@
+@font-face {
+  font-family: 'SpeziaCompleteTrial Upright';
+  src: local('SpeziaCompleteTrial Upright'),
+    url('/spezies/SpeziaCompleteVariableUprightWebTrial.woff2') format('woff2'),
+    url('/spezies/SpeziaCompleteVariableUprightWebTrial.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'SpeziaCompleteTrial Italic';
+  src: local('SpeziaCompleteTrial Italic'),
+    url('/spezies/SpeziaCompleteVariableItalicWebTrial.woff2') format('woff2'),
+    url('/spezies/SpeziaCompleteVariableItalicWebTrial.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'SpeziaCompleteTrial Monospace';
+  src: local('SpeziaCompleteTrial Monospace'),
+    url('/spezies/SpeziaMonoCompleteVariableWebTrial.woff2') format('woff2'),
+    url('/spezies/SpeziaMonoCompleteVariableWebTrial.woff') format('woff');
+}
