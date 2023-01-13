@@ -142,7 +142,6 @@
 
 <script>
 import ElementTooltip from '../../elements/tooltip.vue';
-// import telegramApi from '../../plugins/telegram';
 
 export default {
   name: "job",
@@ -152,12 +151,6 @@ export default {
   data() {
     return {
       valid: true,
-      // phoneNumber: '+79272746858', //bot
-      // phoneNumber: '+79510535250', //main
-      // phoneNumber: '+79176967565', //har bot
-      // phoneNumber: '+79276446646', //har main
-      phoneCode: '',
-      phoneCodeHash: '',
       peerId1: 5634750271,
       peerId2: 825901593,
       message: 'test',
@@ -180,27 +173,9 @@ export default {
   },
   methods: {
     async onSubmit() {
-      // telegramApi.sendMessage(this.peerId1, this.message)
-      //   .then((updates) => {
-      //     console.log('success', updates)
-      //   })
-      //   .catch((error) => {
-      //     console.log('error', error)
-      //   })
-      // ;
-      // telegramApi.sendMessage(this.peerId2, this.message)
-      //   .then((updates) => {
-      //     console.log('success', updates)
-      //   })
-      //   .catch((error) => {
-      //     console.log('error', error)
-      //   })
-      // ;
-      console.log(this.formData, this.valid)
       if (this.$refs.form.validate()) {
         try {
-          console.log(this.formData)
-          // await this.$vacanciesApi.respond(vacancyId, data);
+          console.log('valid')
         } catch (err) {
           console.log(err)
         }

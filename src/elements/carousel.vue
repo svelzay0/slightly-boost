@@ -427,7 +427,6 @@
   </template>
 
 <script>
-/* eslint-disable */
 export default {
   name: "ElementCarousel",
   props: {
@@ -575,7 +574,7 @@ export default {
       }
     },
     afterChange(index) {
-      return;
+      return index;
     },
     beforeChange(old, newest) {
       if (this.slider || this.orderSlides || this.accountSlides) {

@@ -73,34 +73,12 @@
           </v-col>
         </v-row>
       </v-col>
-      <!-- <v-col cols="auto">
-        <v-app-bar-nav-icon />
-      </v-col> -->
-      
-      <!-- <v-col
-        cols="auto"
-        class="col__borders ma-4 pb-2"
-      >
-        <notification-dropdown />
-      </v-col> -->
-      <!-- <v-col cols="auto" class="avatar">
-        <v-avatar >
-          <img
-            :src="require('@/assets/user-avatar.jpg')"
-            alt="User"
-          >
-        </v-avatar>
-        <span class="pr-10 pl-3">Admin</span>
-        <user-menu />
-      </v-col> -->
     </v-row>
   </v-app-bar>
 </template>
 
 <script>
 import { mapGetters, mapMutations } from "vuex";
-// import NotificationDropdown from './NotificationDropdown'
-// import UserMenu from './UserMenu'
 
 export default {
   name: 'HeaderMenu',
@@ -139,7 +117,6 @@ export default {
     handleSelect(route) {
       let firstBg = null;
       let secondBg = null;
-      // console.log(this.url)
       if (this.url === 'home') {
         firstBg = document.querySelector('.home-bg-1');
         secondBg = document.querySelector('.home-bg-2');
@@ -180,13 +157,8 @@ export default {
       }
     },
     async checkSelect() {
-      console.log(this.paymentDefaultSelected)
       await this.setCurrency(this.paymentDefaultSelected);
     },
   },
-  // components: {
-  //   NotificationDropdown,
-  //   UserMenu
-  // }
 }
 </script>

@@ -345,7 +345,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 import { mapGetters } from "vuex";
 import cloneDeep from 'clone-deep'
 import ElementCarousel from '../../../elements/carousel.vue';
@@ -733,9 +732,6 @@ export default {
         acc.setAttribute('style', 'animation: movedown 0.4s infinite alternate;');
         setTimeout(() => {
           acc.setAttribute('style', 'animation: moveup 0.4s linear alternate;');
-          if (item.id) {
-            this.setAccountToSell(item);
-          }
         }, 400);
         try {
           if (this.formData.payment === '') {
@@ -744,9 +740,7 @@ export default {
           this.formData.accInfo = this.defAccount
           this.formData.payment = this.formData.payment.text
           this.formData.operationId = Math.floor(Math.random() * 9999999);
-          this.operationId = this.formData.operationId;
-          this.formData.typeOfOrder = 'account';
-          console.log(this.formData)
+          this.operationId = this.formData.operationId
           axios.post('https://sheet.best/api/sheets/9c67e2c1-b330-4c3e-bcdd-f78405cc54e6', [this.formData]).then(response => {
             console.log(response);
           })
@@ -769,12 +763,6 @@ export default {
     changeIndex(index) {
       this.accountSlideIndex = index;
     },
-    // setSelectToDefault() {
-    //   this.defaultSelected = 1;
-    // }
-    // setShow(key) {
-    //   this.comments[key].show = !this.comments[key].show;
-    // }
   }
 };
 </script>

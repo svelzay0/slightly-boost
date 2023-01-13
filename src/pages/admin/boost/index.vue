@@ -235,7 +235,6 @@
                         single-line
                         outlined
                         return-object
-                        @change="checkSelect"
                       ></v-select>
                     </v-col>
                     <v-col
@@ -283,20 +282,6 @@
                         </div>
                       </div>
                     </v-col>
-                    <!-- <div class="d-flex pt-6">
-                      <v-btn
-                        rounded
-                        x-large
-                        class="main-btn"
-                        dark
-                        :disabled="price < 1"
-                        @click="toTab(1)"
-                      >
-                        <span class="main-btn-text">
-                          NEXT STEP
-                        </span>
-                      </v-btn>
-                    </div> -->
                     <v-col
                       cols="3"
                       class="d-flex"
@@ -453,7 +438,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 import { mapGetters } from "vuex";
 import ElementCarousel from '../../../elements/carousel.vue';
 import ElementSelect from '../../../elements/select.vue';
@@ -524,42 +508,36 @@ export default {
           id: 1,
           title: '5 YEARS OF EXPERIENCE',
           desc: 'We have over five years of experience and we know how to do a great job and make our customers satisfied.',
-          // icon: 'mdi-numeric-5',
           icon: 'years',
         },
         {
           id: 2,
           title: 'PROFESSIONAL BOOSTERS',
           desc: 'Our team consists of legit and high-elo players. We stick with only CS:GO services and we do it professionally.',
-          // icon: 'mdi-check',
           icon: 'csgo',
         },
         {
           id: 3,
           title: 'SAFETY',
           desc: 'All of our boosters are time-tested and appreciate their work. You dont have to worry about your steam inventory.',
-          // icon: 'mdi-security',
           icon: 'shield',
         },
         {
           id: 4,
           title: '24/7 AVAILIABILITY',
           desc: 'You will get a personal manager who is always in touch. He will solve any question or problem you have.',
-          // icon: 'mdi-clock-outline',
           icon: 'clock',
         },
         {
           id: 5,
           title: 'PRIVACY',
           desc: 'No one will know that you have taken advantage of our help. We always play in offline mode and use your country VPN.',
-          // icon: 'mdi-account-check',
           icon: 'user',
         },
         {
           id: 6,
           title: 'BONUSES AND DISCOUNTS',
           desc: 'You will definitely get a discount for a big order. For regular customers we always give bonuses and promo codes.',
-          // icon: 'mdi-gift-outline',
           icon: 'gift',
         },
       ],
@@ -855,12 +833,14 @@ export default {
             sum += sum * 0.30;
           }
         }
-        this.finalPrice = sum.toFixed(2);
         return sum.toFixed(2);   
       }
     },
   },
   watch: {
+    price(newVal) {
+      this.finalPrice = newVal;
+    },
     eloFrom(newVal) {
       if (this.toWatch) {
         if (newVal.length) {
@@ -1007,7 +987,6 @@ export default {
           promocode: '',
           contact: '',
         }
-        this.operationId = 0
         this.copyText = 'Click to copy'
         this.eloFrom = ''
         this.eloTo = ''
@@ -1015,7 +994,7 @@ export default {
         this.steamOffline = true
         this.priorityOrder = false
         this.finalPrice = 0
-        this.defaultSelectedFrom = this.defaultSelectedFrom
+        this.defaultSelectedFrom = this.defaultTemplateFrom
         this.defaultSelectedTo = this.defaultTemplateTo
       }
     },
@@ -1166,9 +1145,6 @@ export default {
       }
       this.toWatch = await true;
     },
-    checkSelect() {
-      console.log(this.paymentDefaultSelected)
-    },
     async onSubmit() {
       if (this.$refs.form.validate()) {
         try {
@@ -1180,11 +1156,10 @@ export default {
             this.formData.payment = this.paymentDefaultSelected
           }
           this.formData.payment = this.formData.payment.text
-          this.formData.operationId = Math.floor(Math.random() * 9999999);
+          this.formData.operationId = await Math.floor(Math.random() * 9999999);
           this.operationId = this.formData.operationId;
           this.formData.typeOfOrder = 'boost';
-          console.log(this.formData)
-          axios.post('https://sheet.best/api/sheets/9c67e2c1-b330-4c3e-bcdd-f78405cc54e6', [this.formData]).then(response => {
+          await axios.post('https://sheet.best/api/sheets/9c67e2c1-b330-4c3e-bcdd-f78405cc54e6', [this.formData]).then(response => {
             console.log(response);
           })
           this.toTab(2, true);

@@ -56,7 +56,6 @@ export default {
   },
   methods: {
     checkUrl() {
-      // console.log(window.location.href.split('/').pop())
       if (window.location.href.split('/').pop() === 'contacts') {
         return true;
       } else return false;

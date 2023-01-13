@@ -23,12 +23,6 @@ const routes = [
         component: () => import("../pages/admin/boost/index.vue"),
       },
       {
-        path: "boost/create",
-        name: "boost.create",
-  
-        component: () => import("../pages/admin/boost/create.vue"),
-      },
-      {
         path: "accounts",
         name: "accounts",
   

@@ -57,13 +57,5 @@ export default {
   mounted() {
     this.url = window.location.href.split('/').pop();
   },
-  methods: {
-    // formatDate (date) {
-    //   return new Date(date).toLocaleString([], this.dateSettings);
-    // },
-    // getItemPerPage(val) {
-    //   this.itemsPerPage = val;
-    // }
-  }
 };
 </script>

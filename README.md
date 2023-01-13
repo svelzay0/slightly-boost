@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 # slightly-boost
-slightly-boost
-=======
-# hello-world
 
 ## Project setup
 ```
