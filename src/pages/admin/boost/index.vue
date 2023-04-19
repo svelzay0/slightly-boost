@@ -443,11 +443,9 @@ import ElementCarousel from '../../../elements/carousel.vue';
 import ElementSelect from '../../../elements/select.vue';
 import ElementTooltip from '../../../elements/tooltip.vue';
 import axios from "axios";
-
 import 'vue-slick-carousel/dist/vue-slick-carousel.css'
 // optional style for arrows & dots
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
-
 export default {
   name: "orders",
   components: {
@@ -1121,7 +1119,6 @@ export default {
       } else if (this.eloFrom >= 2001) {
         this.defaultSelectedFrom = this.selectItemsFrom[9]
       }
-
       if (this.eloTo >= 0 && this.eloTo < 801) {
         this.defaultSelectedTo = this.selectItemsTo[0]
       } else if (this.eloTo >= 801 && this.eloTo < 951) {

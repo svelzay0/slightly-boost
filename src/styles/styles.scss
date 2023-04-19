@@ -229,7 +229,7 @@ button,
 .main-logo {
   cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer;
   display: flex;
-  padding-right: 248px;
+  // padding-right: 248px;
 }
 .elo-btns {
   margin-top: 7px;
@@ -340,9 +340,9 @@ button,
   line-height: 48px;
   color: #F44336;
 }
-.money {
-  padding-left: 245px;
-}
+// .money {
+//   padding-left: 245px;
+// }
 .order-cover {
   position: absolute;
   top: 0;
@@ -696,7 +696,7 @@ button,
 
 .home {
   position: relative;
-  width: 1240px;
+  max-width: 1240px;
 }
 
 .home {
@@ -1264,6 +1264,8 @@ button,
 
 .header-head-empty {
   background: rgba(19,19,19, 0);
+  max-width: 1240px;
+  margin: 0 auto !important;
 }
 .comments-desc {
   font-family: $primary-font-Upright;
@@ -1351,5 +1353,47 @@ button,
   .cars__car_image {
     width: 160px;
     height: 70px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  // .home-bg-1 {
+  //     width: revert;
+  // }
+  // .home-bg-2 {
+  //     width: revert;
+  // }
+  .main-logo {
+    padding-right: 24px;
+  }
+  // .money {
+  //   padding-left: 24px;
+  // }
+}
+.header-head-empty,
+.header-head-semi,
+.header-head-semi2,
+.header-head-semi3,
+.header-head-full,
+.header-head-death {
+  @media screen and (max-width: 800px) {
+    margin: 32px -12px -12px -16px !important;
+  }
+}
+.home {
+  @media screen and (max-width: 800px) {
+    margin-top: 132px;
+  }
+}
+.home-slider {
+  @media screen and (max-width: 800px) {
+    max-width: 100%;
+    max-height: 100%;
+  }
+}
+.v-sheet.v-footer:not(.v-sheet--outlined) {
+  @media screen and (max-width: 800px) {
+    min-height: 120px !important;
+    height: revert !important;
   }
 }

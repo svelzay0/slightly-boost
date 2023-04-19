@@ -1,4 +1,4 @@
-<template>
+ <template>
   <v-select
     v-if="eloFrom"
     class="elo-calc-class"
@@ -15,14 +15,14 @@
       <div v-if="this.defaultSelectedFrom.text === '0'" class="level-0" />
       <div v-else :class="`level-${this.defaultSelectedFrom.id + 1}`" />
     </template>
-    <template v-slot:item="{ index = i += 1 }">
+    <template v-slot:item="{ item }">
       <div 
         class="select-slot"
-        @click="checkIndex(index - 1)"
+        @click="checkIndex(item.id)"
       >
-        <div :class="`level-${index}`" /> 
+        <div :class="`level-${item.id + 1}`" /> 
         <span class="pl-2">
-          Lvl {{ index }}
+          Lvl {{ item.id + 1}}
         </span>
       </div>
     </template>
@@ -43,14 +43,14 @@
       <div v-if="this.defaultSelectedTo.text === '0'" class="level-0" />
       <div v-else :class="`level-${this.defaultSelectedTo.id + 1}`" />
     </template>
-    <template v-slot:item="{ index = i += 1 }">
+    <template v-slot:item="{ item }">
       <div 
         class="select-slot"
-        @click="checkIndex(index - 1)"
+        @click="checkIndex(item.id)"
       >
-        <div :class="`level-${index}`" /> 
+        <div :class="`level-${item.id + 1}`" /> 
         <span class="pl-2">
-          Lvl {{ index }}
+          Lvl {{ item.id + 1}}
         </span>
       </div>
     </template>
@@ -58,7 +58,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'ElementSelect',
   props: {

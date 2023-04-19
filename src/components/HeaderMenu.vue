@@ -26,6 +26,7 @@
               </div>
             </div>
           </v-col>
+          <v-spacer v-if="desktop" />
           <div 
             v-for="link in links"
             :key="link.route" 
@@ -49,6 +50,7 @@
               {{ link.url }}
             </v-btn>
           </div>
+          <v-spacer v-if="desktop" />
           <v-col cols="auto">
             <div class="money">
               <div class="currency-tab">
@@ -111,6 +113,9 @@ export default {
   },
   computed: {
     ...mapGetters("shared", ["homeSliderIndex"]),
+    desktop() {
+      return this.$vuetify.breakpoint.width > 600;
+    },
   },
   methods: {
     ...mapMutations("shared", ["setCurrency"]),
