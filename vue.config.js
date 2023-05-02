@@ -25,5 +25,10 @@ module.exports = {
       }
     }
   },
-  devServer: process.env.NODE_ENV === "production" ? {} : {}
+  devServer: process.env.NODE_ENV === "production" ? {
+    host: 'slightlyboost.com'
+    // port: 5000
+  } : {
+    host: 'slightlyboost.com'
+  }
 }
