@@ -12,16 +12,29 @@
           v-for="(link, key) in links"
           :key="key" 
           class="contacts pt-4"
+          @click="copyOppId(link.text)"
+          @mouseleave="mouseLeave()"
         >
-          <v-btn
-            color="white"
-            text
-            rounded
-            class="menu_options"
-          > 
-            <div :class="`c${key + 1} pr-5`" />
-            {{ link.text }}
-          </v-btn>
+          <v-tooltip right>
+            <template #activator="{ on, attrs }">
+              <v-list-item-content v-bind="attrs" v-on="on">
+                <v-list-item-title>
+                  <v-btn
+                    color="white"
+                    text
+                    rounded
+                    class="menu_options"
+                  > 
+                    <div :class="`c${key + 1} pr-5`" />
+                    {{ link.text }}
+                  </v-btn>
+                </v-list-item-title>
+              </v-list-item-content>
+            </template>
+            <span>
+              {{ copyText }}
+            </span>
+          </v-tooltip>
         </div>
         <div class="contacts-desc mt-12">
           <div class="box">
@@ -46,16 +59,32 @@ export default {
     return {
       url: '1',
       links: [
-        { text: 'Info@slightlyboost.com' },
-        { text: '+7 (999) 888-55-44' },
-        { text: 'Slightlyboost' },
-        { text: 'Slightlyboost#6666' },
+        { text: 'boss@slightlyboost.com' },
+        { text: '+7 (917) 696-75-65' },
+        { text: 'slightlyboss' },
+        { text: 'slightlyboss#1580' },
       ],
       text: 'Our manager always starts a conversation with your order number. Check the discord tag, number or email that you are dealing with. Be careful and don’t get scammed by impersonators',
+      copyText: 'Click to copy',
     }
   },
   mounted() {
     this.url = window.location.href.split('/').pop();
+  },
+  methods: {
+    copyOppId() {
+      navigator.clipboard.writeText(this.operationId)
+      .then(() => {
+        console.log('copied!');
+        this.copyText = 'Copied!'
+      })
+      .catch(err => {
+        console.log('Something went wrong', err);
+      });
+    },
+    mouseLeave() {
+      this.copyText = 'Click to copy';
+    },
   },
 };
 </script>

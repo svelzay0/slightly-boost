@@ -101,7 +101,7 @@ html::-webkit-scrollbar {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   z-index: 0;
 }
 
@@ -625,7 +625,6 @@ button,
   top: 200%;
   left: 60%;
 }
-
 .slider-blur {
   background: linear-gradient(94.2deg, #FF3D00 5.82%, #FF3C3C 94.18%);
   opacity: 0.2;
@@ -636,18 +635,22 @@ button,
   margin-left: -175px;
   margin-top: -50px;
 }
-
-
-
 .blue-blur {
   background: linear-gradient(94.2deg, #020146 5.82%, #111080 94.18%);
   opacity: 0.1;
   filter: blur(100px);
   width: 2000px;
-  height: 1000px;
+  height: 100%;
   position: absolute;
   margin-left: 175px;
   margin-top: 50px;
+}
+.contacts .v-list-item__title {
+  display: flex;
+  justify-content: left !important;
+}
+.contacts .v-list-item__content {
+  min-width: 115% !important;
 }
 .blue-blur-order {
   background: linear-gradient(94.2deg, #020146 5.82%, #111080 94.18%);
@@ -975,7 +978,6 @@ button,
   flex-direction: column;
   justify-content: start;
   max-width: 350px;
-  margin-left: -25px;
   position: relative;
   z-index: 11;
 }

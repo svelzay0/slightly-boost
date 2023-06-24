@@ -211,7 +211,7 @@
                         :rules="nameRules"
                         placeholder="Your real name"
                         color="#fff"
-                        append-icon="mdi-asterisk"
+                        :append-icon="formData.name.length ? '' : 'mdi-asterisk'"
                       ></v-text-field>
                     </v-col>
                     <v-col
@@ -266,7 +266,7 @@
                         :rules="nameRules"
                         placeholder="Telegram, Discord, Whatsapp, etc.."
                         color="#fff"
-                        append-icon="mdi-asterisk"
+                        :append-icon="formData.contact.length ? '' : 'mdi-asterisk'"
                       ></v-text-field>
                     </v-col>
                     <v-col

@@ -24,6 +24,8 @@ export default {
         top: 0,
         behavior: 'smooth',
       });
+      const scrollDemo = document.querySelector("#visible");
+      console.log('c===8', scrollDemo.scrollTop);
     },
   },
 };

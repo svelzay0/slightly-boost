@@ -5,7 +5,7 @@ module.exports = {
     'vuetify'
   ],
   publicPath: process.env.NODE_ENV === 'production'
-  ? '/slightly-boost/'
+  ? '/slightlyboost/'
   : '/',
   configureWebpack: {
     resolve: {
@@ -27,8 +27,5 @@ module.exports = {
   },
   devServer: process.env.NODE_ENV === "production" ? {
     host: 'slightlyboost.com'
-    // port: 5000
-  } : {
-    host: 'slightlyboost.com'
-  }
+  } : {}
 }

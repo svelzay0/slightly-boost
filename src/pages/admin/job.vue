@@ -29,7 +29,7 @@
                 :rules="nameRules"
                 placeholder="Your real name"
                 color="#fff"
-                append-icon="mdi-asterisk"
+                :append-icon="formData.name.length ? '' : 'mdi-asterisk'"
               ></v-text-field>
             </v-col>
             <v-col
@@ -45,7 +45,7 @@
                 :rules="nameRules"
                 placeholder="Telegram, Discord, Whatsapp, etc.."
                 color="#fff"
-                append-icon="mdi-asterisk"
+                :append-icon="formData.contact.length ? '' : 'mdi-asterisk'"
               ></v-text-field>
             </v-col>
             <v-col
@@ -61,7 +61,7 @@
                 :rules="nameRules"
                 placeholder="https://www.faceit.com/en/players/slightlyboss"
                 color="#fff"
-                append-icon="mdi-asterisk"
+                :append-icon="formData.faceit.length ? '' : 'mdi-asterisk'"
               ></v-text-field>
             </v-col>
             <v-col
@@ -77,7 +77,7 @@
                 :rules="nameRules"
                 placeholder="https://steamcommunity.com/id/slightlyboss"
                 color="#fff"
-                append-icon="mdi-asterisk"
+                :append-icon="formData.steam.length ? '' : 'mdi-asterisk'"
               ></v-text-field>
             </v-col>
             <v-col
@@ -95,7 +95,7 @@
                 :rules="nameRules"
                 placeholder="Your work time in hours"
                 color="#fff"
-                append-icon="mdi-asterisk"
+                :append-icon="formData.workTime.length ? '' : 'mdi-asterisk'"
               ></v-text-field>
             </v-col>
             <v-col
@@ -114,7 +114,7 @@
                 placeholder="Country, experience, any other information about you.."
                 color="#fff"
                 auto-grow
-                append-icon="mdi-asterisk"
+                :append-icon="formData.aboutYou.length ? '' : 'mdi-asterisk'"
               ></v-textarea>
             </v-col>
             <v-col

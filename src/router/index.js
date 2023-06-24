@@ -11,7 +11,7 @@ const routes = [
     component: () => import("../layouts/AppLayout.vue"),
     children: [
       {
-        path: "home",
+        path: "/",
         name: "home",
   
         component: () => import("../pages/admin/home"),
@@ -62,6 +62,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
+  mode: 'history',
   routes
 });
 

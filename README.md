@@ -1,4 +1,4 @@
-# slightly-boost
+# slightlyboost
 
 ## Project setup
 ```

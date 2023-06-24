@@ -13,22 +13,35 @@
         <div 
           v-for="(link, key) in links"
           :key="link.text"
+          @click="copyOppId(link.text)"
+          @mouseleave="mouseLeave()"
         >
-          <v-btn
-            color="white"
-            text
-            rounded
-            class="menu_options"
-            @click="goToContacts"
-          > 
-            <div :class="`c${key + 1} pr-5`" />
-            {{ link.text }}
-          </v-btn>
+          <v-tooltip top>
+            <template #activator="{ on, attrs }">
+              <v-list-item-content v-bind="attrs" v-on="on">
+                <v-list-item-title>
+                  <v-btn
+                    color="white"
+                    text
+                    rounded
+                    class="menu_options"
+                    @click="goToContacts"
+                  > 
+                    <div :class="`c${key + 1} pr-5`" />
+                    {{ link.text }}
+                  </v-btn>
+                </v-list-item-title>
+              </v-list-item-content>
+            </template>
+            <span>
+              {{ copyText }}
+            </span>
+          </v-tooltip>
         </div>
       </v-row>
     </v-col>
       <v-col
-        class="py-4 text-center white--text"
+        class="mt-4 mb-4 text-center white--text"
         cols="12"
       >
         <div class="footer-style">{{ footerFirst }}</div> 
@@ -47,11 +60,12 @@ export default {
       footerFirst: 'Counter-Strike: Global Offensive is a registered trademark of Valve Corporation Company. We are in no way affiliated with, associated with or endorsed by Valve Corporation.',
       footerSecond: '© Slightlyboost 2022. All rights reserved.',
       links: [
-        { icon: 'mdi-cloud-upload', text: 'Info@slightlyboost.com' },
-        { icon: 'mdi-phone-hangup', text: '+7 (999) 888-55-44' },
-        { icon: 'mdi-cloud-upload', text: 'Slightlyboost' },
-        { icon: 'mdi-phone-hangup', text: 'Slightlyboost#6666' },
+        { text: 'boss@slightlyboost.com' },
+        { text: '+7 (917) 696-75-65' },
+        { text: 'slightlyboss' },
+        { text: 'slightlyboss#1580' },
       ],
+      copyText: 'Click to copy',
     }
   },
   methods: {
@@ -62,7 +76,20 @@ export default {
     },
     goToContacts() {
       return this.$router.push({ name: 'contacts' });
-    }
+    },
+    copyOppId(text) {
+      navigator.clipboard.writeText(text)
+      .then(() => {
+        console.log('copied!');
+        this.copyText = 'Copied!'
+      })
+      .catch(err => {
+        console.log('Something went wrong', err);
+      });
+    },
+    mouseLeave() {
+      this.copyText = 'Click to copy';
+    },
   }
 }
 </script>

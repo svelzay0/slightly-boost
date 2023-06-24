@@ -120,6 +120,10 @@ export default {
   methods: {
     ...mapMutations("shared", ["setCurrency"]),
     handleSelect(route) {
+      scroll({
+        top: 0,
+        behavior: 'smooth',
+      });
       let firstBg = null;
       let secondBg = null;
       if (this.url === 'home') {

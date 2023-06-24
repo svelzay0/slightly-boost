@@ -59,7 +59,7 @@
                 @click="toTab(2, item, true)"
               >
                 <span class="main-btn-text">
-                  {{ item.text }}
+                  {{ item.text }} {{ item.price === 0 ? '' : currency.text }}{{ setPrice(item.price) }}
                 </span>
               </v-btn>
               <v-btn
@@ -71,7 +71,7 @@
                 disabled
               >
                 <span class="main-btn-text-dis pl-2">
-                  {{ item.text }}
+                  {{ item.text }} {{ item.price === 0 ? '' : currency.text }}{{ setPrice(item.price) }}
                 </span>
               </v-btn>
             </div>
@@ -147,7 +147,7 @@
                       @click="toSlide(1)"
                     >
                       <span class="main-btn-text">
-                        {{ defAccount.text }}
+                        {{ defAccount.text }} {{ currency.text }}{{ setPrice(defAccount.price) }}
                       </span>
                     </v-btn>
                   </div>
@@ -176,7 +176,7 @@
                       :rules="nameRules"
                       placeholder="Your real name"
                       color="#fff"
-                      append-icon="mdi-asterisk"
+                      :append-icon="formData.name.length ? '' : 'mdi-asterisk'"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -232,7 +232,7 @@
                       :rules="nameRules"
                       placeholder="Telegram, Discord, Whatsapp, etc.."
                       color="#fff"
-                      append-icon="mdi-asterisk"
+                      :append-icon="formData.contact.length ? '' : 'mdi-asterisk'"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -320,7 +320,7 @@
                   @click="toTab(2, item)"
                 >
                   <span class="main-btn-text">
-                    {{ item.text }}
+                    {{ item.text }} {{ item.price === 0 ? '' : currency.text }}{{ setPrice(item.price) }}
                   </span>
                 </v-btn>
                 <v-btn
@@ -332,7 +332,7 @@
                   disabled
                 >
                   <span class="main-btn-text-dis pl-2">
-                    {{ item.text }}
+                    {{ item.text }} {{ item.price === 0 ? '' : currency.text }}{{ setPrice(item.price) }}
                   </span>
                 </v-btn>
               </div>
@@ -453,7 +453,7 @@ export default {
           title: "FACEIT ACCOUNT LEVEL 10 (2170 ELO)",
           desc: "Includes steam and original e-mail. 712 Matches, Winrate 55%, K/D Ratio 1.3, Behaviour index: positive (1100+), 3213 hours..",
           sold: true,
-          text: "BUY FOR €60",
+          text: "BUY FOR",
           price: 60,
           elo: 2170,
         },
@@ -464,7 +464,7 @@ export default {
           title: "FACEIT ACCOUNT READY TO PLAY",
           desc: "Steam accounts with hours, services for registration, and mobile verification of the faceit account.",
           sold: true,
-          text: "BUY FOR €5",
+          text: "BUY FOR",
           price: 5,
           elo: 1000,
         },
@@ -486,7 +486,7 @@ export default {
           title: "FACEIT ACCOUNT LEVEL 1 (390 ELO)",
           desc: "Includes steam and original e-mail. 15 Matches, Winrate 5%, K/D Ratio 0.45, Behaviour index: positive (1100+), 3213 hours..",
           sold: true,
-          text: "BUY FOR €7",
+          text: "BUY FOR",
           price: 7,
           elo: 390,
         },
@@ -497,7 +497,7 @@ export default {
           title: "FACEIT ACCOUNT LEVEL 7 (1560 ELO)",
           desc: "Includes steam and original e-mail. 25 Matches, Winrate 57%, K/D Ratio 1.7, Behaviour index: positive (1100+), 98 hours..",
           sold: true,
-          text: "BUY FOR €60",
+          text: "BUY FOR",
           price: 60,
           elo: 1560,
         },
@@ -508,7 +508,7 @@ export default {
           title: "FACEIT ACCOUNT LEVEL 10 (2020 ELO)",
           desc: "Includes steam and original e-mail. 90 Matches, Winrate 53%, K/D Ratio 1.43, Behaviour index: positive (1100+), 253 hours..",
           sold: true,
-          text: "BUY FOR €1.2K",
+          text: "BUY FOR",
           price: 1200,
           elo: 2020,
         },
@@ -519,7 +519,7 @@ export default {
           title: "FACEIT ACCOUNT LEVEL 1 (580 ELO)",
           desc: "Includes steam and original e-mail. 3 Matches, Winrate 100%, K/D Ratio 0.35, Behaviour index: positive (1100+), 95 hours..",
           sold: true,
-          text: "BUY FOR €10",
+          text: "BUY FOR",
           price: 10,
           elo: 580,
         },
@@ -530,7 +530,7 @@ export default {
           title: "FACEIT ACCOUNT LEVEL 9 (1860 ELO)",
           desc: "Includes steam and original e-mail. 35 Matches, Winrate 55%, K/D Ratio 1.3, Behaviour index: positive (1100+), 148 hours..",
           sold: true,
-          text: "BUY FOR €37",
+          text: "BUY FOR",
           price: 37,
           elo: 1860,
         },
@@ -543,7 +543,7 @@ export default {
           title: "FACEIT ACCOUNT LEVEL 10 (2170 ELO)",
           desc: "Includes steam and original e-mail. 712 Matches, Winrate 55%, K/D Ratio 1.3, Behaviour index: positive (1100+), 3213 hours..",
           sold: true,
-          text: "BUY FOR €60",
+          text: "BUY FOR",
           price: 60,
           elo: 2170,
         },
@@ -554,7 +554,7 @@ export default {
           title: "FACEIT ACCOUNT READY TO PLAY",
           desc: "Steam accounts with hours, services for registration, and mobile verification of the faceit account.",
           sold: true,
-          text: "BUY FOR €5",
+          text: "BUY FOR",
           price: 5,
           elo: 1000,
         },
@@ -576,7 +576,7 @@ export default {
           title: "FACEIT ACCOUNT LEVEL 1 (390 ELO)",
           desc: "Includes steam and original e-mail. 15 Matches, Winrate 5%, K/D Ratio 0.45, Behaviour index: positive (1100+), 3213 hours..",
           sold: true,
-          text: "BUY FOR €7",
+          text: "BUY FOR",
           price: 7,
           elo: 390,
         },
@@ -587,7 +587,7 @@ export default {
           title: "FACEIT ACCOUNT LEVEL 7 (1560 ELO)",
           desc: "Includes steam and original e-mail. 25 Matches, Winrate 57%, K/D Ratio 1.7, Behaviour index: positive (1100+), 98 hours..",
           sold: true,
-          text: "BUY FOR €60",
+          text: "BUY FOR",
           price: 60,
           elo: 1560,
         },
@@ -598,7 +598,7 @@ export default {
           title: "FACEIT ACCOUNT LEVEL 10 (2020 ELO)",
           desc: "Includes steam and original e-mail. 90 Matches, Winrate 53%, K/D Ratio 1.43, Behaviour index: positive (1100+), 253 hours..",
           sold: true,
-          text: "BUY FOR €1.2K",
+          text: "BUY FOR",
           price: 1200,
           elo: 2020,
         },
@@ -609,7 +609,7 @@ export default {
           title: "FACEIT ACCOUNT LEVEL 1 (580 ELO)",
           desc: "Includes steam and original e-mail. 3 Matches, Winrate 100%, K/D Ratio 0.35, Behaviour index: positive (1100+), 95 hours..",
           sold: true,
-          text: "BUY FOR €10",
+          text: "BUY FOR",
           price: 10,
           elo: 580,
         },
@@ -620,7 +620,7 @@ export default {
           title: "FACEIT ACCOUNT LEVEL 9 (1860 ELO)",
           desc: "Includes steam and original e-mail. 35 Matches, Winrate 55%, K/D Ratio 1.3, Behaviour index: positive (1100+), 148 hours..",
           sold: true,
-          text: "BUY FOR €37",
+          text: "BUY FOR",
           price: 37,
           elo: 1860,
         },
@@ -634,7 +634,8 @@ export default {
           title: "FACEIT ACCOUNT LEVEL 10 (2170 ELO)",
           desc: "Includes steam and original e-mail. 712 Matches, Winrate 55%, K/D Ratio 1.3, Behaviour index: positive (1100+), 3213 hours..",
           sold: true,
-          text: "BUY FOR €60",
+          text: "BUY FOR",
+          price: 60,
         },
         {
           id: 6,
@@ -643,7 +644,8 @@ export default {
           title: "FACEIT ACCOUNT LEVEL 10 (2020 ELO)",
           desc: "Includes steam and original e-mail. 90 Matches, Winrate 53%, K/D Ratio 1.43, Behaviour index: positive (1100+), 253 hours..",
           sold: true,
-          text: "BUY FOR €1.2K",
+          text: "BUY FOR",
+          price: 1200,
         },
         {
           id: 3,
@@ -653,6 +655,7 @@ export default {
           desc: "228 Matches, Winrate 75%, K/D Ratio 1.4 Behaviour index: positive (1100+), 8253 hours..",
           sold: false,
           text: "SOLD OUT",
+          price: 0,
         },
         {
           id: 8,
@@ -661,7 +664,8 @@ export default {
           title: "FACEIT ACCOUNT LEVEL 9 (1860 ELO)",
           desc: "Includes steam and original e-mail. 35 Matches, Winrate 55%, K/D Ratio 1.3, Behaviour index: positive (1100+), 148 hours..",
           sold: true,
-          text: "BUY FOR €37",
+          text: "BUY FOR",
+          price: 37,
         },
       ],
       defAccount: {},
@@ -671,6 +675,21 @@ export default {
     ...mapGetters("shared", ["currency"]),
   },
   methods: {
+    setPrice(price) {
+      if (this.currency.id === 2) {
+        if (price > 99) {
+          return (price * 0.92).toFixed(0);
+        } else if (price === 0) {
+          return '';
+        }
+        return (price * 0.92).toFixed(1);
+      } else {
+        if (price === 0) {
+          return '';
+        }
+        return price;
+      }
+    },
     setAccountToSell(item) {
       this.defAccount = item
       this.toSlide(0, true)
