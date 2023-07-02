@@ -1,0 +1,2 @@
+#!/bin/bash
+git --work-tree=/home/nodeUser/slightly-boost-main --git-dir=/home/nodeUser/slightly-boost-main checkout -f
