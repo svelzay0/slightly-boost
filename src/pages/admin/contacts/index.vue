@@ -72,8 +72,8 @@ export default {
     this.url = window.location.href.split('/').pop();
   },
   methods: {
-    copyOppId() {
-      navigator.clipboard.writeText(this.operationId)
+    copyOppId(text) {
+      navigator.clipboard.writeText(text)
       .then(() => {
         console.log('copied!');
         this.copyText = 'Copied!'
