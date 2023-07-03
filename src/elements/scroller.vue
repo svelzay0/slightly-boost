@@ -25,7 +25,7 @@ export default {
         behavior: 'smooth',
       });
       const scrollDemo = document.querySelector("#visible");
-      console.log('c===8', scrollDemo.scrollTop);
+      console.log('c===8 test', scrollDemo.scrollTop);
     },
   },
 };

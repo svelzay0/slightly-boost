@@ -6,7 +6,7 @@
         <div class="order-blur"></div>
         <div class="blue-blur"></div>  
         <div class="order-content">
-          <h1 class="slider-title">111OUR CONTACTS</h1>
+          <h1 class="slider-title">OUR CONTACTS</h1>
         </div>
         <div 
           v-for="(link, key) in links"

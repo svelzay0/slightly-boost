@@ -1,3 +1,76 @@
+
+Skip to content
+svelzay0
+/
+slightly-boost
+
+Type / to search
+Command palette
+Create new...
+Issues
+Pull requests
+You have unread notifications
+Code
+Issues
+Pull requests
+Actions
+Projects
+Wiki
+Security
+Insights
+Settings
+Pane width
+Use a value between 10% and 63%
+
+13
+Change width
+Code
+Go to file
+t
+pages/admin content loaded
+dist
+public
+src
+assets
+components
+elements
+layouts
+pages/admin
+accounts
+boost
+contacts
+error.vue
+faq.vue
+home.vue
+job.vue
+plugins
+router
+shared
+static/fonts/Spezia
+store
+styles
+App.vue
+main.js
+.dccache
+.env
+.gitignore
+README.md
+babel.config.js
+package-lock.json
+package.json
+vue.config.js
+Documentation • Share feedback
+Breadcrumbsslightly-boost/src/pages/admin
+/home.vue
+Latest commit
+ 
+History
+File metadata and controls
+
+Code
+
+Blame
+352 lines (350 loc) · 11.9 KB
 <template>
   <div class="main-home">
     <img
@@ -210,7 +283,7 @@ export default {
           id: 1,
           title: 'FACEIT BOOST',
           photo: 'bg_image1.png',
-          text: 'Test1 Our team provides high-quality boosting service. You will never regret choosing us and now Ill explain why. Our team do not use any kind of software or cheats, everything is done by boosters hands. Other services creates an empty account with 0 matches and start boost right away - in result you end up with boosting service/smuring faceit ban and losing your money, account and time. We dont do the same, we ask for low-level accounts from our friends or customers and boost you. We always in touch with our customers through discord or any chat. In the end I hope you will have a great expirience with us.',
+          text: 'test Our team provides high-quality boosting service. You will never regret choosing us and now Ill explain why. Our team do not use any kind of software or cheats, everything is done by boosters hands. Other services creates an empty account with 0 matches and start boost right away - in result you end up with boosting service/smuring faceit ban and losing your money, account and time. We dont do the same, we ask for low-level accounts from our friends or customers and boost you. We always in touch with our customers through discord or any chat. In the end I hope you will have a great expirience with us.',
         },
         {
           id: 2,
@@ -350,3 +423,4 @@ export default {
   }
 };
 </script>
+slightly-boost/src/pages/admin/home.vue at main · svelzay0/slightly-boost · GitHub
