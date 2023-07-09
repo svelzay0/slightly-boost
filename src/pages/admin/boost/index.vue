@@ -439,6 +439,12 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { boostSlides } from '../../../../static/boost-slides';
+import { boostAwards } from '../../../../static/boost-awards';
+import { boostComments } from '../../../../static/boost-comments';
+import { boostSelectedItemsFrom } from '../../../../static/boost-selected-items-from';
+import { boostSelectedItemsTo } from '../../../../static/boost-selected-items-to';
+import { boostPaymentItems } from '../../../../static/boost-payment-items';
 import ElementCarousel from '../../../elements/carousel.vue';
 import ElementSelect from '../../../elements/select.vue';
 import ElementTooltip from '../../../elements/tooltip.vue';
@@ -446,6 +452,7 @@ import axios from "axios";
 import 'vue-slick-carousel/dist/vue-slick-carousel.css'
 // optional style for arrows & dots
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
+
 export default {
   name: "orders",
   components: {
@@ -481,130 +488,12 @@ export default {
       tooltipswitch1: 'You can play with</br> booster without giving</br> your account',
       tooltipswitch2: 'Our booster will play in</br> invisible mode on your</br> steam account',
       tooltipswitch3: 'Your order will</br> be prioritized and</br> started ASAP',
-      slides: [
-        {
-          id: 1,
-          title: 'CALCULATE BOOST',
-          photoClass: 'order-tab-1',
-          class: 'one',
-        },
-        {
-          id: 2,
-          title: 'YOUR INFORMATION',
-          photoClass: 'order-tab-2',
-          class: 'two',
-        },
-        {
-          id: 3,
-          title: 'COMPLETING',
-          photoClass: 'order-tab-3',
-          class: 'three',
-        },
-      ],
-      awards: [
-        {
-          id: 1,
-          title: '5 YEARS OF EXPERIENCE',
-          desc: 'We have over five years of experience and we know how to do a great job and make our customers satisfied.',
-          icon: 'years',
-        },
-        {
-          id: 2,
-          title: 'PROFESSIONAL BOOSTERS',
-          desc: 'Our team consists of legit and high-elo players. We stick with only CS:GO services and we do it professionally.',
-          icon: 'csgo',
-        },
-        {
-          id: 3,
-          title: 'SAFETY',
-          desc: 'All of our boosters are time-tested and appreciate their work. You dont have to worry about your steam inventory.',
-          icon: 'shield',
-        },
-        {
-          id: 4,
-          title: '24/7 AVAILIABILITY',
-          desc: 'You will get a personal manager who is always in touch. He will solve any question or problem you have.',
-          icon: 'clock',
-        },
-        {
-          id: 5,
-          title: 'PRIVACY',
-          desc: 'No one will know that you have taken advantage of our help. We always play in offline mode and use your country VPN.',
-          icon: 'user',
-        },
-        {
-          id: 6,
-          title: 'BONUSES AND DISCOUNTS',
-          desc: 'You will definitely get a discount for a big order. For regular customers we always give bonuses and promo codes.',
-          icon: 'gift',
-        },
-      ],
-      comments: [
-        {
-          id: 1,
-          name: 'John',
-          time: '6 hours ago',
-          title: 'Amazing service',
-          desc: 'Quickly boosted and best prices around, going to order more for..',
-          stars: 5,
-        },
-        {
-          id: 2,
-          name: 'Robert',
-          time: '18 hours ago',
-          title: 'Great boost',
-          desc: 'That was really fast and cheap, good service',
-          stars: 4,
-        },
-        {
-          id: 3,
-          name: 'Anonymous',
-          time: '1 day ago',
-          title: 'Very good',
-          desc: 'Booster answered all my questions and did the work quickly, recommend',
-          stars: 5,
-        },
-        {
-          id: 4,
-          name: 'Henrey',
-          time: '2 days ago',
-          title: 'Wow',
-          desc: 'Those guys are so professional, highly recommend them',
-          stars: 5,
-        },
-        {
-          id: 5,
-          name: 'John',
-          time: '3 days ago',
-          title: 'Amazing service',
-          desc: 'Quickly boosted and best prices around, going to order more for',
-          stars: 4,
-        },
-        {
-          id: 6,
-          name: 'Robert',
-          time: '6 days ago',
-          title: 'Great boost',
-          desc: 'That was really fast and cheap, good service',
-          stars: 4,
-        },
-        {
-          id: 7,
-          name: 'Anonymous',
-          time: '6 days ago',
-          title: 'Very good',
-          desc: 'Booster answered all my questions and did the work quickly, recommend',
-          stars: 5,
-        },
-        {
-          id: 8,
-          name: 'Henrey',
-          time: '1 week ago',
-          title: 'Amazing service',
-          desc: 'Quickly boosted and best prices around, going to order more for',
-          stars: 4,
-        },
-      ],
+      slides: boostSlides,
+      awards: boostAwards,
+      comments: boostComments,
+      selectItemsFrom: boostSelectedItemsFrom,
+      selectItemsTo: boostSelectedItemsTo,
+      paymentItems: boostPaymentItems,
       settings: {
         index: 0,
         edgeFriction: 0.35,
@@ -643,168 +532,10 @@ export default {
         eloMin: 'Current ELO',
         eloMax: 'Desired ELO',
       },
-      selectItemsFrom: [
-        {
-          id: 0,
-          text: '1',
-          icon: 'level-1',
-          eloMin: 0,
-          eloMax: 800,
-        },
-        {
-          id: 1,
-          text: '2',
-          icon: 'level-2',
-          eloMin: 801,
-          eloMax: 950,
-        },
-        {
-          id: 2,
-          text: '3',
-          icon: 'level-3',
-          eloMin: 951,
-          eloMax: 1100,
-        },
-        {
-          id: 3,
-          text: '4',
-          icon: 'level-4',
-          eloMin: 1101,
-          eloMax: 1250,
-        },
-        {
-          id: 4,
-          text: '5',
-          icon: 'level-5',
-          eloMin: 1251,
-          eloMax: 1400,
-        },
-        {
-          id: 5,
-          text: '6',
-          icon: 'level-6',
-          eloMin: 1401,
-          eloMax: 1550,
-        },
-        {
-          id: 6,
-          text: '7',
-          icon: 'level-7',
-          eloMin: 1551,
-          eloMax: 1700,
-        },
-        {
-          id: 7,
-          text: '8',
-          icon: 'level-8',
-          eloMin: 1701,
-          eloMax: 1850,
-        },
-        {
-          id: 8,
-          text: '9',
-          icon: 'level-9',
-          eloMin: 1851,
-          eloMax: 2000,
-        },
-        {
-          id: 9,
-          text: '10',
-          icon: 'level-10',
-          eloMin: 2001,
-          eloMax: 2500,
-        },
-      ],
-      selectItemsTo: [
-        {
-          id: 0,
-          text: '1',
-          icon: 'level-1',
-          eloMin: 0,
-          eloMax: 800,
-        },
-        {
-          id: 1,
-          text: '2',
-          icon: 'level-2',
-          eloMin: 801,
-          eloMax: 950,
-        },
-        {
-          id: 2,
-          text: '3',
-          icon: 'level-3',
-          eloMin: 951,
-          eloMax: 1100,
-        },
-        {
-          id: 3,
-          text: '4',
-          icon: 'level-4',
-          eloMin: 1101,
-          eloMax: 1250,
-        },
-        {
-          id: 4,
-          text: '5',
-          icon: 'level-5',
-          eloMin: 1251,
-          eloMax: 1400,
-        },
-        {
-          id: 5,
-          text: '6',
-          icon: 'level-6',
-          eloMin: 1401,
-          eloMax: 1550,
-        },
-        {
-          id: 6,
-          text: '7',
-          icon: 'level-7',
-          eloMin: 1551,
-          eloMax: 1700,
-        },
-        {
-          id: 7,
-          text: '8',
-          icon: 'level-8',
-          eloMin: 1701,
-          eloMax: 1850,
-        },
-        {
-          id: 8,
-          text: '9',
-          icon: 'level-9',
-          eloMin: 1851,
-          eloMax: 2000,
-        },
-        {
-          id: 9,
-          text: '10',
-          icon: 'level-10',
-          eloMin: 2001,
-          eloMax: 2500,
-        },
-      ],
       paymentDefaultSelected: {
         id: 1,
         text: 'Cryptocurrency',
       },
-      paymentItems: [
-        {
-          id: 1,
-          text: 'Cryptocurrency',
-        },
-        {
-          id: 2,
-          text: 'CS:GO Skins (+30%)',
-        },
-        {
-          id: 3,
-          text: 'Paypal',
-        },
-      ],
     }
   },
   computed: {
@@ -1001,9 +732,9 @@ export default {
       if (data.way === 'from') {
         this.defaultSelectedFrom = this.selectItemsFrom[data.index];
         if (data.index === 0) {
-          this.eloFrom = 0;
+          this.eloFrom = 500;
         } else {
-          this.eloFrom = this.selectItemsFrom[data.index].eloMin
+          this.eloFrom = this.selectItemsFrom[data.index].eloMin;
         }
       }
       if (data.way === 'to') {
@@ -1011,7 +742,7 @@ export default {
         if (data.index === 0) {
           this.eloTo = 800;
         } else {
-          this.eloTo = this.selectItemsTo[data.index].eloMax
+          this.eloTo = this.selectItemsTo[data.index].eloMin;
         }
       }
       this.toWatch = await true;  
@@ -1156,7 +887,7 @@ export default {
           this.formData.operationId = await Math.floor(Math.random() * 9999999);
           this.operationId = this.formData.operationId;
           this.formData.typeOfOrder = 'boost';
-          await axios.post('https://sheet.best/api/sheets/9c67e2c1-b330-4c3e-bcdd-f78405cc54e6', [this.formData]).then(response => {
+          await axios.post('https://sheet.best/api/sheets/9a3ea68d-307e-4b9f-b1ff-a1dcbbbc17d8', [this.formData]).then(response => {
             console.log(response);
           })
           this.toTab(2, true);

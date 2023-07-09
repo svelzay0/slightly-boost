@@ -25,7 +25,6 @@
                     text
                     rounded
                     class="menu_options"
-                    @click="goToContacts"
                   > 
                     <div :class="`c${key + 1} pr-5`" />
                     {{ link.text }}
@@ -73,9 +72,6 @@ export default {
       if (window.location.href.split('/').pop() === 'contacts') {
         return true;
       } else return false;
-    },
-    goToContacts() {
-      return this.$router.push({ name: 'contacts' });
     },
     copyOppId(text) {
       navigator.clipboard.writeText(text)

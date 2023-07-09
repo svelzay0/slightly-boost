@@ -25,5 +25,8 @@ export default {
     FooterMenu,
     Scroller,
   },
+  created () {
+    document.title = "slightlyboost - Faceit CSGO Boosting | Faceit CSGO Accounts";
+  }
 }
 </script>

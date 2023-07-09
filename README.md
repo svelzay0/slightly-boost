@@ -1,4 +1,4 @@
-# slightlyboost
+# slightlyboost - Faceit CSGO Boosting | Faceit CSGO Accounts
 
 ## Project setup
 ```
