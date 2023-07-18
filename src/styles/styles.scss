@@ -221,13 +221,16 @@ html::-webkit-scrollbar {
 button,
 .button,
 .v-icon.v-icon.v-icon--link {
-  cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer !important;
+  // cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer !important;
+  cursor: pointer;
 }
 .slick-prev:before, .slick-next:before {
-  cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer !important;
+  // cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer !important;
+  cursor: pointer;
 }
 .main-logo {
-  cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer;
+  // cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer;
+  cursor: pointer;
   display: flex;
   // padding-right: 248px;
 }
@@ -240,7 +243,8 @@ button,
   font-size: 15px;
   line-height: 20px;
   color: #979797;
-  cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer !important;
+  // cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer !important;
+  cursor: pointer;
 }
 .slick-prev {
   width: 50px;
@@ -381,7 +385,8 @@ button,
   border-radius: 30px;
   display: flex;
   justify-content: center;
-  cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer;
+  // cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer;
+  cursor: pointer;
   background-image: url("../assets/img1.png");
   overflow: hidden;
 }
@@ -391,7 +396,8 @@ button,
   border-radius: 30px;
   display: flex;
   justify-content: center;
-  cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer;
+  // cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer;
+  cursor: pointer;
   background-image: url("../assets/img2.png");
   overflow: hidden;
 }
@@ -465,7 +471,8 @@ button,
   width: 230px;
   text-align: center;
   padding-top: 300px;
-  cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer;
+  // cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer;
+  cursor: pointer;
 }
 
 .faq-title {
@@ -490,7 +497,8 @@ button,
   box-shadow: 0px 0px 13px rgba(0, 0, 0, 0.1);
   border-radius: 32px;
   margin: 24px 0;
-  cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer;
+  // cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer;
+  cursor: pointer;
 }
 .faq-item {
   position: relative;
@@ -519,7 +527,8 @@ button,
 .left-red,
 .right-red
 {
-  cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer;
+  // cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer;
+  cursor: pointer;
   height: 8px;
   width: 28px;
   background: linear-gradient(94.2deg, #FF4117 5.82%, #FF5050 94.18%);
@@ -609,7 +618,8 @@ button,
 .left-grey,
 .right-grey
 {
-  cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer;
+  // cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer;
+  cursor: pointer;
   height: 8px;
   width: 28px;
   border-radius: 12px;
@@ -851,7 +861,8 @@ button,
   line-height: 12px;
 }
 .auth__form_link_text:hover {
-  cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer;
+  // cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer;
+  cursor: pointer;
   text-decoration: underline;
 }
 .auth__form_btn_text {
@@ -878,14 +889,16 @@ button,
   color: $main-blue;
   margin-right: 16px;
   padding-left: 280px;
-  cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer;
+  // cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer;
+  cursor: pointer;
 }
 .footer_left_text_v2 {
   font-size: 14px;
   line-height: 16px;
   color: $main-blue;
   margin-right: 16px;
-  cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer;
+  // cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer;
+  cursor: pointer;
 }
 .footer_right {
   font-weight: 500;
@@ -1026,7 +1039,8 @@ button,
   line-height: 20px;
   color: #979797;
   position: relative;
-  cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer;
+  // cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer;
+  cursor: pointer;
 }
 .order-more-btn {
   height: 100%;
@@ -1036,7 +1050,8 @@ button,
   padding-bottom: 50px;
 }
 .lil-i {
-  cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer;
+  // cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer;
+  cursor: pointer;
   position: relative;
   width: 15px;
   height: 15px;
@@ -1080,7 +1095,8 @@ button,
   background-color: #ffffff;
   border: 1px solid #ffffff;
   border-radius: 60px;
-  cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer;
+  // cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer;
+  cursor: pointer;
   padding: 5px;
   font-size: 20px;
   color: $footer-background;

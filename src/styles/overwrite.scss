@@ -147,7 +147,8 @@
 }
 .theme--dark.v-btn.v-btn--disabled {
   background: blue !important;
-  cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer !important;
+  // cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer !important;
+  cursor: pointer;
 }
 .slick-next,
 .slick-prev-active 
@@ -238,27 +239,34 @@
   content: url('../../src/assets/icons/minus.svg') !important;
 }
 .v-input__slot {
-  cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer !important;
+  // cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer !important;
+  cursor: pointer;
 }
 .v-list-item {
-  cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer !important;
+  // cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer !important;
+  cursor: pointer;
 }
 .v-input--selection-controls.v-input--dense .v-input--selection-controls__ripple {
-  cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer !important;
+  // cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer !important;
+  cursor: pointer;
 }
 .v-input .v-input--dense .theme--light .v-input--selection-controls .v-input--switch .v-input--switch--inset {
-  cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer !important;
+  // cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer !important;
+  cursor: pointer;
 }
 .v-input {
-  cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer !important;
+  // cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer !important;
+  cursor: pointer;
 }
 .theme--light.v-input--switch .v-input--switch__track,
 .theme--light.v-input:not(.v-input--is-disabled) input {
   color: #979797 !important;
-  cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer !important;
+  // cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer !important;
+  cursor: pointer;
 }
 .v-input--selection-controls__ripple {
-  cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer !important;
+  // cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer !important;
+  cursor: pointer;
 }
 .digit1
 {
@@ -431,7 +439,8 @@
   height: 20px;
   padding: 0;
   transform: translate(0, -50%);
-  cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer !important;
+  // cursor: url('../../src/assets/icons/icons8-hand-cursor.svg'), pointer !important;
+  cursor: pointer;
   color: transparent;
   border: none;
   outline: none;
