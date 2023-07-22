@@ -142,6 +142,7 @@
 
 <script>
 import ElementTooltip from '../../elements/tooltip.vue';
+import axios from "axios";
 
 export default {
   name: "job",
@@ -163,6 +164,7 @@ export default {
         steam: '',
         workTime: '',
         aboutYou: '',
+        typeOfOrder: 'job',
       },
       nameRules: [
         v => v.length >= 1 || 'This field required!'
@@ -176,6 +178,19 @@ export default {
       if (this.$refs.form.validate()) {
         try {
           console.log('valid')
+          await axios.post('https://sheet.best/api/sheets/9a3ea68d-307e-4b9f-b1ff-a1dcbbbc17d8', [this.formData]).then(response => {
+            console.log(response);
+            this.formData = {
+              name: '',
+              contact: '',
+              faceit: '',
+              steam: '',
+              workTime: '',
+              aboutYou: '',
+              typeOfOrder: 'job',
+            }
+            this.$router.push({ name: 'home' });
+          })
         } catch (err) {
           console.log(err)
         }

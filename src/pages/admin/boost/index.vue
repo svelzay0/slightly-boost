@@ -549,7 +549,7 @@ export default {
       } else {
         let sum = 0;
         if (typeof this.eloFrom !== 'string' && typeof this.eloTo !== 'string') {
-          for (var currentElo = this.eloFrom; currentElo <= this.eloTo; currentElo += 25) {
+          for (var currentElo = this.eloFrom; currentElo < this.eloTo; currentElo += 25) {
             sum += this.getPriceTag(currentElo);
           }
           if (this.lobbyDuo) {
@@ -880,6 +880,8 @@ export default {
           this.formData.steamOffline = this.steamOffline
           this.formData.priorityOrder = this.priorityOrder
           this.formData.price = this.finalPrice
+          this.formData.accInfo = 
+            { eloFrom: this.eloFrom, eloTo: this.eloTo, price: this.price, currency: this.currency }
           if (this.formData.payment === '') {
             this.formData.payment = this.paymentDefaultSelected
           }

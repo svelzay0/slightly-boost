@@ -3,7 +3,7 @@
     <header-menu />
     <v-main class="app">
       <scroller id="visible" />
-      <v-container fluid>
+      <v-container fluid style="width: 1240px;">
         <keep-alive>
           <router-view />
         </keep-alive>

@@ -278,7 +278,7 @@
                 x-large
                 class="main-btn ml-13 mt-10"
                 dark
-                @click="toSlide(0, true)"
+                @click="toSlide(0, true, true)"
               >
                 <span class="main-btn-text justify-center">
                   ORDER MORE
@@ -712,7 +712,7 @@ export default {
         this.currentIndex = data;
       }
     },
-    toSlide(index, clear = false) {
+    toSlide(index, clear = false, reload = false) {
       if (clear) {
         this.formData = {
           name: '',
@@ -727,7 +727,11 @@ export default {
         this.priorityOrder = false
         this.price = 0
       }
-      this.$eventBus.$emit("changeFromParent", index);
+      if (reload) {
+        location.reload();
+      } else {
+        this.$eventBus.$emit("changeFromParent", index);
+      }
     },
     async checkSelect() {
       if (this.defaultSelected === 1) {
@@ -760,7 +764,7 @@ export default {
           this.formData.payment = this.formData.payment.text
           this.formData.operationId = Math.floor(Math.random() * 9999999);
           this.operationId = this.formData.operationId
-          axios.post('https://sheet.best/api/sheets/9c67e2c1-b330-4c3e-bcdd-f78405cc54e6', [this.formData]).then(response => {
+          await axios.post('https://sheet.best/api/sheets/9a3ea68d-307e-4b9f-b1ff-a1dcbbbc17d8', [this.formData]).then(response => {
             console.log(response);
           })
           this.toSlide(2);
