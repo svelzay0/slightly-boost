@@ -447,6 +447,19 @@
   background: transparent;
 }
 
+// .v-overlay__scrim {
+//   opacity: 0.9;
+//   background-color: black !important;
+//   border-color: rgb(33, 33, 33);
+// }
+
+.v-dialog {
+  max-width: 30vw;
+  border-radius: 25px !important;
+  display: flex;
+  justify-content: center;
+}
+
 .v-main__wrap {
   position: initial !important;
 }

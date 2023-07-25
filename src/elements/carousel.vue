@@ -32,7 +32,7 @@
               :autoplaySpeed="5000"
               @afterChange="afterChange"
               @beforeChange="beforeChange"
-              >
+            >
               <template #customPaging="page">
                   <button
                   v-if="

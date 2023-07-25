@@ -4,6 +4,8 @@ export default {
     loading: false,
     error: null,
     homeSliderIndex: 0,
+    accountPage: 1,
+    orderPage: 0,
     currency: {
       id: 1,
       text: '€',
@@ -15,6 +17,12 @@ export default {
     },
     setError(state, payload) {
       state.error = payload;
+    },
+    setAccountPage(state, payload) {
+      state.accountPage = payload;
+    },
+    setOrderPage(state, payload) {
+      state.orderPage = payload;
     },
     setHomeSliderIndex(state, payload) {
       state.homeSliderIndex = payload;
@@ -39,6 +47,12 @@ export default {
     },
     currency(state) {
       return state.currency;
+    },
+    accountPage(state) {
+      return state.accountPage;
+    },
+    orderPage(state) {
+      return state.orderPage;
     },
   },
 };

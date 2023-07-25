@@ -137,20 +137,30 @@
         </v-form>
       </div>
     </div>
+    <v-dialog v-model="popupJobShow" :overlay-opacity="0.8">
+      <popup-job
+        :key="formKeyJob"
+        @close="closeJob()"
+      />
+    </v-dialog>
   </div>
 </template>
 
 <script>
 import ElementTooltip from '../../elements/tooltip.vue';
+import popupJob from '../../overlays/popup-job.vue';
 import axios from "axios";
 
 export default {
   name: "job",
   components: {
     ElementTooltip,
+    popupJob,
   },
   data() {
     return {
+      popupJobShow: false,
+      formKeyJob: 1,
       valid: true,
       peerId1: 5634750271,
       peerId2: 825901593,
@@ -174,7 +184,14 @@ export default {
     }
   },
   methods: {
+    showPopupJob () {
+      this.popupJobShow = true;
+    },
+    closePopupJob () {
+      this.popupJobShow = false;
+    },
     async onSubmit() {
+      
       if (this.$refs.form.validate()) {
         try {
           console.log('valid')
@@ -189,8 +206,8 @@ export default {
               aboutYou: '',
               typeOfOrder: 'job',
             }
-            this.$router.push({ name: 'home' });
           })
+          await this.showPopupJob();
         } catch (err) {
           console.log(err)
         }

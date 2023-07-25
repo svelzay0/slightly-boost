@@ -2,14 +2,14 @@
   <div class="main-home">
     <div class="home order">
       <div class="order-blur"></div> 
-      <div v-if="currentIndex < 2" class="blue-blur-order"></div>
+      <div v-if="orderPage < 2" class="blue-blur-order"></div>
       <div v-else class="blue-blur-order-last"></div>
       <div class="order-content">
         <h1 class="slider-title">MAKE AN ORDER</h1>
       </div>
       <element-carousel
         class="pt-8 order-slider"
-        v-model="orderSlideIndex"
+        v-model="orderPage"
         :items="slides"
         :slides-to-scroll="1"
         :per-page="1"
@@ -22,8 +22,8 @@
             <div v-if="data.id === 1" class="order-cover"/>
             <div v-else :class="
               {
-                'order-cover-2': currentIndex === data.id - 1,
-                'order-cover-2-disable': currentIndex !== data.id - 1,
+                'order-cover-2': orderPage === data.id - 1,
+                'order-cover-2-disable': orderPage !== data.id - 1,
               }"
             />
             <div class="order-inside pr-13 pl-13 pt-11 pb-11">
@@ -438,7 +438,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 import { boostSlides } from '../../../../static/boost-slides';
 import { boostAwards } from '../../../../static/boost-awards';
 import { boostComments } from '../../../../static/boost-comments';
@@ -476,7 +476,6 @@ export default {
         v => v.length >= 1 || 'This field required!'
       ],
       toWatch: true,
-      orderSlideIndex: 0,
       index: 0,
       eloFrom: '',
       eloTo: '',
@@ -503,7 +502,6 @@ export default {
         slidesToScroll: 1,
       },
       finalPrice: 0,
-      currentIndex: 0,
       defaultTemplateFrom: {
         id: 0,
         text: '0',
@@ -539,7 +537,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters("shared", ["currency"]),
+    ...mapGetters("shared", ["currency", "orderPage"]),
     price () {
       if (this.eloFrom === this.eloTo) {
         return 0;
@@ -553,7 +551,7 @@ export default {
             sum += this.getPriceTag(currentElo);
           }
           if (this.lobbyDuo) {
-            sum += sum * 0.3;
+            sum += sum * 0.8;
           }
           if (this.priorityOrder) {
             sum += sum * 0.15;
@@ -606,7 +604,8 @@ export default {
         this.eloTo = 3500;
       }
     },
-    currentIndex(newVal) {
+    orderPage(newVal) {
+      this.$eventBus.$emit("changeFromParent", newVal);
       let firstTab = this.$refs['order-tab-1'];
       if (newVal > 0) {
         firstTab.setAttribute('style', 'display: none;');
@@ -616,6 +615,7 @@ export default {
     },
   },
   methods: {
+    ...mapMutations("shared", ["setOrderPage"]),
     getPriceTag(elo) {
       let priceTag = 0;
       if (elo >= 0 && elo < 951) {
@@ -702,7 +702,7 @@ export default {
       return priceTag;
     },
     changeIndex(index) {
-      this.currentIndex = index;
+      this.setOrderPage(index);
     },
     getText(item) {
       return `${item.icon} - ${item.text}`;

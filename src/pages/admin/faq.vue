@@ -9,9 +9,8 @@
         v-for="(item, key) in comments"
         :key="key"
         class="faq-block"
-        @click="setShow(key)"
       >
-        <div class="faq-item">
+        <div class="faq-item" @click="setShow(key)">
           <div class="faq-title">
             <div class="faq-text">
               {{ item.title }}

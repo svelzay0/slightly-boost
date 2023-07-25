@@ -93,6 +93,11 @@ html::-webkit-scrollbar {
   background: #212121 !important;
 }
 
+.main-contacts {
+  display: flex;
+  justify-content: center;
+}
+
 .main-contacts img {
   -o-object-fit: cover;
   object-fit: cover;
@@ -103,6 +108,16 @@ html::-webkit-scrollbar {
   width: 100%;
   height: 100%;
   z-index: 0;
+}
+
+.popup-job {
+  width: 30vw !important;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: linear-gradient(0deg, #0f0f0f 0%, #111114 16%, #131313 35%, #161616 58%, #181818 83%, #0f0f0f 100%);
+  border-radius: 25px;
 }
 
 .contacts-desc {
@@ -326,7 +341,7 @@ button,
 .lil-pt {
   position: absolute;
   top: 2px;
-  right: 5.3px;
+  right: 5.9px;
 }
 .order-title {
   font-family: $primary-font-Upright;
@@ -1292,6 +1307,8 @@ button,
   font-size: 15px;
   line-height: 20px;
   color: #979797;
+  position: relative;
+  z-index: 99;
 }
 .stars {
   width: 100px;
@@ -1372,6 +1389,11 @@ button,
     width: 160px;
     height: 70px;
   }
+}
+
+.semi-full {
+  max-width: 1210px;
+  margin: 0 auto !important;
 }
 
 @media screen and (max-width: 600px) {

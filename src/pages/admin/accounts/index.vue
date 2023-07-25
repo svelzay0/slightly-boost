@@ -2,7 +2,7 @@
   <div class="main-home">
     <div class="home">
       <div class="order-blur"></div> 
-      <div v-if="currentIndex === 1" class="acc-content">
+      <div v-if="accountPage === 1" class="acc-content">
         <h1 class="slider-title">ACCOUNTS STORE</h1>
         <div class="acc-featured pt-6">
           <div class="acc-selector">
@@ -287,8 +287,8 @@
             </div>
           </template>
         </element-carousel>
-        <h1 v-if="currentIndex > 1" class="slider-title pt-12 mt-12">MORE STUFF</h1>
-        <div v-if="currentIndex > 1" class="pt-8">
+        <h1 v-if="accountPage > 1" class="slider-title pt-12 mt-12">MORE STUFF</h1>
+        <div v-if="accountPage > 1" class="pt-8">
           <v-row>
             <v-col 
               v-for="(item, key) in staff" 
@@ -345,7 +345,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 import cloneDeep from 'clone-deep'
 import ElementCarousel from '../../../elements/carousel.vue';
 import ElementTooltip from '../../../elements/tooltip.vue';
@@ -378,7 +378,6 @@ export default {
       operationId: 0,
       copyText: 'Click to copy',
       accountSlideIndex: 0,
-      currentIndex: 1,
       index: 0,
       thanks: 'THANKS FOR MAKING ORDER',
       thanskDesc: 'Our manager will contact you as soon as possible. Save your order number, so manager can prove he is not fake!',
@@ -672,9 +671,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters("shared", ["currency"]),
+    ...mapGetters("shared", ["currency", "accountPage"]),
   },
   methods: {
+    ...mapMutations("shared", ["setAccountPage"]),
     setPrice(price) {
       if (this.currency.id === 2) {
         if (price > 99) {
@@ -694,7 +694,11 @@ export default {
       this.defAccount = item
       this.toSlide(0, true)
     },
-    toTab(data, item = {}, animation = false) {
+    async toTab(data, item = {}, animation = false) {
+      await scroll({
+        top: 0,
+        behavior: 'smooth',
+      });
       if (animation) {
         let acc = document.querySelector('.acc-content');
         acc.setAttribute('style', 'animation: movedown 0.4s infinite alternate;');
@@ -703,13 +707,13 @@ export default {
           if (item.id) {
             this.setAccountToSell(item);
           }
-          this.currentIndex = data;
+          this.setAccountPage(data);
         }, 400);
       } else {
         if (item.id) {
           this.setAccountToSell(item);
         }
-        this.currentIndex = data;
+        this.setAccountPage(data);
       }
     },
     toSlide(index, clear = false, reload = false) {

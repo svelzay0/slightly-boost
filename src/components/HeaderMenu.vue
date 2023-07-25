@@ -10,7 +10,7 @@
         <v-row
           align="center"
           justify="center"
-          class="pt-12"
+          class="pt-12 semi-full"
         >
           <v-col cols="auto">
             <div 
@@ -112,13 +112,13 @@ export default {
     window.addEventListener('scroll', this.handleScroll);
   },
   computed: {
-    ...mapGetters("shared", ["homeSliderIndex"]),
+    ...mapGetters("shared", ["homeSliderIndex", "accountPage", "orderPage"]),
     desktop() {
       return this.$vuetify.breakpoint.width > 600;
     },
   },
   methods: {
-    ...mapMutations("shared", ["setCurrency"]),
+    ...mapMutations("shared", ["setCurrency", "setAccountPage", "setOrderPage"]),
     handleSelect(route) {
       scroll({
         top: 0,
@@ -136,6 +136,12 @@ export default {
       }
       this.url = route;
       document.querySelector('.home').setAttribute('style', 'animation: movedown 0.4s infinite alternate;');
+      if (route !== 'accounts') {
+        this.setAccountPage(1);
+      }
+      if (route !== 'boost') {
+        this.setOrderPage(0);
+      }
       setTimeout(() => {
         document.querySelector('.home').setAttribute('style', 'animation: moveup 0.4s linear alternate;');
         if (firstBg) {

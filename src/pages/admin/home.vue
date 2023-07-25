@@ -189,7 +189,11 @@ export default {
   },
   methods: {
     ...mapMutations("shared", ["setHomeSliderIndex"]),
-    handleSelect(route) {
+    async handleSelect(route) {
+      await scroll({
+        top: 0,
+        behavior: 'smooth',
+      });
       return this.$router.push({ name: route });
     },
     changeSlide (key) {
