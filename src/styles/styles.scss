@@ -330,8 +330,8 @@ button,
   border-radius: 30px;
   display: flex;
   justify-content: start;
-  background-image: url("../assets/order3.png");
-  background-size: 101% 100%;
+  // background-image: url("../assets/order3.png");
+  // background-size: 101% 100%;
   width: 1240px;
   margin-left: -12px;
 }
@@ -378,7 +378,7 @@ button,
   height: 701px;
   width: 1240px;
   border-radius: 30px;
-  border: 1px solid #141414;
+  border: none;
   border-left: none;
 }
 
