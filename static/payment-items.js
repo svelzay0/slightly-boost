@@ -1,4 +1,4 @@
-export const boostPaymentItems = [
+export const paymentItems = [
   {
     id: 1,
     text: 'Cryptocurrency',

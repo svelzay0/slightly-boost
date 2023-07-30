@@ -11,9 +11,9 @@
         justify="center"
       > 
         <div 
-          v-for="(link, key) in links"
-          :key="link.text"
-          @click="copyOppId(link.text)"
+          v-for="(social, key) in socials"
+          :key="social.text"
+          @click="copyOppId(social.text)"
           @mouseleave="mouseLeave()"
         >
           <v-tooltip top>
@@ -27,7 +27,7 @@
                     class="menu_options"
                   > 
                     <div :class="`c${key + 1} pr-5`" />
-                    {{ link.text }}
+                    {{ social.text }}
                   </v-btn>
                 </v-list-item-title>
               </v-list-item-content>
@@ -51,6 +51,7 @@
 </template>
 
 <script>
+import { socials } from '../../static/socials';
 
 export default {
   name: 'FooterMenu',
@@ -58,12 +59,7 @@ export default {
     return {
       footerFirst: 'Counter-Strike: Global Offensive is a registered trademark of Valve Corporation Company. We are in no way affiliated with, associated with or endorsed by Valve Corporation.',
       footerSecond: '© Slightlyboost 2022. All rights reserved.',
-      links: [
-        { text: 'boss@slightlyboost.com' },
-        { text: '+7 (917) 696-75-65' },
-        { text: 'slightlyboss' },
-        { text: 'slightlyboss#1580' },
-      ],
+      socials,
       copyText: 'Click to copy',
     }
   },

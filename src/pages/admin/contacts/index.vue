@@ -9,10 +9,10 @@
           <h1 class="slider-title">OUR CONTACTS</h1>
         </div>
         <div 
-          v-for="(link, key) in links"
+          v-for="(social, key) in socials"
           :key="key" 
           class="contacts pt-4"
-          @click="copyOppId(link.text)"
+          @click="copyOppId(social.text)"
           @mouseleave="mouseLeave()"
         >
           <v-tooltip right>
@@ -26,7 +26,7 @@
                     class="menu_options"
                   > 
                     <div :class="`c${key + 1} pr-5`" />
-                    {{ link.text }}
+                    {{ social.text }}
                   </v-btn>
                 </v-list-item-title>
               </v-list-item-content>
@@ -51,17 +51,14 @@
 </template>
 
 <script>
+import { socials } from '../../../../static/socials';
+
 export default {
   name: "Contacts",
   data() {
     return {
       url: '1',
-      links: [
-        { text: 'boss@slightlyboost.com' },
-        { text: '+7 (917) 696-75-65' },
-        { text: 'slightlyboss' },
-        { text: 'slightlyboss#1580' },
-      ],
+      socials,
       text: 'Our manager always starts a conversation with your order number. Check the discord tag, number or email that you are dealing with. Be careful and don’t get scammed by impersonators',
       copyText: 'Click to copy',
     }

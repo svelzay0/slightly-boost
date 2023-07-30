@@ -444,7 +444,7 @@ import { boostAwards } from '../../../../static/boost-awards';
 import { boostComments } from '../../../../static/boost-comments';
 import { boostSelectedItemsFrom } from '../../../../static/boost-selected-items-from';
 import { boostSelectedItemsTo } from '../../../../static/boost-selected-items-to';
-import { boostPaymentItems } from '../../../../static/boost-payment-items';
+import { paymentItems } from '../../../../static/payment-items';
 import ElementCarousel from '../../../elements/carousel.vue';
 import ElementSelect from '../../../elements/select.vue';
 import ElementTooltip from '../../../elements/tooltip.vue';
@@ -492,7 +492,7 @@ export default {
       comments: boostComments,
       selectItemsFrom: boostSelectedItemsFrom,
       selectItemsTo: boostSelectedItemsTo,
-      paymentItems: boostPaymentItems,
+      paymentItems,
       settings: {
         index: 0,
         edgeFriction: 0.35,
