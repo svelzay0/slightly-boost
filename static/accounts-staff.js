@@ -8,6 +8,7 @@ export const accountsStaff = [
     sold: true,
     text: "BUY FOR",
     price: 60,
+    image: 'account-1.png',
   },
   {
     id: 6,
@@ -18,6 +19,7 @@ export const accountsStaff = [
     sold: true,
     text: "BUY FOR",
     price: 1200,
+    image: 'account-1.png',
   },
   {
     id: 3,
@@ -28,6 +30,7 @@ export const accountsStaff = [
     sold: false,
     text: "SOLD OUT",
     price: 0,
+    image: 'account-1.png',
   },
   {
     id: 8,
@@ -38,5 +41,6 @@ export const accountsStaff = [
     sold: true,
     text: "BUY FOR",
     price: 37,
+    image: 'account-1.png',
   },
 ]

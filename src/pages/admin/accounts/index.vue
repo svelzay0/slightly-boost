@@ -125,7 +125,11 @@
                 cols="12"
                 sm="6"
               >
-                <div class="acc-first-slide-img"></div>
+                <img 
+                  class="acc-first-slide-img"
+                  alt="account image"
+                  :src="require(`@/assets/accounts/${defAccount.image}`)"
+                />
               </v-col>
               <v-col
                 cols="12"

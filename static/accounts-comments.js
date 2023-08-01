@@ -9,6 +9,7 @@ export const accountsComments = [
     text: "BUY FOR",
     price: 60,
     elo: 2170,
+    image: 'account-1.png',
   },
   {
     id: 2,
@@ -20,6 +21,7 @@ export const accountsComments = [
     text: "BUY FOR",
     price: 5,
     elo: 1000,
+    image: 'order1.png',
   },
   {
     id: 3,
@@ -31,6 +33,7 @@ export const accountsComments = [
     text: "SOLD OUT",
     price: 0,
     elo: 4100,
+    image: 'order1.png',
   },
   {
     id: 4,
@@ -42,6 +45,7 @@ export const accountsComments = [
     text: "BUY FOR",
     price: 7,
     elo: 390,
+    image: 'account-1.png',
   },
   {
     id: 5,
@@ -53,6 +57,7 @@ export const accountsComments = [
     text: "BUY FOR",
     price: 60,
     elo: 1560,
+    image: 'account-1.png',
   },
   {
     id: 6,
@@ -64,6 +69,7 @@ export const accountsComments = [
     text: "BUY FOR",
     price: 1200,
     elo: 2020,
+    image: 'account-1.png',
   },
   {
     id: 7,
@@ -75,6 +81,7 @@ export const accountsComments = [
     text: "BUY FOR",
     price: 10,
     elo: 580,
+    image: 'account-1.png',
   },
   {
     id: 8,
@@ -86,5 +93,6 @@ export const accountsComments = [
     text: "BUY FOR",
     price: 37,
     elo: 1860,
+    image: 'account-1.png',
   },
 ]
