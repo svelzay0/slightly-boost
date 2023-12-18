@@ -26,7 +26,7 @@ export default {
     Scroller,
   },
   created () {
-    document.title = "slightlyboost - Faceit CSGO Boosting | Faceit CSGO Accounts";
+    document.title = "slightlyboost 🟧 Faceit CS2 Boosting | Faceit CS2 Accounts";
   }
 }
 </script>

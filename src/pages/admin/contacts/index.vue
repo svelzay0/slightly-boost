@@ -59,7 +59,7 @@ export default {
     return {
       url: '1',
       socials,
-      text: 'Our manager always starts a conversation with your order number. Check the discord tag, number or email that you are dealing with. Be careful and don’t get scammed by impersonators',
+      text: 'Our manager always starts a conversation with your order number. Check the discord tag, number or email that you are dealing with. Be careful and don’t get scammed by impersonators.',
       copyText: 'Click to copy',
     }
   },

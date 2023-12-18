@@ -8,13 +8,13 @@ export const boostAwards= [
   {
     id: 2,
     title: 'PROFESSIONAL BOOSTERS',
-    desc: 'Our team consists of legit and high-elo players. We stick with only CS:GO services and we do it professionally.',
+    desc: 'Our team consists of legit and high-elo players. We stick with only CS2 services and we do it professionally.',
     icon: 'csgo',
   },
   {
     id: 3,
     title: 'SAFETY',
-    desc: 'All of our boosters are time-tested and appreciate their work. You dont have to worry about your steam inventory.',
+    desc: 'All of our boosters are time-tested and appreciate their work. You dont have to worry about your steam inventory or any bans.',
     icon: 'shield',
   },
   {
