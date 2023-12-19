@@ -621,83 +621,83 @@ export default {
       if (elo >= 0 && elo < 951) {
         if (this.currency.id === 2) {
           priceTag = 1.72
-        } else priceTag = 1.6;
+        } else priceTag = 1.72 * 0.91;
       } else if (elo >= 951 && elo < 1251) {
         if (this.currency.id === 2) {
           priceTag = 2.14
-        } else priceTag = 2;
+        } else priceTag = 2.14 * 0.91;
       } else if (elo >= 1251 && elo < 1551) {
         if (this.currency.id === 2) {
           priceTag = 2.47
-        } else priceTag = 2.3;
+        } else priceTag = 2.47 * 0.91;
       } else if (elo >= 1551 && elo < 1701) {
         if (this.currency.id === 2) {
           priceTag = 3.43
-        } else priceTag = 3.2;
+        } else priceTag = 3.43 * 0.91;
       } else if (elo >= 1701 && elo < 1851) {
         if (this.currency.id === 2) {
           priceTag = 4.4
-        } else priceTag = 4.1;
+        } else priceTag = 4.4 * 0.91;
       } else if (elo >= 1851 && elo < 2001) {
         if (this.currency.id === 2) {
           priceTag = 5.79
-        } else priceTag = 5.4;
+        } else priceTag = 5.79 * 0.91;
       } else if (elo >= 2001 && elo < 2200) {
         if (this.currency.id === 2) {
           priceTag = 6.97
-        } else priceTag = 6.5;
+        } else priceTag = 6.97 * 0.91;
       } else if (elo >= 2200 && elo < 2300) {
         if (this.currency.id === 2) {
           priceTag = 7.5
-        } else priceTag = 7;
+        } else priceTag = 7.5 * 0.91;
       } else if (elo >= 2300 && elo < 2400) {
         if (this.currency.id === 2) {
           priceTag = 8.9
-        } else priceTag = 8.3;
+        } else priceTag = 8.9 * 0.91;
       } else if (elo >= 2400 && elo < 2500) {
         if (this.currency.id === 2) {
           priceTag = 9.33
-        } else priceTag = 8.7;
+        } else priceTag = 9.33 * 0.91;
       } else if (elo >= 2500 && elo < 2600) {
         if (this.currency.id === 2) {
           priceTag = 10.08
-        } else priceTag = 9.4;
+        } else priceTag = 10.08 * 0.91;
       } else if (elo >= 2600 && elo < 2700) {
         if (this.currency.id === 2) {
           priceTag = 11.47
-        } else priceTag = 10.7;
+        } else priceTag = 11.47 * 0.91;
       } else if (elo >= 2700 && elo < 2800) {
         if (this.currency.id === 2) {
           priceTag = 12
-        } else priceTag = 11.2;
+        } else priceTag = 12 * 0.91;
       } else if (elo >= 2800 && elo < 2900) {
         if (this.currency.id === 2) {
           priceTag = 12.86
-        } else priceTag = 12;
+        } else priceTag = 12.86 * 0.91;
       } else if (elo >= 2900 && elo < 3000) {
         if (this.currency.id === 2) {
           priceTag = 14.04
-        } else priceTag = 13.1;
+        } else priceTag = 14.04 * 0.91;
       } else if (elo >= 3000 && elo < 3100) {
         if (this.currency.id === 2) {
           priceTag = 14.58
-        } else priceTag = 13.6;
+        } else priceTag = 14.58 * 0.91;
       } else if (elo >= 3100 && elo < 3200) {
         if (this.currency.id === 2) {
           priceTag = 15.33
-        } else priceTag = 14.3;
+        } else priceTag = 15.33 * 0.91;
       } else if (elo >= 3200 && elo < 3199) {
         if (this.currency.id === 2) {
           priceTag = 16.72
-        } else priceTag = 15.6;
+        } else priceTag = 16.72 * 0.91;
       } else if (elo >= 3300 && elo < 3400) {
         if (this.currency.id === 2) {
           priceTag = 17.47
-        } else priceTag = 16.3;
+        } else priceTag = 17.47 * 0.91;
       } else if (elo >= 3400 && elo < 3500) {
         if (this.currency.id === 2) {
           priceTag = 17.9
-        } else priceTag = 16.7;
+        } else priceTag = 17.9 * 0.91;
       }
       return priceTag;
     },
@@ -889,7 +889,7 @@ export default {
           this.formData.operationId = await Math.floor(Math.random() * 9999999);
           this.operationId = this.formData.operationId;
           this.formData.typeOfOrder = 'boost';
-          await axios.post('https://sheet.best/api/sheets/9a3ea68d-307e-4b9f-b1ff-a1dcbbbc17d8', [this.formData]).then(response => {
+          await axios.post('https://sheet.best/api/sheets/4eceb24b-c49d-4fe0-a609-35cef69eb5ff', [this.formData]).then(response => {
             console.log(response);
           })
           this.toTab(2, true);

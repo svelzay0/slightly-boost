@@ -3,7 +3,7 @@ export const homeSlider= [
     id: 1,
     title: 'FACEIT BOOST',
     photo: 'bg_image1.png',
-    text: '1Our team provides high-quality boosting service. You will never regret choosing us and now Ill explain why. Our team do not use any kind of software or cheats, everything is done by boosters hands. Other services creates an empty account with 0 matches and start boost right away - in result you end up with boosting service/smuring faceit ban and losing your money, account and time. We dont do the same, we ask for low-level accounts from our friends or customers and boost you. We always in touch with our customers through discord or any chat. In the end I hope you will have a great expirience with us.',
+    text: '1Our team provides high-quality boosting service. You will never regret choosing us and now Ill explain why. Our team do not use any kind of software or cheats, everything is done by boosters hands. Other services creates an empty account with 0 matches and start boost right away - in result you end up with boosting service/smurfing faceit ban and losing your money, account and time. We dont do the same, we ask for low-level accounts from our friends or customers and boost you. We always in touch with our customers through discord or any chat. In the end I hope you will have a great expirience with us.',
   },
   {
     id: 2,

@@ -48,7 +48,7 @@
                 {{ item.title }}
               </div>
               <div class="acc-desc pt-8">
-                {{ item.desc }}
+                {{ truncate(item.desc, 95) }}
               </div>
               <v-btn
                 v-if="item.sold"
@@ -416,11 +416,11 @@ export default {
     setPrice(price) {
       if (this.currency.id === 2) {
         if (price > 99) {
-          return (price * 0.92).toFixed(0);
+          return (price * 0.91).toFixed(0);
         } else if (price === 0) {
           return '';
         }
-        return (price * 0.92).toFixed(1);
+        return (price * 0.91).toFixed(1);
       } else {
         if (price === 0) {
           return '';
@@ -491,6 +491,14 @@ export default {
         }
       }
     },
+    truncate(str, num) {
+      if (str !== null) {
+        if (str.length > num) {
+          return `${str.substring(num, 0)} ...`;
+        }
+      }
+      return str;
+    },
     async onSubmit() {
       if (this.$refs.form.validate()) {
         let acc = document.querySelector('.acc-content');
@@ -506,7 +514,7 @@ export default {
           this.formData.payment = this.formData.payment.text
           this.formData.operationId = Math.floor(Math.random() * 9999999);
           this.operationId = this.formData.operationId
-          await axios.post('https://sheet.best/api/sheets/9a3ea68d-307e-4b9f-b1ff-a1dcbbbc17d8', [this.formData]).then(response => {
+          await axios.post('https://sheet.best/api/sheets/4eceb24b-c49d-4fe0-a609-35cef69eb5ff', [this.formData]).then(response => {
             console.log(response);
           })
           this.toSlide(2);
