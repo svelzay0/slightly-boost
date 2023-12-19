@@ -27,5 +27,7 @@ module.exports = {
   },
   devServer: process.env.NODE_ENV === "production" ? {
     host: 'slightlyboost.com'
-  } : {}
+  } : {
+    host: 'slightlyboost.com'
+  }
 }
