@@ -186,6 +186,7 @@ export default {
   },
   mounted() {
     this.changeIndex(0);
+    console.log('19.12.2023')
   },
   methods: {
     ...mapMutations("shared", ["setHomeSliderIndex"]),
