@@ -416,11 +416,11 @@ export default {
     setPrice(price) {
       if (this.currency.id === 2) {
         if (price > 99) {
-          return (price * 0.91).toFixed(0);
+          return (price * 1.095).toFixed(0);
         } else if (price === 0) {
           return '';
         }
-        return (price * 0.91).toFixed(1);
+        return (price * 1.095).toFixed(1);
       } else {
         if (price === 0) {
           return '';
@@ -494,7 +494,7 @@ export default {
     truncate(str, num) {
       if (str !== null) {
         if (str.length > num) {
-          return `${str.substring(num, 0)} ...`;
+          return `${str.substring(num, 0)}...`;
         }
       }
       return str;
