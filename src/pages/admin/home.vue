@@ -185,6 +185,7 @@ export default {
     }
   },
   mounted() {
+    console.log('new');
     this.changeIndex(0);
   },
   methods: {
