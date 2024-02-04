@@ -732,7 +732,7 @@ export default {
       if (data.way === 'from') {
         this.defaultSelectedFrom = this.selectItemsFrom[data.index];
         if (data.index === 0) {
-          this.eloFrom = 500;
+          this.eloFrom = 100;
         } else {
           this.eloFrom = this.selectItemsFrom[data.index].eloMin;
         }
