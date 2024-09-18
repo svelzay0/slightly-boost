@@ -1,7 +1,7 @@
 <template>
   <div class="main-home">
     <div class="home order">
-      <div class="order-blur"></div> 
+      <div class="order-blur"></div>
       <div v-if="orderPage < 2" class="blue-blur-order"></div>
       <div v-else class="blue-blur-order-last"></div>
       <div class="order-content">
@@ -19,9 +19,10 @@
       >
         <template #default="{data}">
           <div :ref="`${data.photoClass}`" :class="`${data.photoClass}`">
-            <div v-if="data.id === 1" class="order-cover"/>
-            <div v-else :class="
-              {
+            <div v-if="data.id === 1" class="order-cover" />
+            <div
+              v-else
+              :class="{
                 'order-cover-2': orderPage === data.id - 1,
                 'order-cover-2-disable': orderPage !== data.id - 1,
               }"
@@ -40,7 +41,7 @@
                 <div class="calcs d-flex">
                   <div class="elo-calc">
                     <div class="acc-selector">
-                      <element-select 
+                      <element-select
                         :default-selected-from="defaultSelectedFrom"
                         :select-items-to="selectItemsTo"
                         :select-items-from="selectItemsFrom"
@@ -79,7 +80,7 @@
                   </v-icon>
                   <div class="elo-calc">
                     <div class="acc-selector">
-                      <element-select 
+                      <element-select
                         :default-selected-to="defaultSelectedTo"
                         :select-items-to="selectItemsTo"
                         :select-items-from="selectItemsFrom"
@@ -99,7 +100,7 @@
                       </v-btn>
                       <input
                         v-model="eloTo"
-                        class="elo-input-to" 
+                        class="elo-input-to"
                         placeholder="Desired ELO"
                       />
                       <v-btn
@@ -125,14 +126,11 @@
                     color="red"
                     :value="false"
                   >
-                    <template slot='label'>
+                    <template slot="label">
                       <div class="switch-label">Lobby/Duo</div>
                     </template>
                   </v-switch>
-                  <element-tooltip 
-                    class="pt-5 pl-2"
-                    :text="tooltipswitch1"
-                  />
+                  <element-tooltip class="pt-5 pl-2" :text="tooltipswitch1" />
                   <v-switch
                     v-model="steamOffline"
                     class="pl-8"
@@ -141,14 +139,11 @@
                     color="red"
                     :value="true"
                   >
-                    <template slot='label'>
+                    <template slot="label">
                       <div class="switch-label">Steam offline mode</div>
                     </template>
                   </v-switch>
-                  <element-tooltip 
-                    class="pt-5 pl-2"
-                    :text="tooltipswitch2"
-                  />
+                  <element-tooltip class="pt-5 pl-2" :text="tooltipswitch2" />
                   <v-switch
                     v-model="priorityOrder"
                     class="pl-8"
@@ -157,21 +152,18 @@
                     color="red"
                     :value="false"
                   >
-                    <template slot='label'>
+                    <template slot="label">
                       <div class="switch-label">Priority order</div>
                     </template>
                   </v-switch>
-                  <element-tooltip 
-                    class="pt-5 pl-2"
-                    :text="tooltipswitch3"
-                  />
+                  <element-tooltip class="pt-5 pl-2" :text="tooltipswitch3" />
                 </div>
                 <div class="d-flex order-footer">
                   <div class="order-title">
                     TOTAL
                   </div>
                   <div class="order-price pl-2">
-                    {{ currency.text }}{{ price }} 
+                    {{ currency.text }}{{ price }}
                   </div>
                 </div>
                 <div class="d-flex pt-6">
@@ -198,10 +190,7 @@
                   @submit.prevent="onSubmit"
                 >
                   <v-row class="order-row-from-tab-2">
-                    <v-col
-                      cols="12"
-                      sm="4"
-                    >
+                    <v-col cols="12" sm="4">
                       <div class="job-title">
                         <div class="award-title">YOUR NAME</div>
                       </div>
@@ -211,13 +200,12 @@
                         :rules="nameRules"
                         placeholder="Your real name"
                         color="#fff"
-                        :append-icon="formData.name.length ? '' : 'mdi-asterisk'"
+                        :append-icon="
+                          formData.name.length ? '' : 'mdi-asterisk'
+                        "
                       ></v-text-field>
                     </v-col>
-                    <v-col
-                      cols="12"
-                      sm="4"
-                    >
+                    <v-col cols="12" sm="4">
                       <div class="job-title">
                         <div class="award-title">PAYMENT METHOD</div>
                       </div>
@@ -237,10 +225,7 @@
                         return-object
                       ></v-select>
                     </v-col>
-                    <v-col
-                      cols="12"
-                      sm="4"
-                    >
+                    <v-col cols="12" sm="4">
                       <div class="job-title">
                         <div class="award-title">PROMOCODE</div>
                       </div>
@@ -251,14 +236,12 @@
                         color="#fff"
                       ></v-text-field>
                     </v-col>
-                    <v-col
-                      cols="12"
-                    >
+                    <v-col cols="12">
                       <div class="job-title">
-                        <div class="award-title pr-2">HOW CAN WE CONTACT YOU?</div>
-                        <element-tooltip 
-                          :text="tooltipFirst"
-                        />
+                        <div class="award-title pr-2">
+                          HOW CAN WE CONTACT YOU?
+                        </div>
+                        <element-tooltip :text="tooltipFirst" />
                       </div>
                       <v-text-field
                         v-model="formData.contact"
@@ -266,26 +249,22 @@
                         :rules="nameRules"
                         placeholder="Telegram, Discord, Whatsapp, etc.."
                         color="#fff"
-                        :append-icon="formData.contact.length ? '' : 'mdi-asterisk'"
+                        :append-icon="
+                          formData.contact.length ? '' : 'mdi-asterisk'
+                        "
                       ></v-text-field>
                     </v-col>
-                    <v-col
-                      cols="12"
-                      class="pt-16 mt-7"
-                    >
+                    <v-col cols="12" class="pt-16 mt-7">
                       <div class="d-flex">
                         <div class="order-title">
                           TOTAL
                         </div>
                         <div class="order-price pl-2">
-                          {{ currency.text }}{{ price }} 
+                          {{ currency.text }}{{ price }}
                         </div>
                       </div>
                     </v-col>
-                    <v-col
-                      cols="3"
-                      class="d-flex"
-                    >
+                    <v-col cols="3" class="d-flex">
                       <v-btn
                         rounded
                         x-large
@@ -299,10 +278,7 @@
                         </span>
                       </v-btn>
                     </v-col>
-                    <v-col
-                      cols="6"
-                      class="d-flex"
-                    >
+                    <v-col cols="6" class="d-flex">
                       <v-btn
                         rounded
                         x-large
@@ -372,40 +348,22 @@
             <div class="comments-main-flex">
               <div class="stars">
                 <div>
-                  <button
-                    type="button"
-                    class="slick-arrow star-active"
-                  />
+                  <button type="button" class="slick-arrow star-active" />
                 </div>
                 <div>
-                    <button
-                      type="button"
-                      class="slick-arrow star-active"
-                    />
+                  <button type="button" class="slick-arrow star-active" />
                 </div>
                 <div>
-                  <button
-                    type="button"
-                    class="slick-arrow star-active"
-                  />
+                  <button type="button" class="slick-arrow star-active" />
                 </div>
                 <div v-if="data.stars > 3">
-                  <button
-                    type="button"
-                    class="slick-arrow star-active"
-                  />
+                  <button type="button" class="slick-arrow star-active" />
                 </div>
                 <div v-if="data.stars > 4">
-                  <button
-                    type="button"
-                    class="slick-arrow star-active"
-                  />
+                  <button type="button" class="slick-arrow star-active" />
                 </div>
                 <div v-else>
-                  <button
-                    type="button"
-                    class="slick-arrow star-disable"
-                  />
+                  <button type="button" class="slick-arrow star-disable" />
                 </div>
               </div>
               <div class="comments-time">{{ data.time }}</div>
@@ -439,54 +397,57 @@
 
 <script>
 import { mapGetters, mapMutations } from "vuex";
-import { boostSlides } from '../../../../static/boost-slides';
-import { boostAwards } from '../../../../static/boost-awards';
-import { boostComments } from '../../../../static/boost-comments';
-import { boostSelectedItemsFrom } from '../../../../static/boost-selected-items-from';
-import { boostSelectedItemsTo } from '../../../../static/boost-selected-items-to';
-import { paymentItems } from '../../../../static/payment-items';
-import ElementCarousel from '../../../elements/carousel.vue';
-import ElementSelect from '../../../elements/select.vue';
-import ElementTooltip from '../../../elements/tooltip.vue';
+import { boostSlides } from "../../../../static/boost-slides";
+import { boostAwards } from "../../../../static/boost-awards";
+import { boostComments } from "../../../../static/boost-comments";
+import { boostSelectedItemsFrom } from "../../../../static/boost-selected-items-from";
+import { boostSelectedItemsTo } from "../../../../static/boost-selected-items-to";
+import { paymentItems } from "../../../../static/payment-items";
+import ElementCarousel from "../../../elements/carousel.vue";
+import ElementSelect from "../../../elements/select.vue";
+import ElementTooltip from "../../../elements/tooltip.vue";
 import axios from "axios";
-import 'vue-slick-carousel/dist/vue-slick-carousel.css'
+import "vue-slick-carousel/dist/vue-slick-carousel.css";
 // optional style for arrows & dots
-import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
+import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
 
 export default {
   name: "orders",
   components: {
     ElementCarousel,
     ElementTooltip,
-    ElementSelect
+    ElementSelect,
   },
   data() {
     return {
       valid: true,
-      tooltipFirst: 'Leave your discord<br/> telegram, whatsapp or<br/> anything to contact you',
+      tooltipFirst:
+        "Leave your discord<br/> telegram, whatsapp or<br/> anything to contact you",
       operationId: 0,
-      copyText: 'Click to copy',
+      copyText: "Click to copy",
       formData: {
-        name: '',
-        payment: '',
-        promocode: '',
-        contact: '',
+        name: "",
+        payment: "",
+        promocode: "",
+        contact: "",
       },
-      nameRules: [
-        v => v.length >= 1 || 'This field required!'
-      ],
+      nameRules: [(v) => v.length >= 1 || "This field required!"],
       toWatch: true,
       index: 0,
-      eloFrom: '',
-      eloTo: '',
+      eloFrom: "",
+      eloTo: "",
       lobbyDuo: false,
       steamOffline: true,
       priorityOrder: false,
-      thanks: 'THANKS FOR MAKING ORDER',
-      thanskDesc: 'Our manager will contact you as soon as possible. Save your order number, so manager can prove he is not fake!',
-      tooltipswitch1: 'You can play with</br> booster without giving</br> your account',
-      tooltipswitch2: 'Our booster will play in</br> invisible mode on your</br> steam account',
-      tooltipswitch3: 'Your order will</br> be prioritized and</br> started ASAP',
+      thanks: "THANKS FOR MAKING ORDER",
+      thanskDesc:
+        "Our manager will contact you as soon as possible. Save your order number, so manager can prove he is not fake!",
+      tooltipswitch1:
+        "You can play with</br> booster without giving</br> your account",
+      tooltipswitch2:
+        "Our booster will play in</br> invisible mode on your</br> steam account",
+      tooltipswitch3:
+        "Your order will</br> be prioritized and</br> started ASAP",
       slides: boostSlides,
       awards: boostAwards,
       comments: boostComments,
@@ -504,50 +465,61 @@ export default {
       finalPrice: 0,
       defaultTemplateFrom: {
         id: 0,
-        text: '0',
-        icon: 'level-0',
-        eloMin: 'Current ELO',
-        eloMax: 'Desired ELO',
+        text: "0",
+        icon: "level-0",
+        eloMin: "Current ELO",
+        eloMax: "Desired ELO",
       },
       defaultTemplateTo: {
         id: 0,
-        text: '0',
-        icon: 'level-0',
-        eloMin: 'Current ELO',
-        eloMax: 'Desired ELO',
+        text: "0",
+        icon: "level-0",
+        eloMin: "Current ELO",
+        eloMax: "Desired ELO",
       },
       defaultSelectedFrom: {
         id: 0,
-        text: '0',
-        icon: 'level-0',
-        eloMin: 'Current ELO',
-        eloMax: 'Desired ELO',
+        text: "0",
+        icon: "level-0",
+        eloMin: "Current ELO",
+        eloMax: "Desired ELO",
       },
       defaultSelectedTo: {
         id: 0,
-        text: '0',
-        icon: 'level-0',
-        eloMin: 'Current ELO',
-        eloMax: 'Desired ELO',
+        text: "0",
+        icon: "level-0",
+        eloMin: "Current ELO",
+        eloMax: "Desired ELO",
       },
       paymentDefaultSelected: {
         id: 1,
-        text: 'Cryptocurrency',
+        text: "Cryptocurrency",
       },
-    }
+    };
   },
   computed: {
     ...mapGetters("shared", ["currency", "orderPage"]),
-    price () {
+    price() {
       if (this.eloFrom === this.eloTo) {
         return 0;
       }
-      if ((this.defaultSelectedTo.text === '0' && this.defaultSelectedFrom.text === '0') && (this.eloFrom >= this.eloTo)) {
+      if (
+        this.defaultSelectedTo.text === "0" &&
+        this.defaultSelectedFrom.text === "0" &&
+        this.eloFrom >= this.eloTo
+      ) {
         return 0;
       } else {
         let sum = 0;
-        if (typeof this.eloFrom !== 'string' && typeof this.eloTo !== 'string') {
-          for (var currentElo = this.eloFrom; currentElo < this.eloTo; currentElo += 25) {
+        if (
+          typeof this.eloFrom !== "string" &&
+          typeof this.eloTo !== "string"
+        ) {
+          for (
+            var currentElo = this.eloFrom;
+            currentElo < this.eloTo;
+            currentElo += 25
+          ) {
             sum += this.getPriceTag(currentElo);
           }
           if (this.lobbyDuo) {
@@ -557,10 +529,10 @@ export default {
             sum += sum * 0.15;
           }
           if (this.paymentDefaultSelected.id === 2) {
-            sum += sum * 0.30;
+            sum += sum * 0.3;
           }
         }
-        return sum.toFixed(2);   
+        return sum.toFixed(2);
       }
     },
   },
@@ -571,16 +543,16 @@ export default {
     eloFrom(newVal) {
       if (this.toWatch) {
         if (newVal.length) {
-          this.eloFrom = Math.abs(parseInt(newVal))
-          this.changeEloFrom(this.eloFrom)
-        } else if (typeof this.eloFrom !== 'number') {
-          this.eloFrom = ''
-          this.defaultSelectedFrom = this.defaultTemplateFrom
+          this.eloFrom = Math.abs(parseInt(newVal));
+          this.changeEloFrom(this.eloFrom);
+        } else if (typeof this.eloFrom !== "number") {
+          this.eloFrom = "";
+          this.defaultSelectedFrom = this.defaultTemplateFrom;
         }
       }
       if (isNaN(this.eloFrom)) {
-        this.eloFrom = '';
-        this.defaultSelectedFrom = this.defaultTemplateFrom
+        this.eloFrom = "";
+        this.defaultSelectedFrom = this.defaultTemplateFrom;
       }
       if (this.eloFrom > 3500) {
         this.eloFrom = 3499;
@@ -588,17 +560,17 @@ export default {
     },
     eloTo(newVal) {
       if (this.toWatch) {
-        if (newVal.length && typeof newVal === 'string') {
-          this.eloTo = Math.abs(parseInt(newVal))
-          this.changeEloTo(this.eloTo)
-        } else if (typeof this.eloTo !== 'number') {
-          this.eloTo = ''
-          this.defaultSelectedTo = this.defaultTemplateTo
+        if (newVal.length && typeof newVal === "string") {
+          this.eloTo = Math.abs(parseInt(newVal));
+          this.changeEloTo(this.eloTo);
+        } else if (typeof this.eloTo !== "number") {
+          this.eloTo = "";
+          this.defaultSelectedTo = this.defaultTemplateTo;
         }
       }
       if (isNaN(this.eloTo)) {
-        this.eloTo = '';
-        this.defaultSelectedTo = this.defaultTemplateTo
+        this.eloTo = "";
+        this.defaultSelectedTo = this.defaultTemplateTo;
       }
       if (this.eloTo > 3500) {
         this.eloTo = 3500;
@@ -606,11 +578,11 @@ export default {
     },
     orderPage(newVal) {
       this.$eventBus.$emit("changeFromParent", newVal);
-      let firstTab = this.$refs['order-tab-1'];
+      let firstTab = this.$refs["order-tab-1"];
       if (newVal > 0) {
-        firstTab.setAttribute('style', 'display: none;');
+        firstTab.setAttribute("style", "display: none;");
       } else {
-        firstTab.setAttribute('style', 'display: block;');
+        firstTab.setAttribute("style", "display: block;");
       }
     },
   },
@@ -620,83 +592,83 @@ export default {
       let priceTag = 0;
       if (elo >= 0 && elo < 951) {
         if (this.currency.id === 2) {
-          priceTag = 1.3
+          priceTag = 1.3;
         } else priceTag = 1.3 * 0.93;
       } else if (elo >= 951 && elo < 1251) {
         if (this.currency.id === 2) {
-          priceTag = 1.6
+          priceTag = 1.6;
         } else priceTag = 1.6 * 0.93;
       } else if (elo >= 1251 && elo < 1551) {
         if (this.currency.id === 2) {
-          priceTag = 1.9
+          priceTag = 1.9;
         } else priceTag = 1.9 * 0.93;
       } else if (elo >= 1551 && elo < 1701) {
         if (this.currency.id === 2) {
-          priceTag = 2.6
+          priceTag = 2.6;
         } else priceTag = 2.6 * 0.93;
       } else if (elo >= 1701 && elo < 1851) {
         if (this.currency.id === 2) {
-          priceTag = 3.3
+          priceTag = 3.3;
         } else priceTag = 3.3 * 0.93;
       } else if (elo >= 1851 && elo < 2001) {
         if (this.currency.id === 2) {
-          priceTag = 4.3
+          priceTag = 4.3;
         } else priceTag = 4.3 * 0.93;
       } else if (elo >= 2001 && elo < 2200) {
         if (this.currency.id === 2) {
-          priceTag = 5.2
+          priceTag = 5.2;
         } else priceTag = 5.2 * 0.93;
       } else if (elo >= 2200 && elo < 2300) {
         if (this.currency.id === 2) {
-          priceTag = 5.6
+          priceTag = 5.6;
         } else priceTag = 5.6 * 0.93;
       } else if (elo >= 2300 && elo < 2400) {
         if (this.currency.id === 2) {
-          priceTag = 6.6
+          priceTag = 6.6;
         } else priceTag = 6.6 * 0.93;
       } else if (elo >= 2400 && elo < 2500) {
         if (this.currency.id === 2) {
-          priceTag = 7
+          priceTag = 7;
         } else priceTag = 7 * 0.93;
       } else if (elo >= 2500 && elo < 2600) {
         if (this.currency.id === 2) {
-          priceTag = 7.5
+          priceTag = 7.5;
         } else priceTag = 7.5 * 0.93;
       } else if (elo >= 2600 && elo < 2700) {
         if (this.currency.id === 2) {
-          priceTag = 8.9
+          priceTag = 8.9;
         } else priceTag = 8.9 * 0.93;
       } else if (elo >= 2700 && elo < 2800) {
         if (this.currency.id === 2) {
-          priceTag = 9
+          priceTag = 9;
         } else priceTag = 9 * 0.93;
       } else if (elo >= 2800 && elo < 2900) {
         if (this.currency.id === 2) {
-          priceTag = 9.6
+          priceTag = 9.6;
         } else priceTag = 9.6 * 0.93;
       } else if (elo >= 2900 && elo < 3000) {
         if (this.currency.id === 2) {
-          priceTag = 10.5
+          priceTag = 10.5;
         } else priceTag = 10.5 * 0.93;
       } else if (elo >= 3000 && elo < 3100) {
         if (this.currency.id === 2) {
-          priceTag = 10.9
+          priceTag = 10.9;
         } else priceTag = 10.9 * 0.93;
       } else if (elo >= 3100 && elo < 3200) {
         if (this.currency.id === 2) {
-          priceTag = 11.5
+          priceTag = 11.5;
         } else priceTag = 11.5 * 0.93;
       } else if (elo >= 3200 && elo < 3300) {
         if (this.currency.id === 2) {
-          priceTag = 12.1
+          priceTag = 12.1;
         } else priceTag = 12.1 * 0.93;
       } else if (elo >= 3300 && elo < 3400) {
         if (this.currency.id === 2) {
-          priceTag = 13
+          priceTag = 13;
         } else priceTag = 13 * 0.93;
       } else if (elo >= 3400 && elo < 3500) {
         if (this.currency.id === 2) {
-          priceTag = 13.4
+          priceTag = 13.4;
         } else priceTag = 13.4 * 0.93;
       }
       return priceTag;
@@ -711,25 +683,25 @@ export default {
       this.$eventBus.$emit("changeFromParent", index);
       if (reset) {
         this.formData = {
-          name: '',
-          payment: '',
-          promocode: '',
-          contact: '',
-        }
-        this.copyText = 'Click to copy'
-        this.eloFrom = ''
-        this.eloTo = ''
-        this.lobbyDuo = false
-        this.steamOffline = true
-        this.priorityOrder = false
-        this.finalPrice = 0
-        this.defaultSelectedFrom = this.defaultTemplateFrom
-        this.defaultSelectedTo = this.defaultTemplateTo
+          name: "",
+          payment: "",
+          promocode: "",
+          contact: "",
+        };
+        this.copyText = "Click to copy";
+        this.eloFrom = "";
+        this.eloTo = "";
+        this.lobbyDuo = false;
+        this.steamOffline = true;
+        this.priorityOrder = false;
+        this.finalPrice = 0;
+        this.defaultSelectedFrom = this.defaultTemplateFrom;
+        this.defaultSelectedTo = this.defaultTemplateTo;
       }
     },
     async setLevel(data) {
       this.toWatch = false;
-      if (data.way === 'from') {
+      if (data.way === "from") {
         this.defaultSelectedFrom = this.selectItemsFrom[data.index];
         if (data.index === 0) {
           this.eloFrom = 100;
@@ -737,7 +709,7 @@ export default {
           this.eloFrom = this.selectItemsFrom[data.index].eloMin;
         }
       }
-      if (data.way === 'to') {
+      if (data.way === "to") {
         this.defaultSelectedTo = this.selectItemsTo[data.index];
         if (data.index === 0) {
           this.eloTo = 800;
@@ -745,169 +717,185 @@ export default {
           this.eloTo = this.selectItemsTo[data.index].eloMin;
         }
       }
-      this.toWatch = await true;  
+      this.toWatch = await true;
     },
     changeEloFrom(elo) {
       if (elo >= 0 && elo < 801) {
-        this.defaultSelectedFrom = this.selectItemsFrom[0]
+        this.defaultSelectedFrom = this.selectItemsFrom[0];
       } else if (elo >= 801 && elo < 951) {
-        this.defaultSelectedFrom = this.selectItemsFrom[1]
+        this.defaultSelectedFrom = this.selectItemsFrom[1];
       } else if (elo >= 951 && elo < 1101) {
-        this.defaultSelectedFrom = this.selectItemsFrom[2]
+        this.defaultSelectedFrom = this.selectItemsFrom[2];
       } else if (elo >= 1101 && elo < 1251) {
-        this.defaultSelectedFrom = this.selectItemsFrom[3]
+        this.defaultSelectedFrom = this.selectItemsFrom[3];
       } else if (elo >= 1251 && elo < 1401) {
-        this.defaultSelectedFrom = this.selectItemsFrom[4]
+        this.defaultSelectedFrom = this.selectItemsFrom[4];
       } else if (elo >= 1401 && elo < 1551) {
-        this.defaultSelectedFrom = this.selectItemsFrom[5]
+        this.defaultSelectedFrom = this.selectItemsFrom[5];
       } else if (elo >= 1551 && elo < 1701) {
-        this.defaultSelectedFrom = this.selectItemsFrom[6]
+        this.defaultSelectedFrom = this.selectItemsFrom[6];
       } else if (elo >= 1701 && elo < 1851) {
-        this.defaultSelectedFrom = this.selectItemsFrom[7]
+        this.defaultSelectedFrom = this.selectItemsFrom[7];
       } else if (elo >= 1851 && elo < 2001) {
-        this.defaultSelectedFrom = this.selectItemsFrom[8]
+        this.defaultSelectedFrom = this.selectItemsFrom[8];
       } else if (elo >= 2001) {
-        this.defaultSelectedFrom = this.selectItemsFrom[9]
+        this.defaultSelectedFrom = this.selectItemsFrom[9];
       }
     },
     changeEloTo(elo) {
       if (elo >= 0 && elo < 801) {
-        this.defaultSelectedTo = this.selectItemsTo[0]
+        this.defaultSelectedTo = this.selectItemsTo[0];
       } else if (elo >= 801 && elo < 951) {
-        this.defaultSelectedTo = this.selectItemsTo[1]
+        this.defaultSelectedTo = this.selectItemsTo[1];
       } else if (elo >= 951 && elo < 1101) {
-        this.defaultSelectedTo = this.selectItemsTo[2]
+        this.defaultSelectedTo = this.selectItemsTo[2];
       } else if (elo >= 1101 && elo < 1251) {
-        this.defaultSelectedTo = this.selectItemsTo[3]
+        this.defaultSelectedTo = this.selectItemsTo[3];
       } else if (elo >= 1251 && elo < 1401) {
-        this.defaultSelectedTo = this.selectItemsTo[4]
+        this.defaultSelectedTo = this.selectItemsTo[4];
       } else if (elo >= 1401 && elo < 1551) {
-        this.defaultSelectedTo = this.selectItemsTo[5]
+        this.defaultSelectedTo = this.selectItemsTo[5];
       } else if (elo >= 1551 && elo < 1701) {
-        this.defaultSelectedTo = this.selectItemsTo[6]
+        this.defaultSelectedTo = this.selectItemsTo[6];
       } else if (elo >= 1701 && elo < 1851) {
-        this.defaultSelectedTo = this.selectItemsTo[7]
+        this.defaultSelectedTo = this.selectItemsTo[7];
       } else if (elo >= 1851 && elo < 2001) {
-        this.defaultSelectedTo = this.selectItemsTo[8]
+        this.defaultSelectedTo = this.selectItemsTo[8];
       } else if (elo >= 2001) {
-        this.defaultSelectedTo = this.selectItemsTo[9]
+        this.defaultSelectedTo = this.selectItemsTo[9];
       }
     },
     async changeElo(data) {
       this.toWatch = await false;
-      if (typeof this.eloFrom !== 'string' || (this.eloFrom.length || typeof this.eloFrom === 'number')) {
-        this.eloFrom = parseInt(this.eloFrom)
-        if (data.way === 'from') {
-          if(data.to === 'minus') {
+      if (
+        typeof this.eloFrom !== "string" ||
+        this.eloFrom.length || typeof this.eloFrom === "number"
+      ) {
+        this.eloFrom = parseInt(this.eloFrom);
+        if (data.way === "from") {
+          if (data.to === "minus") {
             if (this.eloFrom >= 25) {
               this.eloFrom -= 25;
             } else {
               this.eloFrom = 0;
             }
           }
-          if(data.to === 'plus') {
+          if (data.to === "plus") {
             this.eloFrom += 25;
           }
         }
-      } else if (data.way === 'from') {
+      } else if (data.way === "from") {
         this.eloFrom = 949;
       }
-      if (typeof this.eloTo !== 'string' || (this.eloTo.length || typeof this.eloTo === 'number')) {
-        this.eloTo = parseInt(this.eloTo)
-        if (data.way === 'to') {
-          if(data.to === 'minus') {
+      if (
+        typeof this.eloTo !== "string" ||
+        this.eloTo.length || typeof this.eloTo === "number"
+      ) {
+        this.eloTo = parseInt(this.eloTo);
+        if (data.way === "to") {
+          if (data.to === "minus") {
             if (this.eloTo >= 25) {
               this.eloTo -= 25;
             } else {
               this.eloTo = 0;
             }
           }
-          if(data.to === 'plus') {
+          if (data.to === "plus") {
             this.eloTo += 25;
           }
         }
-      } else  if (data.way === 'to') {
+      } else if (data.way === "to") {
         this.eloTo = 1025;
       }
       if (this.eloFrom >= 0 && this.eloFrom < 801) {
-        this.defaultSelectedFrom = this.selectItemsFrom[0]
+        this.defaultSelectedFrom = this.selectItemsFrom[0];
       } else if (this.eloFrom >= 801 && this.eloFrom < 951) {
-        this.defaultSelectedFrom = this.selectItemsFrom[1]
+        this.defaultSelectedFrom = this.selectItemsFrom[1];
       } else if (this.eloFrom >= 951 && this.eloFrom < 1101) {
-        this.defaultSelectedFrom = this.selectItemsFrom[2]
+        this.defaultSelectedFrom = this.selectItemsFrom[2];
       } else if (this.eloFrom >= 1101 && this.eloFrom < 1251) {
-        this.defaultSelectedFrom = this.selectItemsFrom[3]
+        this.defaultSelectedFrom = this.selectItemsFrom[3];
       } else if (this.eloFrom >= 1251 && this.eloFrom < 1401) {
-        this.defaultSelectedFrom = this.selectItemsFrom[4]
+        this.defaultSelectedFrom = this.selectItemsFrom[4];
       } else if (this.eloFrom >= 1401 && this.eloFrom < 1551) {
-        this.defaultSelectedFrom = this.selectItemsFrom[5]
+        this.defaultSelectedFrom = this.selectItemsFrom[5];
       } else if (this.eloFrom >= 1551 && this.eloFrom < 1701) {
-        this.defaultSelectedFrom = this.selectItemsFrom[6]
+        this.defaultSelectedFrom = this.selectItemsFrom[6];
       } else if (this.eloFrom >= 1701 && this.eloFrom < 1851) {
-        this.defaultSelectedFrom = this.selectItemsFrom[7]
+        this.defaultSelectedFrom = this.selectItemsFrom[7];
       } else if (this.eloFrom >= 1851 && this.eloFrom < 2001) {
-        this.defaultSelectedFrom = this.selectItemsFrom[8]
+        this.defaultSelectedFrom = this.selectItemsFrom[8];
       } else if (this.eloFrom >= 2001) {
-        this.defaultSelectedFrom = this.selectItemsFrom[9]
+        this.defaultSelectedFrom = this.selectItemsFrom[9];
       }
       if (this.eloTo >= 0 && this.eloTo < 801) {
-        this.defaultSelectedTo = this.selectItemsTo[0]
+        this.defaultSelectedTo = this.selectItemsTo[0];
       } else if (this.eloTo >= 801 && this.eloTo < 951) {
-        this.defaultSelectedTo = this.selectItemsTo[1]
+        this.defaultSelectedTo = this.selectItemsTo[1];
       } else if (this.eloTo >= 951 && this.eloTo < 1101) {
-        this.defaultSelectedTo = this.selectItemsTo[2]
+        this.defaultSelectedTo = this.selectItemsTo[2];
       } else if (this.eloTo >= 1101 && this.eloTo < 1251) {
-        this.defaultSelectedTo = this.selectItemsTo[3]
+        this.defaultSelectedTo = this.selectItemsTo[3];
       } else if (this.eloTo >= 1251 && this.eloTo < 1401) {
-        this.defaultSelectedTo = this.selectItemsTo[4]
+        this.defaultSelectedTo = this.selectItemsTo[4];
       } else if (this.eloTo >= 1401 && this.eloTo < 1551) {
-        this.defaultSelectedTo = this.selectItemsTo[5]
+        this.defaultSelectedTo = this.selectItemsTo[5];
       } else if (this.eloTo >= 1551 && this.eloTo < 1701) {
-        this.defaultSelectedTo = this.selectItemsTo[6]
+        this.defaultSelectedTo = this.selectItemsTo[6];
       } else if (this.eloTo >= 1701 && this.eloTo < 1851) {
-        this.defaultSelectedTo = this.selectItemsTo[7]
+        this.defaultSelectedTo = this.selectItemsTo[7];
       } else if (this.eloTo >= 1851 && this.eloTo < 2001) {
-        this.defaultSelectedTo = this.selectItemsTo[8]
+        this.defaultSelectedTo = this.selectItemsTo[8];
       } else if (this.eloTo >= 2001) {
-        this.defaultSelectedTo = this.selectItemsTo[9]
+        this.defaultSelectedTo = this.selectItemsTo[9];
       }
       this.toWatch = await true;
     },
     async onSubmit() {
       if (this.$refs.form.validate()) {
         try {
-          this.formData.lobbyDuo = this.lobbyDuo
-          this.formData.steamOffline = this.steamOffline
-          this.formData.priorityOrder = this.priorityOrder
-          this.formData.price = this.finalPrice
-          this.formData.accInfo = 
-            { eloFrom: this.eloFrom, eloTo: this.eloTo, price: this.price, currency: this.currency }
-          if (this.formData.payment === '') {
-            this.formData.payment = this.paymentDefaultSelected
+          this.formData.lobbyDuo = this.lobbyDuo;
+          this.formData.steamOffline = this.steamOffline;
+          this.formData.priorityOrder = this.priorityOrder;
+          this.formData.price = this.finalPrice;
+          this.formData.accInfo = {
+            eloFrom: this.eloFrom,
+            eloTo: this.eloTo,
+            price: this.price,
+            currency: this.currency,
+          };
+          if (this.formData.payment === "") {
+            this.formData.payment = this.paymentDefaultSelected;
           }
-          this.formData.payment = this.formData.payment.text
+          this.formData.payment = this.formData.payment.text;
           this.formData.operationId = await Math.floor(Math.random() * 9999999);
           this.operationId = this.formData.operationId;
-          this.formData.typeOfOrder = 'boost';
-          await axios.post('https://sheet.best/api/sheets/3e3aed18-8465-4bdd-8ad2-8df2b0a21059', [this.formData]).then(response => {
-            console.log(response);
-          })
+          this.formData.typeOfOrder = "boost";
+          await axios
+            .post(
+              "https://sheet.best/api/sheets/3e3aed18-8465-4bdd-8ad2-8df2b0a21059",
+              [this.formData]
+            )
+            .then((response) => {
+              console.log(response);
+            });
           this.toTab(2, true);
         } catch (err) {
-          console.log(err)
+          console.log(err);
         }
       }
     },
     copyOppId() {
-      navigator.clipboard.writeText(this.operationId)
-      .then(() => {
-        console.log('copied!');
-        this.copyText = 'Copied!'
-      })
-      .catch(err => {
-        console.log('Something went wrong', err);
-      });
-    }
-  }
+      navigator.clipboard
+        .writeText(this.operationId)
+        .then(() => {
+          console.log("copied!");
+          this.copyText = "Copied!";
+        })
+        .catch((err) => {
+          console.log("Something went wrong", err);
+        });
+    },
+  },
 };
 </script>
