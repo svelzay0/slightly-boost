@@ -1,0 +1,19 @@
+Local:
+git switch master
+git remote remove live
+git remote add live ssh://root@31.129.96.45:/home/nodeUser/slightly-boost-main/site.git
+git add .
+git commit -m "commit № X"
+git push live master
+
+
+VPS:
+ssh root@31.129.96.45
+nkYWEAk7k*bS
+
+Build project:
+cd /home/nodeUser/slightly-boost-main
+./buildProject
+
+config:
+root@uwcpmsouke:/etc/nginx/sites-enabled# nano default

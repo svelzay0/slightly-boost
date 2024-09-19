@@ -10,7 +10,7 @@
         <v-row
           align="center"
           justify="center"
-          class="pt-12"
+          class="pt-12 semi-full"
         >
           <v-col cols="auto">
             <div 
@@ -112,13 +112,13 @@ export default {
     window.addEventListener('scroll', this.handleScroll);
   },
   computed: {
-    ...mapGetters("shared", ["homeSliderIndex"]),
+    ...mapGetters("shared", ["homeSliderIndex", "accountPage", "orderPage"]),
     desktop() {
       return this.$vuetify.breakpoint.width > 600;
     },
   },
   methods: {
-    ...mapMutations("shared", ["setCurrency"]),
+    ...mapMutations("shared", ["setCurrency", "setAccountPage", "setOrderPage"]),
     handleSelect(route) {
       scroll({
         top: 0,
@@ -136,6 +136,12 @@ export default {
       }
       this.url = route;
       document.querySelector('.home').setAttribute('style', 'animation: movedown 0.4s infinite alternate;');
+      if (route !== 'accounts') {
+        this.setAccountPage(1);
+      }
+      if (route !== 'boost') {
+        this.setOrderPage(0);
+      }
       setTimeout(() => {
         document.querySelector('.home').setAttribute('style', 'animation: moveup 0.4s linear alternate;');
         if (firstBg) {
@@ -147,21 +153,24 @@ export default {
             secondBg.setAttribute('style', 'display: block; animation: backfromclear 0.4s linear alternate; z-index: 2');
           }
         }
+        if (route === 'accounts' && this.$route.name === 'accounts')  {
+          location.reload();
+        }
         return this.$router.push({ name: route });
       }, 400);
     },
     handleScroll() {
-      if (window.pageYOffset < 80) {
+      if (window.pageYOffset < 20) {
         this.$refs['top-head'].className = 'row header-head-empty align-center justify-center';
-      } else if (window.pageYOffset > 79 && window.pageYOffset < 140) {
+      } else if (window.pageYOffset > 19 && window.pageYOffset < 40) {
         this.$refs['top-head'].className = 'row header-head-semi align-center justify-center';
-      } else if (window.pageYOffset > 139 && window.pageYOffset < 210) {
+      } else if (window.pageYOffset > 39 && window.pageYOffset < 60) {
         this.$refs['top-head'].className = 'row header-head-semi2 align-center justify-center';
-      } else if (window.pageYOffset > 209 && window.pageYOffset < 280) {
+      } else if (window.pageYOffset > 59 && window.pageYOffset < 80) {
         this.$refs['top-head'].className = 'row header-head-semi3 align-center justify-center';
-      } else if (window.pageYOffset > 279 && window.pageYOffset < 350) {
+      } else if (window.pageYOffset > 79 && window.pageYOffset < 100) {
         this.$refs['top-head'].className = 'row header-head-full align-center justify-center';
-      } else if (window.pageYOffset > 349) {
+      } else if (window.pageYOffset > 99) {
         this.$refs['top-head'].className = 'row header-head-death align-center justify-center';
       }
     },

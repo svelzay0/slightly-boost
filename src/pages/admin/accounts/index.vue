@@ -2,7 +2,7 @@
   <div class="main-home">
     <div class="home">
       <div class="order-blur"></div> 
-      <div v-if="currentIndex === 1" class="acc-content">
+      <div v-if="accountPage === 1" class="acc-content">
         <h1 class="slider-title">ACCOUNTS STORE</h1>
         <div class="acc-featured pt-6">
           <div class="acc-selector">
@@ -48,7 +48,7 @@
                 {{ item.title }}
               </div>
               <div class="acc-desc pt-8">
-                {{ item.desc }}
+                {{ truncate(item.desc, 95) }}
               </div>
               <v-btn
                 v-if="item.sold"
@@ -125,7 +125,11 @@
                 cols="12"
                 sm="6"
               >
-                <div class="acc-first-slide-img"></div>
+                <img 
+                  class="acc-first-slide-img"
+                  alt="account image"
+                  :src="require(`@/assets/accounts/${defAccount.image}`)"
+                />
               </v-col>
               <v-col
                 cols="12"
@@ -278,7 +282,7 @@
                 x-large
                 class="main-btn ml-13 mt-10"
                 dark
-                @click="toSlide(0, true)"
+                @click="toSlide(0, true, true)"
               >
                 <span class="main-btn-text justify-center">
                   ORDER MORE
@@ -287,8 +291,8 @@
             </div>
           </template>
         </element-carousel>
-        <h1 v-if="currentIndex > 1" class="slider-title pt-12 mt-12">MORE STUFF</h1>
-        <div v-if="currentIndex > 1" class="pt-8">
+        <h1 v-if="accountPage > 1" class="slider-title pt-12 mt-12">MORE STUFF</h1>
+        <div v-if="accountPage > 1" class="pt-8">
           <v-row>
             <v-col 
               v-for="(item, key) in staff" 
@@ -345,7 +349,13 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
+import { accountsStaff } from '../../../../static/accounts-staff';
+import { paymentItems } from '../../../../static/payment-items';
+import { accountsComments } from '../../../../static/accounts-comments';
+import { accountsCommentsClone } from '../../../../static/accounts-comments-clone';
+import { accountsSlides } from '../../../../static/accounts-slides';
+import { accountsItems } from '../../../../static/accounts-items';
 import cloneDeep from 'clone-deep'
 import ElementCarousel from '../../../elements/carousel.vue';
 import ElementTooltip from '../../../elements/tooltip.vue';
@@ -378,7 +388,6 @@ export default {
       operationId: 0,
       copyText: 'Click to copy',
       accountSlideIndex: 0,
-      currentIndex: 1,
       index: 0,
       thanks: 'THANKS FOR MAKING ORDER',
       thanskDesc: 'Our manager will contact you as soon as possible. Save your order number, so manager can prove he is not fake!',
@@ -389,300 +398,29 @@ export default {
         id: 1,
         text: 'Cryptocurrency',
       },
-      paymentItems: [
-        {
-          id: 1,
-          text: 'Cryptocurrency',
-        },
-        {
-          id: 2,
-          text: 'CS:GO Skins (+30%)',
-        },
-        {
-          id: 3,
-          text: 'Paypal',
-        },
-      ],
-      items: [
-        {
-          id: 1,
-          text: 'Featured',
-        },
-        {
-          id: 2,
-          text: 'Price (Lowest)',
-        },
-        {
-          id: 3,
-          text: 'Price (Highest)',
-        },
-        {
-          id: 4,
-          text: 'Rating (Lowest)',
-        },
-        {
-          id: 5,
-          text: 'Rating (Highest)',
-        },
-      ],
-      slides: [
-        {
-          id: 1,
-          title: 'ACCOUNT DETAILS',
-          btn: 'BACK TO STORE',
-          class: 'one',
-        },
-        {
-          id: 2,
-          title: 'YOUR INFORMATION',
-          btn: 'BACK TO ACCOUNT DETAILS',
-          class: 'two',
-        },
-        {
-          id: 3,
-          title: 'COMPLETING',
-          btn: 'BACK TO ACCOUNT DETAILS',
-          class: 'three',
-        },
-      ],
-      comments: [
-        {
-          id: 1,
-          level: 10,
-          color: 'red',
-          title: "FACEIT ACCOUNT LEVEL 10 (2170 ELO)",
-          desc: "Includes steam and original e-mail. 712 Matches, Winrate 55%, K/D Ratio 1.3, Behaviour index: positive (1100+), 3213 hours..",
-          sold: true,
-          text: "BUY FOR",
-          price: 60,
-          elo: 2170,
-        },
-        {
-          id: 2,
-          level: 3,
-          color: 'green',
-          title: "FACEIT ACCOUNT READY TO PLAY",
-          desc: "Steam accounts with hours, services for registration, and mobile verification of the faceit account.",
-          sold: true,
-          text: "BUY FOR",
-          price: 5,
-          elo: 1000,
-        },
-        {
-          id: 3,
-          level: 11,
-          color: 'grey',
-          title: "FACEIT ACCOUNT LEVEL 10 (4100 ELO)",
-          desc: "228 Matches, Winrate 75%, K/D Ratio 1.4 Behaviour index: positive (1100+), 8253 hours..",
-          sold: false,
-          text: "SOLD OUT",
-          price: 0,
-          elo: 4100,
-        },
-        {
-          id: 4,
-          level: 1,
-          color: 'white',
-          title: "FACEIT ACCOUNT LEVEL 1 (390 ELO)",
-          desc: "Includes steam and original e-mail. 15 Matches, Winrate 5%, K/D Ratio 0.45, Behaviour index: positive (1100+), 3213 hours..",
-          sold: true,
-          text: "BUY FOR",
-          price: 7,
-          elo: 390,
-        },
-        {
-          id: 5,
-          level: 7,
-          color: 'yellow',
-          title: "FACEIT ACCOUNT LEVEL 7 (1560 ELO)",
-          desc: "Includes steam and original e-mail. 25 Matches, Winrate 57%, K/D Ratio 1.7, Behaviour index: positive (1100+), 98 hours..",
-          sold: true,
-          text: "BUY FOR",
-          price: 60,
-          elo: 1560,
-        },
-        {
-          id: 6,
-          level: 10,
-          color: 'red',
-          title: "FACEIT ACCOUNT LEVEL 10 (2020 ELO)",
-          desc: "Includes steam and original e-mail. 90 Matches, Winrate 53%, K/D Ratio 1.43, Behaviour index: positive (1100+), 253 hours..",
-          sold: true,
-          text: "BUY FOR",
-          price: 1200,
-          elo: 2020,
-        },
-        {
-          id: 7,
-          level: 1,
-          color: 'white',
-          title: "FACEIT ACCOUNT LEVEL 1 (580 ELO)",
-          desc: "Includes steam and original e-mail. 3 Matches, Winrate 100%, K/D Ratio 0.35, Behaviour index: positive (1100+), 95 hours..",
-          sold: true,
-          text: "BUY FOR",
-          price: 10,
-          elo: 580,
-        },
-        {
-          id: 8,
-          level: 9,
-          color: 'orange',
-          title: "FACEIT ACCOUNT LEVEL 9 (1860 ELO)",
-          desc: "Includes steam and original e-mail. 35 Matches, Winrate 55%, K/D Ratio 1.3, Behaviour index: positive (1100+), 148 hours..",
-          sold: true,
-          text: "BUY FOR",
-          price: 37,
-          elo: 1860,
-        },
-      ],
-      cloneComments: [
-        {
-          id: 1,
-          level: 10,
-          color: 'red',
-          title: "FACEIT ACCOUNT LEVEL 10 (2170 ELO)",
-          desc: "Includes steam and original e-mail. 712 Matches, Winrate 55%, K/D Ratio 1.3, Behaviour index: positive (1100+), 3213 hours..",
-          sold: true,
-          text: "BUY FOR",
-          price: 60,
-          elo: 2170,
-        },
-        {
-          id: 2,
-          level: 3,
-          color: 'green',
-          title: "FACEIT ACCOUNT READY TO PLAY",
-          desc: "Steam accounts with hours, services for registration, and mobile verification of the faceit account.",
-          sold: true,
-          text: "BUY FOR",
-          price: 5,
-          elo: 1000,
-        },
-        {
-          id: 3,
-          level: 11,
-          color: 'grey',
-          title: "FACEIT ACCOUNT LEVEL 10 (4100 ELO)",
-          desc: "228 Matches, Winrate 75%, K/D Ratio 1.4 Behaviour index: positive (1100+), 8253 hours..",
-          sold: false,
-          text: "SOLD OUT",
-          price: 0,
-          elo: 4100,
-        },
-        {
-          id: 4,
-          level: 1,
-          color: 'white',
-          title: "FACEIT ACCOUNT LEVEL 1 (390 ELO)",
-          desc: "Includes steam and original e-mail. 15 Matches, Winrate 5%, K/D Ratio 0.45, Behaviour index: positive (1100+), 3213 hours..",
-          sold: true,
-          text: "BUY FOR",
-          price: 7,
-          elo: 390,
-        },
-        {
-          id: 5,
-          level: 7,
-          color: 'yellow',
-          title: "FACEIT ACCOUNT LEVEL 7 (1560 ELO)",
-          desc: "Includes steam and original e-mail. 25 Matches, Winrate 57%, K/D Ratio 1.7, Behaviour index: positive (1100+), 98 hours..",
-          sold: true,
-          text: "BUY FOR",
-          price: 60,
-          elo: 1560,
-        },
-        {
-          id: 6,
-          level: 10,
-          color: 'red',
-          title: "FACEIT ACCOUNT LEVEL 10 (2020 ELO)",
-          desc: "Includes steam and original e-mail. 90 Matches, Winrate 53%, K/D Ratio 1.43, Behaviour index: positive (1100+), 253 hours..",
-          sold: true,
-          text: "BUY FOR",
-          price: 1200,
-          elo: 2020,
-        },
-        {
-          id: 7,
-          level: 1,
-          color: 'white',
-          title: "FACEIT ACCOUNT LEVEL 1 (580 ELO)",
-          desc: "Includes steam and original e-mail. 3 Matches, Winrate 100%, K/D Ratio 0.35, Behaviour index: positive (1100+), 95 hours..",
-          sold: true,
-          text: "BUY FOR",
-          price: 10,
-          elo: 580,
-        },
-        {
-          id: 8,
-          level: 9,
-          color: 'orange',
-          title: "FACEIT ACCOUNT LEVEL 9 (1860 ELO)",
-          desc: "Includes steam and original e-mail. 35 Matches, Winrate 55%, K/D Ratio 1.3, Behaviour index: positive (1100+), 148 hours..",
-          sold: true,
-          text: "BUY FOR",
-          price: 37,
-          elo: 1860,
-        },
-      ],
+      paymentItems,
+      items: accountsItems,
+      slides: accountsSlides,
+      comments: accountsComments,
+      cloneComments: accountsCommentsClone,
+      staff: accountsStaff,
       descForAll: 'After purchasing this product you will receive: Faceit+steam login and password, original e-mail address and password</br>Faceit matches: 712, Faceit phone: Verified, Faceit registered: 2017</br>Winrate: 55%, K/D ratio: 1.3, Behaviour index: Positive (1100+), Region: Free, ESEA/Esportal: Unregistered</br>MM rank: Global Elite, MM wins: 150, MM wingman rank: None, MM wingman wins: None</br>CS:GO hours: 128 h., Steam lvl: 0, Steam registered: 2015, Community / Vac / Trade banned: None',
-      staff: [
-        {
-          id: 1,
-          level: 10,
-          color: 'red',
-          title: "FACEIT ACCOUNT LEVEL 10 (2170 ELO)",
-          desc: "Includes steam and original e-mail. 712 Matches, Winrate 55%, K/D Ratio 1.3, Behaviour index: positive (1100+), 3213 hours..",
-          sold: true,
-          text: "BUY FOR",
-          price: 60,
-        },
-        {
-          id: 6,
-          level: 10,
-          color: 'red',
-          title: "FACEIT ACCOUNT LEVEL 10 (2020 ELO)",
-          desc: "Includes steam and original e-mail. 90 Matches, Winrate 53%, K/D Ratio 1.43, Behaviour index: positive (1100+), 253 hours..",
-          sold: true,
-          text: "BUY FOR",
-          price: 1200,
-        },
-        {
-          id: 3,
-          level: 11,
-          color: 'grey',
-          title: "FACEIT ACCOUNT LEVEL 10 (4100 ELO)",
-          desc: "228 Matches, Winrate 75%, K/D Ratio 1.4 Behaviour index: positive (1100+), 8253 hours..",
-          sold: false,
-          text: "SOLD OUT",
-          price: 0,
-        },
-        {
-          id: 8,
-          level: 9,
-          color: 'orange',
-          title: "FACEIT ACCOUNT LEVEL 9 (1860 ELO)",
-          desc: "Includes steam and original e-mail. 35 Matches, Winrate 55%, K/D Ratio 1.3, Behaviour index: positive (1100+), 148 hours..",
-          sold: true,
-          text: "BUY FOR",
-          price: 37,
-        },
-      ],
       defAccount: {},
     }
   },
   computed: {
-    ...mapGetters("shared", ["currency"]),
+    ...mapGetters("shared", ["currency", "accountPage"]),
   },
   methods: {
+    ...mapMutations("shared", ["setAccountPage"]),
     setPrice(price) {
       if (this.currency.id === 2) {
         if (price > 99) {
-          return (price * 0.92).toFixed(0);
+          return (price * 1.095).toFixed(0);
         } else if (price === 0) {
           return '';
         }
-        return (price * 0.92).toFixed(1);
+        return (price * 1.095).toFixed(1);
       } else {
         if (price === 0) {
           return '';
@@ -694,7 +432,11 @@ export default {
       this.defAccount = item
       this.toSlide(0, true)
     },
-    toTab(data, item = {}, animation = false) {
+    async toTab(data, item = {}, animation = false) {
+      await scroll({
+        top: 0,
+        behavior: 'smooth',
+      });
       if (animation) {
         let acc = document.querySelector('.acc-content');
         acc.setAttribute('style', 'animation: movedown 0.4s infinite alternate;');
@@ -703,16 +445,16 @@ export default {
           if (item.id) {
             this.setAccountToSell(item);
           }
-          this.currentIndex = data;
+          this.setAccountPage(data);
         }, 400);
       } else {
         if (item.id) {
           this.setAccountToSell(item);
         }
-        this.currentIndex = data;
+        this.setAccountPage(data);
       }
     },
-    toSlide(index, clear = false) {
+    toSlide(index, clear = false, reload = false) {
       if (clear) {
         this.formData = {
           name: '',
@@ -727,7 +469,11 @@ export default {
         this.priorityOrder = false
         this.price = 0
       }
-      this.$eventBus.$emit("changeFromParent", index);
+      if (reload) {
+        location.reload();
+      } else {
+        this.$eventBus.$emit("changeFromParent", index);
+      }
     },
     async checkSelect() {
       if (this.defaultSelected === 1) {
@@ -745,6 +491,14 @@ export default {
         }
       }
     },
+    truncate(str, num) {
+      if (str !== null) {
+        if (str.length > num) {
+          return `${str.substring(num, 0)}...`;
+        }
+      }
+      return str;
+    },
     async onSubmit() {
       if (this.$refs.form.validate()) {
         let acc = document.querySelector('.acc-content');
@@ -760,7 +514,7 @@ export default {
           this.formData.payment = this.formData.payment.text
           this.formData.operationId = Math.floor(Math.random() * 9999999);
           this.operationId = this.formData.operationId
-          axios.post('https://sheet.best/api/sheets/9c67e2c1-b330-4c3e-bcdd-f78405cc54e6', [this.formData]).then(response => {
+          await axios.post('https://sheet.best/api/sheets/3e3aed18-8465-4bdd-8ad2-8df2b0a21059', [this.formData]).then(response => {
             console.log(response);
           })
           this.toSlide(2);
